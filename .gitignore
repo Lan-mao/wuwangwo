@@ -29,3 +29,10 @@ node_modules
 /tests/vendor
 /vagrant/phpbb-install-config.yml
 .vagrant
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
