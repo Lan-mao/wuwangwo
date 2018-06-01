@@ -31,7 +31,7 @@ node_modules
 .vagrant
 
 
-### IntelliJ IDEA ###
+### IntelliJ IDEA(phpStorm) ###
 .idea
 *.iws
 *.iml
