@@ -124,7 +124,7 @@ class ucp_register
 			$s_hidden_fields = array_merge($s_hidden_fields, $this->get_login_link_data_for_hidden_fields($login_link_data));
 		}
 
-		if (!$agreed || ($coppa === false && $config['coppa_enable']) || ($coppa && !$config['coppa_enable']))
+		if (false && (!$agreed || ($coppa === false && $config['coppa_enable']) || ($coppa && !$config['coppa_enable'])))
 		{
 			$add_coppa = ($coppa !== false) ? '&amp;coppa=' . $coppa : '';
 
