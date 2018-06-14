@@ -205,7 +205,7 @@ class messenger
 	/**
 	* Set email template to use
 	*/
-	function template($template_file, $template_lang = '', $template_path = '', $template_dir_prefix = '')
+	function template($template_file, $template_lang = 'zh_cmn_hans', $template_path = '', $template_dir_prefix = '')
 	{
 		global $config, $phpbb_root_path, $user;
 
@@ -583,7 +583,8 @@ class messenger
 
 			if ($config['smtp_delivery'])
 			{
-				$result = smtpmail($this->addresses, mail_encode($this->subject), wordwrap(utf8_wordwrap($this->msg), 997, "\n", true), $err_msg, $headers);
+//				$result = smtpmail($this->addresses, mail_encode($this->subject), wordwrap(utf8_wordwrap($this->msg), 997, "\n", true), $err_msg, $headers);
+				$result = smtpmail($this->addresses, $this->subject, wordwrap(utf8_wordwrap($this->msg), 997, "\n", true), $err_msg, $headers);
 			}
 			else
 			{
@@ -1022,7 +1023,7 @@ class queue
 */
 function smtpmail($addresses, $subject, $message, &$err_msg, $headers = false)
 {
-	global $config, $user;
+	global $config, $user, $phpbb_root_path, $phpEx;
 
 	// Fix any bare linefeeds in the message to make it RFC821 Compliant.
 	$message = preg_replace("#(?<!\r)\n#si", "\r\n", $message);
@@ -1072,8 +1073,8 @@ function smtpmail($addresses, $subject, $message, &$err_msg, $headers = false)
 	{
 		foreach ($addresses['to'] as $which_ary)
 		{
-			$mail_to[] = ($which_ary['name'] != '') ? mail_encode(trim($which_ary['name'])) . ' <' . trim($which_ary['email']) . '>' : '<' . trim($which_ary['email']) . '>';
-			$mail_rcpt['to'][] = '<' . trim($which_ary['email']) . '>';
+			$mail_to[] = ($which_ary['name'] != '') ? mail_encode(trim($which_ary['name'])) . ' ' . trim($which_ary['email'])  :  trim($which_ary['email']) ;
+			$mail_rcpt['to'][] =  trim($which_ary['email']) ;
 		}
 	}
 
@@ -1081,7 +1082,7 @@ function smtpmail($addresses, $subject, $message, &$err_msg, $headers = false)
 	{
 		foreach ($addresses['bcc'] as $which_ary)
 		{
-			$mail_rcpt['bcc'][] = '<' . trim($which_ary['email']) . '>';
+			$mail_rcpt['bcc'][] =  trim($which_ary['email']) ;
 		}
 	}
 
@@ -1089,12 +1090,13 @@ function smtpmail($addresses, $subject, $message, &$err_msg, $headers = false)
 	{
 		foreach ($addresses['cc'] as $which_ary)
 		{
-			$mail_cc[] = ($which_ary['name'] != '') ? mail_encode(trim($which_ary['name'])) . ' <' . trim($which_ary['email']) . '>' : '<' . trim($which_ary['email']) . '>';
-			$mail_rcpt['cc'][] = '<' . trim($which_ary['email']) . '>';
+			$mail_cc[] = ($which_ary['name'] != '') ? mail_encode(trim($which_ary['name'])) . ' ' . trim($which_ary['email'])  :  trim($which_ary['email']) ;
+			$mail_rcpt['cc'][] =  trim($which_ary['email']);
 		}
 	}
 
-	$smtp = new smtp_class();
+	//region remove original send program
+	/*$smtp = new smtp_class();
 
 	$errno = 0;
 	$errstr = '';
@@ -1148,16 +1150,17 @@ function smtpmail($addresses, $subject, $message, &$err_msg, $headers = false)
 	{
 		$smtp->close_session($err_msg);
 		return false;
-	}
+	}*/
+	//endregion
 
 	// From this point onward most server response codes should be 250
 	// Specify who the mail is from....
-	$smtp->server_send('MAIL FROM:<' . $config['board_email'] . '>');
+	/*$smtp->server_send('MAIL FROM:<' . $config['board_email'] . '>');
 	if ($err_msg = $smtp->server_parse('250', __LINE__))
 	{
 		$smtp->close_session($err_msg);
 		return false;
-	}
+	}*/
 
 	// Specify each user to send to and build to header.
 	$to_header = implode(', ', $mail_to);
@@ -1172,7 +1175,43 @@ function smtpmail($addresses, $subject, $message, &$err_msg, $headers = false)
 			// Add an additional bit of error checking to the To field.
 			if (preg_match('#[^ ]+\@[^ ]+#', $mail_to_address))
 			{
-				$smtp->server_send("RCPT TO:$mail_to_address");
+
+
+
+				include_once($phpbb_root_path . 'includes/aliyun/aliyun-php-sdk-core/Config.' . $phpEx);
+
+				//需要设置对应的region名称，如华东1（杭州）设为cn-hangzhou，新加坡Region设为ap-southeast-1，澳洲Region设为ap-southeast-2。
+				$iClientProfile = DefaultProfile::getProfile("cn-hangzhou", "LTAI0BWOl6wt82V7", "IyNXqWOvEBPZOTtz1EP3GhhKUkQiyF");
+				//新加坡或澳洲region需要设置服务器地址，华东1（杭州）不需要设置。
+				//$iClientProfile::addEndpoint("ap-southeast-1","ap-southeast-1","Dm","dm.ap-southeast-1.aliyuncs.com");
+				//$iClientProfile::addEndpoint("ap-southeast-2","ap-southeast-2","Dm","dm.ap-southeast-2.aliyuncs.com");
+				$client = new DefaultAcsClient($iClientProfile);
+				$request = new Dm\Request\V20151123\SingleSendMailRequest();
+				//新加坡或澳洲region需要设置SDK的版本，华东1（杭州）不需要设置。
+				//$request->setVersion("2017-06-22");
+				$request->setAccountName("noreply@xiaoxi.randianah.com");
+				$request->setFromAlias("燃点爱好");
+				$request->setAddressType(1);
+				$request->setTagName("xiaoxi");
+				$request->setReplyToAddress("true");
+				$request->setToAddress($mail_to_address);
+				$request->setSubject($subject);
+				$request->setHtmlBody($message);
+				try {
+					$response = $client->getAcsResponse($request);
+					print_r($response);
+				}
+				catch (ClientException  $e) {
+					print_r($e->getErrorCode());
+					print_r($e->getErrorMessage());
+				}
+				catch (ServerException  $e) {
+					print_r($e->getErrorCode());
+					print_r($e->getErrorMessage());
+				}
+
+				//region replace aliyun smtp here
+				/*$smtp->server_send("RCPT TO:$mail_to_address");
 				if ($err_msg = $smtp->server_parse('250', __LINE__))
 				{
 					// We continue... if users are not resolved we do not care
@@ -1185,12 +1224,13 @@ function smtpmail($addresses, $subject, $message, &$err_msg, $headers = false)
 				else
 				{
 					$rcpt = true;
-				}
+				}*/
+				//endregion
 			}
 		}
 	}
 
-	// We try to send messages even if a few people do not seem to have valid email addresses, but if no one has, we have to exit here.
+	/*// We try to send messages even if a few people do not seem to have valid email addresses, but if no one has, we have to exit here.
 	if (!$rcpt)
 	{
 		$user->session_begin();
@@ -1242,7 +1282,10 @@ function smtpmail($addresses, $subject, $message, &$err_msg, $headers = false)
 
 	// Now tell the server we are done and close the socket...
 	$smtp->server_send('QUIT');
-	$smtp->close_session($err_msg);
+	$smtp->close_session($err_msg);*/
+
+
+
 
 	return true;
 }

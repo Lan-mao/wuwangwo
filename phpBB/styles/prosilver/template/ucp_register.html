@@ -23,6 +23,7 @@
 
 	<fieldset class="fields2">
 	<!-- IF ERROR --><dl><dd class="error">{ERROR}</dd></dl><!-- ENDIF -->
+		<dl><dd class="error ajax-msg hide"></dd></dl>
 	<!-- IF L_REG_COND -->
 		<dl><dd><strong>{L_REG_COND}</strong></dd></dl>
 	<!-- ENDIF -->
@@ -31,10 +32,20 @@
 		<dt><label for="username">{L_USERNAME}{L_COLON}</label><br /><span>{L_USERNAME_EXPLAIN}</span></dt>
 		<dd><input type="text" tabindex="1" name="username" id="username" size="25" value="{USERNAME}" class="inputbox autowidth" title="{L_USERNAME}" /></dd>
 	</dl>
-	<dl>
-		<dt><label for="email">{L_EMAIL_ADDRESS}{L_COLON}</label></dt>
-		<dd><input type="email" tabindex="2" name="email" id="email" size="25" maxlength="100" value="{EMAIL}" class="inputbox autowidth" title="{L_EMAIL_ADDRESS}" autocomplete="off" /></dd>
-	</dl>
+		<dl>
+			<dt><label for="emailOrTel">电子邮箱或手机号：</label></dt>
+			<dd><input type="text" tabindex="2" name="emailOrTel" id="emailOrTel" size="25" maxlength="100"
+					   value="{EMAIL_OR_TEL}" class="inputbox autowidth" title="电子邮箱或手机号" autocomplete="off"/>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="verify_code">验证码：</label></dt>
+			<dd><input type="text" tabindex="3" name="verify_code" id="verify_code" size="15" value="{VERIFY_CODE}"
+					   class="inputbox autowidth" title="验证码" autocomplete="off"/>
+
+				<input type="button" value="获取验证码" name="sendEmail" class="button2 verify-code-btn"/>&nbsp;
+			</dd>
+		</dl>
 	<dl>
 		<dt><label for="new_password">{L_PASSWORD}{L_COLON}</label><br /><span>{L_PASSWORD_EXPLAIN}</span></dt>
 		<dd><input type="password" tabindex="4" name="new_password" id="new_password" size="25" value="{PASSWORD}" class="inputbox autowidth" title="{L_NEW_PASSWORD}" autocomplete="off" /></dd>
@@ -45,15 +56,8 @@
 	</dl>
 
 	<!-- EVENT ucp_register_credentials_after -->
-	<hr />
 
 	<!-- EVENT ucp_register_options_before -->
-	<dl>
-		<dt><label for="lang">{L_LANGUAGE}{L_COLON}</label></dt>
-		<dd><select name="lang" id="lang" onchange="change_language(this.value); return false;" tabindex="6" title="{L_LANGUAGE}">{S_LANG_OPTIONS}</select></dd>
-	</dl>
-
-	<!-- INCLUDE timezone_option.html -->
 
 	<!-- EVENT ucp_register_profile_fields_before -->
 	<!-- IF .profile_fields -->
@@ -105,4 +109,24 @@
 </div>
 </form>
 
-<!-- INCLUDE overall_footer.html -->
+<!-- INCLUDE overall_footer_start.html -->
+
+<script type="text/javascript">
+	// <![CDATA[
+	(function ($) {
+
+		var $sendEmailOrTelVerifyCodeBtn = $(".verify-code-btn").first();
+
+		$sendEmailOrTelVerifyCodeBtn.sendEmailOrTelVerifyCode({
+			emailOrTelId: "#emailOrTel",
+			errorElement: ".error.ajax-msg",
+			/*$registerForm: $forgetPasswordForm,
+			norobotId: "form#forget-password #ac\\.sig",
+			norobot: emailOrTelNorobot,*/
+			existRequirement: RD_Global.existRequirement_NotExist
+		});
+	})(jQuery);
+	// ]]>
+</script>
+
+<!-- INCLUDE overall_footer_end.html -->

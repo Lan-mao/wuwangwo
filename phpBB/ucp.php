@@ -71,6 +71,11 @@ switch ($mode)
 		$module->display($user->lang['REGISTER']);
 	break;
 
+	case 'verify_code':
+		$module->load('ucp', 'verify_code');
+//		$module->display($user->lang['REGISTER']);
+	break;
+
 	case 'confirm':
 		$module->load('ucp', 'confirm');
 	break;

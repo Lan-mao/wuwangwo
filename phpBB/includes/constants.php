@@ -309,8 +309,23 @@ define('TOPICS_WATCH_TABLE',		$table_prefix . 'topics_watch');
 define('USER_GROUP_TABLE',			$table_prefix . 'user_group');
 define('USER_NOTIFICATIONS_TABLE',	$table_prefix . 'user_notifications');
 define('USERS_TABLE',				$table_prefix . 'users');
+define('VERIFY_CODE_TABLE',				$table_prefix . 'verify_code');
 define('WARNINGS_TABLE',			$table_prefix . 'warnings');
 define('WORDS_TABLE',				$table_prefix . 'words');
 define('ZEBRA_TABLE',				$table_prefix . 'zebra');
 
 // Additional tables
+
+
+define('RD_CONSTANTS', array(
+	'notExist'	=> 'notExist',
+	'exist'	=> 'exist',
+	'true'		=> 'true',
+	'false'		=> 'false',
+	'error'	=> 'error',
+	'success'	=> 'success',
+	'tel'	=> 'tel',
+	'email'	=> 'email',
+	''
+));
+
