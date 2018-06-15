@@ -1071,8 +1071,15 @@ input.button1:focus, input.button2:focus, input.button3:focus {
 	color: #0F4987;
 }
 
-input.disabled {
+input.disabled,
+a.button1.disabled:hover, input.button1.disabled:hover, a.button2.disabled:hover, input.button2.disabled:hover, input.button3.disabled:hover,
+input.button1.disabled:focus, input.button2.disabled:focus, input.button3.disabled:focus{
 	color: #666666;
+	border-color: #999999;
+	background-color: #EFEFEF; /* Old browsers */ /* FF3.6+ */
+	background-image: -webkit-linear-gradient(top, #D2D2D2 0%, #EFEFEF 100%);
+	background-image: linear-gradient(to bottom, #D2D2D2 0%,#EFEFEF 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D2D2D2', endColorstr='#EFEFEF',GradientType=0 ); /* IE6-9 */
 }
 
 /* jQuery popups

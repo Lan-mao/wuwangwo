@@ -836,7 +836,7 @@ var RD_Global = {
 			if ($thisElement.hasClass("disabled")) {
 				return;
 			}
-			// $thisElement.addClass("disabled");
+			$thisElement.addClass("disabled");
 			$thisElement.val("发送中");
 
 			/*var jsonData = this.options.$registerForm.serializeJSON();
@@ -863,6 +863,7 @@ var RD_Global = {
 						$errorElement.html(result.message + "</br>");
 						$errorElement.removeClass("hide");
 						$thisElement.val(text);
+						$thisElement.removeClass("disabled");
 						return;
 					}
 					$errorElement.html("");
@@ -878,8 +879,6 @@ var RD_Global = {
 					});
 				},
 				complete: function(a, b) {
-					console.log(a);
-					console.log(b);
 				}
 			});
 		},
