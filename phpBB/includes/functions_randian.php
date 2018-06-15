@@ -19,12 +19,11 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-
+/*
 function verifyEmailOrTel($data)
 {
 	global $user;
 
-	$regexOfTel = '/^1[0-9]{10}$/';
 	$regexOfEmail = '/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/';
 
 	$emailOrTel = $data['emailOrTel'];
@@ -52,7 +51,7 @@ function verifyEmailOrTel($data)
 		}
 	}
 
-	if (preg_match($regexOfEmail, $emailOrTel) == 1)
+	if (phpbb_validate_email($emailOrTel) == false)
 	{
 		$isExist = isEmailExist($emailOrTel);
 		if ($existRequirement == RD_CONSTANTS['notExist'] && $isExist)
@@ -71,7 +70,7 @@ function verifyEmailOrTel($data)
 
 	return $user->lang['UCP_EMAIL_TEL_ERROR'];
 
-}
+}*/
 
 
 function saveOrUpdateVerifyCode($emailOrTel)

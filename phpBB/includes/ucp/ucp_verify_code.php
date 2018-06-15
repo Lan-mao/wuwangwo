@@ -40,12 +40,14 @@ class ucp_verify_code
 				'existRequirement' => $request->variable('existRequirement', '', true),
 			);
 
-			$message = verifyEmailOrTel($data);
-			if ($message != RD_CONSTANTS['tel'] && $message != RD_CONSTANTS['email'])
+			$message = validate_user_emailOrTel($data['emailOrTel'], $data[existRequirement] == RD_CONSTANTS['exist']);
+			if ($message)
 			{
 				$responseData = array(
 					'state'   => RD_CONSTANTS['error'],
-					'message' => $message,
+					'message' => (empty($user->lang[$message . '_' . strtoupper('emailOrTel')])) ?
+						$user->lang[$message] :
+						$user->lang[$message . '_' . strtoupper('emailOrTel')],
 				);
 
 				$json_response = new \phpbb\json_response();
@@ -59,11 +61,11 @@ class ucp_verify_code
 				$json_response->send($verifyCodeData);
 			}
 
-			if ($message == RD_CONSTANTS['tel'])
+			if (strpos($data['emailOrTel'], '@') === false)
 			{
 				sendTelVerifyCodeOfRegister($verifyCodeData['verifyCode']);
 			}
-			else if ($message == RD_CONSTANTS['email'])
+			else if (strpos($data['emailOrTel'], '@') !== false)
 			{
 				sendEmailVerifyCodeOfRegister($verifyCodeData['verifyCode']);
 			}

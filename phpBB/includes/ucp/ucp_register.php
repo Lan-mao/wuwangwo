@@ -247,11 +247,13 @@ class ucp_register
 
 		$timezone = $config['board_timezone'];
 
+
 		$data = array(
 			'username'         => $request->variable('username', '', true),
+			'emailOrTel'       => strtolower($request->variable('emailOrTel', '')),
+			'verify_code'      => strtolower($request->variable('verify_code', '')),
 			'new_password'     => $request->variable('new_password', '', true),
 			'password_confirm' => $request->variable('password_confirm', '', true),
-			'email'            => strtolower($request->variable('email', '')),
 			'lang'             => basename($request->variable('lang', $user->lang_name)),
 			'tz'               => $request->variable('tz', $timezone),
 		);
@@ -272,17 +274,35 @@ class ucp_register
 		// Check and initialize some variables if needed
 		if ($submit)
 		{
+
+			do
+			{
+				$autoUsername = '爱好' . substr(md5(uniqid(mt_rand(), true)), 0, 9);
+				$sql = 'SELECT username
+		FROM ' . USERS_TABLE . "
+		WHERE username_clean = '" . $db->sql_escape(utf8_clean_string($autoUsername)) . "'";
+				$result = $db->sql_query($sql);
+				$row = $db->sql_fetchrow($result);
+				$db->sql_freeresult($result);
+			} while ($row);
+
+
+			if (isEmptyOrWhitespace($data['username']))
+			{
+				$data['username'] = $autoUsername;
+			}
 			$error = validate_data($data, array(
 				'username'         => array(
 					array('string', false, $config['min_name_chars'], $config['max_name_chars']),
 					array('username', '')),
+				'emailOrTel'       => array(
+					array('user_emailOrTel')),
+				'verify_code'      => array(
+					array('verify_code', $data['emailOrTel'])),
 				'new_password'     => array(
 					array('string', false, $config['min_pass_chars'], $config['max_pass_chars']),
 					array('password')),
 				'password_confirm' => array('string', false, $config['min_pass_chars'], $config['max_pass_chars']),
-				'email'            => array(
-					array('string', false, 6, 60),
-					array('user_email')),
 				'tz'               => array('timezone'),
 				'lang'             => array('language_iso_name'),
 			));
@@ -384,11 +404,9 @@ class ucp_register
 				// Instantiate passwords manager
 				/* @var $passwords_manager \phpbb\passwords\manager */
 				$passwords_manager = $phpbb_container->get('passwords.manager');
-
 				$user_row = array(
 					'username'             => $data['username'],
 					'user_password'        => $passwords_manager->hash($data['new_password']),
-					'user_email'           => $data['email'],
 					'group_id'             => (int) $group_id,
 					'user_timezone'        => $data['tz'],
 					'user_lang'            => $data['lang'],
@@ -399,6 +417,16 @@ class ucp_register
 					'user_inactive_reason' => $user_inactive_reason,
 					'user_inactive_time'   => $user_inactive_time,
 				);
+
+				if (strpos($data['emailOrTel'], '@') !== false)
+				{
+					$user_row['user_email'] = $data['emailOrTel'];
+				}
+				else
+				{
+
+					$user_row['user_tel'] = $data['emailOrTel'];
+				}
 
 				if ($config['new_member_post_limit'])
 				{

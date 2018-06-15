@@ -1,19 +1,19 @@
 <?php
 /**
-*
-* This file is part of the phpBB Forum Software package.
-*
-* @copyright (c) phpBB Limited <https://www.phpbb.com>
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-* For full copyright and license information, please see
-* the docs/CREDITS.txt file.
-*
-*/
+ *
+ * This file is part of the phpBB Forum Software package.
+ *
+ * @copyright (c) phpBB Limited <https://www.phpbb.com>
+ * @license       GNU General Public License, version 2 (GPL-2.0)
+ *
+ * For full copyright and license information, please see
+ * the docs/CREDITS.txt file.
+ *
+ */
 
 /**
-* @ignore
-*/
+ * @ignore
+ */
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -21,10 +21,10 @@ if (!defined('IN_PHPBB'))
 
 // Common global functions
 /**
-* Load the autoloaders added by the extensions.
-*
-* @param string $phpbb_root_path Path to the phpbb root directory.
-*/
+ * Load the autoloaders added by the extensions.
+ *
+ * @param string $phpbb_root_path Path to the phpbb root directory.
+ */
 function phpbb_load_extensions_autoloaders($phpbb_root_path)
 {
 	$iterator = new \RecursiveIteratorIterator(
@@ -52,10 +52,10 @@ function phpbb_load_extensions_autoloaders($phpbb_root_path)
 }
 
 /**
-* Casts a variable to the given type.
-*
-* @deprecated
-*/
+ * Casts a variable to the given type.
+ *
+ * @deprecated
+ */
 function set_var(&$result, $var, $type, $multibyte = false)
 {
 	// no need for dependency injection here, if you have the object, call the method yourself!
@@ -64,10 +64,10 @@ function set_var(&$result, $var, $type, $multibyte = false)
 }
 
 /**
-* Generates an alphanumeric random string of given length
-*
-* @return string
-*/
+ * Generates an alphanumeric random string of given length
+ *
+ * @return string
+ */
 function gen_rand_string($num_chars = 8)
 {
 	// [a, z] + [0, 9] = 36
@@ -75,11 +75,11 @@ function gen_rand_string($num_chars = 8)
 }
 
 /**
-* Generates a user-friendly alphanumeric random string of given length
-* We remove 0 and O so users cannot confuse those in passwords etc.
-*
-* @return string
-*/
+ * Generates a user-friendly alphanumeric random string of given length
+ * We remove 0 and O so users cannot confuse those in passwords etc.
+ *
+ * @return string
+ */
 function gen_rand_string_friendly($num_chars = 8)
 {
 	$rand_str = unique_id();
@@ -92,37 +92,37 @@ function gen_rand_string_friendly($num_chars = 8)
 }
 
 /**
-* Return unique id
-*/
+ * Return unique id
+ */
 function unique_id()
 {
 	return bin2hex(random_bytes(8));
 }
 
 /**
-* Wrapper for mt_rand() which allows swapping $min and $max parameters.
-*
-* PHP does not allow us to swap the order of the arguments for mt_rand() anymore.
-* (since PHP 5.3.4, see http://bugs.php.net/46587)
-*
-* @param int $min		Lowest value to be returned
-* @param int $max		Highest value to be returned
-*
-* @return int			Random integer between $min and $max (or $max and $min)
-*/
+ * Wrapper for mt_rand() which allows swapping $min and $max parameters.
+ *
+ * PHP does not allow us to swap the order of the arguments for mt_rand() anymore.
+ * (since PHP 5.3.4, see http://bugs.php.net/46587)
+ *
+ * @param int $min Lowest value to be returned
+ * @param int $max Highest value to be returned
+ *
+ * @return int            Random integer between $min and $max (or $max and $min)
+ */
 function phpbb_mt_rand($min, $max)
 {
 	return ($min > $max) ? mt_rand($max, $min) : mt_rand($min, $max);
 }
 
 /**
-* Wrapper for getdate() which returns the equivalent array for UTC timestamps.
-*
-* @param int $time		Unix timestamp (optional)
-*
-* @return array			Returns an associative array of information related to the timestamp.
-*						See http://www.php.net/manual/en/function.getdate.php
-*/
+ * Wrapper for getdate() which returns the equivalent array for UTC timestamps.
+ *
+ * @param int $time Unix timestamp (optional)
+ *
+ * @return array            Returns an associative array of information related to the timestamp.
+ *                        See http://www.php.net/manual/en/function.getdate.php
+ */
 function phpbb_gmgetdate($time = false)
 {
 	if ($time === false)
@@ -137,49 +137,49 @@ function phpbb_gmgetdate($time = false)
 }
 
 /**
-* Return formatted string for filesizes
-*
-* @param mixed	$value			filesize in bytes
-*								(non-negative number; int, float or string)
-* @param bool	$string_only	true if language string should be returned
-* @param array	$allowed_units	only allow these units (data array indexes)
-*
-* @return mixed					data array if $string_only is false
-*/
+ * Return formatted string for filesizes
+ *
+ * @param mixed $value            filesize in bytes
+ *                                (non-negative number; int, float or string)
+ * @param bool  $string_only      true if language string should be returned
+ * @param array $allowed_units    only allow these units (data array indexes)
+ *
+ * @return mixed                    data array if $string_only is false
+ */
 function get_formatted_filesize($value, $string_only = true, $allowed_units = false)
 {
 	global $user;
 
 	$available_units = array(
 		'tb' => array(
-			'min' 		=> 1099511627776, // pow(2, 40)
-			'index'		=> 4,
-			'si_unit'	=> 'TB',
-			'iec_unit'	=> 'TIB',
+			'min'      => 1099511627776, // pow(2, 40)
+			'index'    => 4,
+			'si_unit'  => 'TB',
+			'iec_unit' => 'TIB',
 		),
 		'gb' => array(
-			'min' 		=> 1073741824, // pow(2, 30)
-			'index'		=> 3,
-			'si_unit'	=> 'GB',
-			'iec_unit'	=> 'GIB',
+			'min'      => 1073741824, // pow(2, 30)
+			'index'    => 3,
+			'si_unit'  => 'GB',
+			'iec_unit' => 'GIB',
 		),
 		'mb' => array(
-			'min'		=> 1048576, // pow(2, 20)
-			'index'		=> 2,
-			'si_unit'	=> 'MB',
-			'iec_unit'	=> 'MIB',
+			'min'      => 1048576, // pow(2, 20)
+			'index'    => 2,
+			'si_unit'  => 'MB',
+			'iec_unit' => 'MIB',
 		),
 		'kb' => array(
-			'min'		=> 1024, // pow(2, 10)
-			'index'		=> 1,
-			'si_unit'	=> 'KB',
-			'iec_unit'	=> 'KIB',
+			'min'      => 1024, // pow(2, 10)
+			'index'    => 1,
+			'si_unit'  => 'KB',
+			'iec_unit' => 'KIB',
 		),
-		'b' => array(
-			'min'		=> 0,
-			'index'		=> 0,
-			'si_unit'	=> 'BYTES', // Language index
-			'iec_unit'	=> 'BYTES',  // Language index
+		'b'  => array(
+			'min'      => 0,
+			'index'    => 0,
+			'si_unit'  => 'BYTES', // Language index
+			'iec_unit' => 'BYTES',  // Language index
 		),
 	);
 
@@ -219,15 +219,16 @@ function get_formatted_filesize($value, $string_only = true, $allowed_units = fa
 		return $unit_info;
 	}
 
-	return $value  . ' ' . $unit_info['unit'];
+	return $value . ' ' . $unit_info['unit'];
 }
 
 /**
-* Determine whether we are approaching the maximum execution time. Should be called once
-* at the beginning of the script in which it's used.
-* @return	bool	Either true if the maximum execution time is nearly reached, or false
-*					if some time is still left.
-*/
+ * Determine whether we are approaching the maximum execution time. Should be called once
+ * at the beginning of the script in which it's used.
+ *
+ * @return    bool    Either true if the maximum execution time is nearly reached, or false
+ *                    if some time is still left.
+ */
 function still_on_time($extra_time = 15)
 {
 	static $max_execution_time, $start_time;
@@ -257,30 +258,30 @@ function still_on_time($extra_time = 15)
 }
 
 /**
-* Hashes an email address to a big integer
-*
-* @param string $email		Email address
-*
-* @return string			Unsigned Big Integer
-*/
+ * Hashes an email address to a big integer
+ *
+ * @param string $email Email address
+ *
+ * @return string            Unsigned Big Integer
+ */
 function phpbb_email_hash($email)
 {
 	return sprintf('%u', crc32(strtolower($email))) . strlen($email);
 }
 
 /**
-* Wrapper for version_compare() that allows using uppercase A and B
-* for alpha and beta releases.
-*
-* See http://www.php.net/manual/en/function.version-compare.php
-*
-* @param string $version1		First version number
-* @param string $version2		Second version number
-* @param string $operator		Comparison operator (optional)
-*
-* @return mixed					Boolean (true, false) if comparison operator is specified.
-*								Integer (-1, 0, 1) otherwise.
-*/
+ * Wrapper for version_compare() that allows using uppercase A and B
+ * for alpha and beta releases.
+ *
+ * See http://www.php.net/manual/en/function.version-compare.php
+ *
+ * @param string $version1 First version number
+ * @param string $version2 Second version number
+ * @param string $operator Comparison operator (optional)
+ *
+ * @return mixed                    Boolean (true, false) if comparison operator is specified.
+ *                                Integer (-1, 0, 1) otherwise.
+ */
 function phpbb_version_compare($version1, $version2, $operator = null)
 {
 	$version1 = strtolower($version1);
@@ -299,8 +300,8 @@ function phpbb_version_compare($version1, $version2, $operator = null)
 // functions used for building option fields
 
 /**
-* Pick a language, any language ...
-*/
+ * Pick a language, any language ...
+ */
 function language_select($default = '')
 {
 	global $db;
@@ -322,8 +323,8 @@ function language_select($default = '')
 }
 
 /**
-* Pick a template/theme combo,
-*/
+ * Pick a template/theme combo,
+ */
 function style_select($default = '', $all = false)
 {
 	global $db;
@@ -347,13 +348,13 @@ function style_select($default = '', $all = false)
 }
 
 /**
-* Format the timezone offset with hours and minutes
-*
-* @param	int		$tz_offset	Timezone offset in seconds
-* @param	bool	$show_null	Whether null offsets should be shown
-* @return	string		Normalized offset string:	-7200 => -02:00
-*													16200 => +04:30
-*/
+ * Format the timezone offset with hours and minutes
+ *
+ * @param    int  $tz_offset                          Timezone offset in seconds
+ * @param    bool $show_null                          Whether null offsets should be shown
+ * @return    string        Normalized offset string:    -7200 => -02:00
+ *                                                    16200 => +04:30
+ */
 function phpbb_format_timezone_offset($tz_offset, $show_null = false)
 {
 	$sign = ($tz_offset < 0) ? '-' : '+';
@@ -364,19 +365,19 @@ function phpbb_format_timezone_offset($tz_offset, $show_null = false)
 		return '';
 	}
 
-	$offset_seconds	= $time_offset % 3600;
-	$offset_minutes	= $offset_seconds / 60;
-	$offset_hours	= ($time_offset - $offset_seconds) / 3600;
+	$offset_seconds = $time_offset % 3600;
+	$offset_minutes = $offset_seconds / 60;
+	$offset_hours = ($time_offset - $offset_seconds) / 3600;
 
-	$offset_string	= sprintf("%s%02d:%02d", $sign, $offset_hours, $offset_minutes);
+	$offset_string = sprintf("%s%02d:%02d", $sign, $offset_hours, $offset_minutes);
 	return $offset_string;
 }
 
 /**
-* Compares two time zone labels.
-* Arranges them in increasing order by timezone offset.
-* Places UTC before other timezones in the same offset.
-*/
+ * Compares two time zone labels.
+ * Arranges them in increasing order by timezone offset.
+ * Places UTC before other timezones in the same offset.
+ */
 function phpbb_tz_select_compare($a, $b)
 {
 	$a_sign = $a[3];
@@ -423,18 +424,18 @@ function phpbb_tz_select_compare($a, $b)
 }
 
 /**
-* Return list of timezone identifiers
-* We also add the selected timezone if we can create an object with it.
-* DateTimeZone::listIdentifiers seems to not add all identifiers to the list,
-* because some are only kept for backward compatible reasons. If the user has
-* a deprecated value, we add it here, so it can still be kept. Once the user
-* changed his value, there is no way back to deprecated values.
-*
-* @param	string		$selected_timezone		Additional timezone that shall
-*												be added to the list of identiers
-* @return		array		DateTimeZone::listIdentifiers and additional
-*							selected_timezone if it is a valid timezone.
-*/
+ * Return list of timezone identifiers
+ * We also add the selected timezone if we can create an object with it.
+ * DateTimeZone::listIdentifiers seems to not add all identifiers to the list,
+ * because some are only kept for backward compatible reasons. If the user has
+ * a deprecated value, we add it here, so it can still be kept. Once the user
+ * changed his value, there is no way back to deprecated values.
+ *
+ * @param    string $selected_timezone            Additional timezone that shall
+ *                                                be added to the list of identiers
+ * @return        array        DateTimeZone::listIdentifiers and additional
+ *                                                selected_timezone if it is a valid timezone.
+ */
 function phpbb_get_timezone_identifiers($selected_timezone)
 {
 	$timezones = DateTimeZone::listIdentifiers();
@@ -457,15 +458,15 @@ function phpbb_get_timezone_identifiers($selected_timezone)
 }
 
 /**
-* Options to pick a timezone and date/time
-*
-* @param	\phpbb\template\template $template	phpBB template object
-* @param	\phpbb\user	$user				Object of the current user
-* @param	string		$default			A timezone to select
-* @param	boolean		$truncate			Shall we truncate the options text
-*
-* @return		array		Returns an array containing the options for the time selector.
-*/
+ * Options to pick a timezone and date/time
+ *
+ * @param    \phpbb\template\template $template phpBB template object
+ * @param    \phpbb\user              $user     Object of the current user
+ * @param    string                   $default  A timezone to select
+ * @param    boolean                  $truncate Shall we truncate the options text
+ *
+ * @return        array        Returns an array containing the options for the time selector.
+ */
 function phpbb_timezone_select($template, $user, $default = '', $truncate = false)
 {
 	static $timezones;
@@ -484,9 +485,9 @@ function phpbb_timezone_select($template, $user, $default = '', $truncate = fals
 			$current_time = $dt->format($user->lang['DATETIME_FORMAT'], true);
 			$offset_string = phpbb_format_timezone_offset($offset, true);
 			$timezones['UTC' . $offset_string . ' - ' . $timezone] = array(
-				'tz'		=> $timezone,
-				'offset'	=> $offset_string,
-				'current'	=> $current_time,
+				'tz'      => $timezone,
+				'offset'  => $offset_string,
+				'current' => $current_time,
 			);
 			if ($timezone === $default)
 			{
@@ -509,15 +510,15 @@ function phpbb_timezone_select($template, $user, $default = '', $truncate = fals
 			$tz_select .= '<optgroup label="' . $user->lang(array('timezones', 'UTC_OFFSET_CURRENT'), $timezone['offset'], $timezone['current']) . '">';
 			$opt_group = $timezone['offset'];
 			$template->assign_block_vars('timezone_select', array(
-				'LABEL'		=> $user->lang(array('timezones', 'UTC_OFFSET_CURRENT'), $timezone['offset'], $timezone['current']),
-				'VALUE'		=> $key . ' - ' . $timezone['current'],
+				'LABEL' => $user->lang(array('timezones', 'UTC_OFFSET_CURRENT'), $timezone['offset'], $timezone['current']),
+				'VALUE' => $key . ' - ' . $timezone['current'],
 			));
 
 			$selected = (!empty($default_offset) && strpos($key, $default_offset) !== false) ? ' selected="selected"' : '';
 			$template->assign_block_vars('timezone_date', array(
-				'VALUE'		=> $key . ' - ' . $timezone['current'],
-				'SELECTED'	=> !empty($selected),
-				'TITLE'		=> $user->lang(array('timezones', 'UTC_OFFSET_CURRENT'), $timezone['offset'], $timezone['current']),
+				'VALUE'    => $key . ' - ' . $timezone['current'],
+				'SELECTED' => !empty($selected),
+				'TITLE'    => $user->lang(array('timezones', 'UTC_OFFSET_CURRENT'), $timezone['offset'], $timezone['current']),
 			));
 		}
 
@@ -537,10 +538,10 @@ function phpbb_timezone_select($template, $user, $default = '', $truncate = fals
 		$selected = ($timezone['tz'] === $default) ? ' selected="selected"' : '';
 		$tz_select .= '<option title="' . $title . '" value="' . $timezone['tz'] . '"' . $selected . '>' . $label . '</option>';
 		$template->assign_block_vars('timezone_select.timezone_options', array(
-			'TITLE'			=> $title,
-			'VALUE'			=> $timezone['tz'],
-			'SELECTED'		=> !empty($selected),
-			'LABEL'			=> $label,
+			'TITLE'    => $title,
+			'VALUE'    => $timezone['tz'],
+			'SELECTED' => !empty($selected),
+			'LABEL'    => $label,
 		));
 	}
 	$tz_select .= '</optgroup>';
@@ -551,15 +552,15 @@ function phpbb_timezone_select($template, $user, $default = '', $truncate = fals
 // Functions handling topic/post tracking/marking
 
 /**
-* Marks a topic/forum as read
-* Marks a topic as posted to
-*
-* @param string $mode (all, topics, topic, post)
-* @param int|bool $forum_id Used in all, topics, and topic mode
-* @param int|bool $topic_id Used in topic and post mode
-* @param int $post_time 0 means current time(), otherwise to set a specific mark time
-* @param int $user_id can only be used with $mode == 'post'
-*/
+ * Marks a topic/forum as read
+ * Marks a topic as posted to
+ *
+ * @param string   $mode      (all, topics, topic, post)
+ * @param int|bool $forum_id  Used in all, topics, and topic mode
+ * @param int|bool $topic_id  Used in topic and post mode
+ * @param int      $post_time 0 means current time(), otherwise to set a specific mark time
+ * @param int      $user_id   can only be used with $mode == 'post'
+ */
 function markread($mode, $forum_id = false, $topic_id = false, $post_time = 0, $user_id = 0)
 {
 	global $db, $user, $config;
@@ -577,12 +578,12 @@ function markread($mode, $forum_id = false, $topic_id = false, $post_time = 0, $
 	 * should be set to FALSE.
 	 *
 	 * @event core.markread_before
-	 * @var	string	mode				Variable containing marking mode value
-	 * @var	mixed	forum_id			Variable containing forum id, or false
-	 * @var	mixed	topic_id			Variable containing topic id, or false
-	 * @var	int		post_time			Variable containing post time
-	 * @var	int		user_id				Variable containing the user id
-	 * @var	bool	should_markread		Flag indicating if the markread should be done or not.
+	 * @var    string    mode                Variable containing marking mode value
+	 * @var    mixed    forum_id            Variable containing forum id, or false
+	 * @var    mixed    topic_id            Variable containing topic id, or false
+	 * @var    int        post_time            Variable containing post time
+	 * @var    int        user_id                Variable containing the user id
+	 * @var    bool    should_markread        Flag indicating if the markread should be done or not.
 	 * @since 3.1.4-RC1
 	 */
 	$vars = array(
@@ -743,9 +744,9 @@ function markread($mode, $forum_id = false, $topic_id = false, $post_time = 0, $
 				foreach ($sql_insert as $f_id)
 				{
 					$sql_ary[] = array(
-						'user_id'	=> (int) $user->data['user_id'],
-						'forum_id'	=> (int) $f_id,
-						'mark_time'	=> $post_time,
+						'user_id'   => (int) $user->data['user_id'],
+						'forum_id'  => (int) $f_id,
+						'mark_time' => $post_time,
 					);
 				}
 
@@ -830,10 +831,10 @@ function markread($mode, $forum_id = false, $topic_id = false, $post_time = 0, $
 				$db->sql_return_on_error(true);
 
 				$sql_ary = array(
-					'user_id'		=> (int) $user->data['user_id'],
-					'topic_id'		=> (int) $topic_id,
-					'forum_id'		=> (int) $forum_id,
-					'mark_time'		=> $post_time,
+					'user_id'   => (int) $user->data['user_id'],
+					'topic_id'  => (int) $topic_id,
+					'forum_id'  => (int) $forum_id,
+					'mark_time' => $post_time,
 				);
 
 				$db->sql_query('INSERT INTO ' . TOPICS_TRACK_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary));
@@ -921,9 +922,9 @@ function markread($mode, $forum_id = false, $topic_id = false, $post_time = 0, $
 			$db->sql_return_on_error(true);
 
 			$sql_ary = array(
-				'user_id'		=> (int) $use_user_id,
-				'topic_id'		=> (int) $topic_id,
-				'topic_posted'	=> 1,
+				'user_id'      => (int) $use_user_id,
+				'topic_id'     => (int) $topic_id,
+				'topic_posted' => 1,
 			);
 
 			$db->sql_query('INSERT INTO ' . TOPICS_POSTED_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary));
@@ -936,8 +937,8 @@ function markread($mode, $forum_id = false, $topic_id = false, $post_time = 0, $
 }
 
 /**
-* Get topic tracking info by using already fetched info
-*/
+ * Get topic tracking info by using already fetched info
+ */
 function get_topic_tracking($forum_id, $topic_ids, &$rowset, $forum_mark_time, $global_announce_list = false)
 {
 	global $user;
@@ -980,8 +981,8 @@ function get_topic_tracking($forum_id, $topic_ids, &$rowset, $forum_mark_time, $
 }
 
 /**
-* Get topic tracking info from db (for cookie based tracking only this function is used)
-*/
+ * Get topic tracking info from db (for cookie based tracking only this function is used)
+ */
 function get_complete_topic_tracking($forum_id, $topic_ids, $global_announce_list = false)
 {
 	global $config, $user, $request;
@@ -1087,16 +1088,16 @@ function get_complete_topic_tracking($forum_id, $topic_ids, $global_announce_lis
 }
 
 /**
-* Get list of unread topics
-*
-* @param int $user_id			User ID (or false for current user)
-* @param string $sql_extra		Extra WHERE SQL statement
-* @param string $sql_sort		ORDER BY SQL sorting statement
-* @param string $sql_limit		Limits the size of unread topics list, 0 for unlimited query
-* @param string $sql_limit_offset  Sets the offset of the first row to search, 0 to search from the start
-*
-* @return array[int][int]		Topic ids as keys, mark_time of topic as value
-*/
+ * Get list of unread topics
+ *
+ * @param int    $user_id          User ID (or false for current user)
+ * @param string $sql_extra        Extra WHERE SQL statement
+ * @param string $sql_sort         ORDER BY SQL sorting statement
+ * @param string $sql_limit        Limits the size of unread topics list, 0 for unlimited query
+ * @param string $sql_limit_offset Sets the offset of the first row to search, 0 to search from the start
+ *
+ * @return array[int][int]        Topic ids as keys, mark_time of topic as value
+ */
 function get_unread_topics($user_id = false, $sql_extra = '', $sql_sort = '', $sql_limit = 1001, $sql_limit_offset = 0)
 {
 	global $config, $db, $user, $request;
@@ -1118,22 +1119,22 @@ function get_unread_topics($user_id = false, $sql_extra = '', $sql_sort = '', $s
 		$last_mark = (int) $user->data['user_lastmark'];
 
 		$sql_array = array(
-			'SELECT'		=> 't.topic_id, t.topic_last_post_time, tt.mark_time as topic_mark_time, ft.mark_time as forum_mark_time',
+			'SELECT' => 't.topic_id, t.topic_last_post_time, tt.mark_time as topic_mark_time, ft.mark_time as forum_mark_time',
 
-			'FROM'			=> array(TOPICS_TABLE => 't'),
+			'FROM' => array(TOPICS_TABLE => 't'),
 
-			'LEFT_JOIN'		=> array(
+			'LEFT_JOIN' => array(
 				array(
-					'FROM'	=> array(TOPICS_TRACK_TABLE => 'tt'),
-					'ON'	=> "tt.user_id = $user_id AND t.topic_id = tt.topic_id",
+					'FROM' => array(TOPICS_TRACK_TABLE => 'tt'),
+					'ON'   => "tt.user_id = $user_id AND t.topic_id = tt.topic_id",
 				),
 				array(
-					'FROM'	=> array(FORUMS_TRACK_TABLE => 'ft'),
-					'ON'	=> "ft.user_id = $user_id AND t.forum_id = ft.forum_id",
+					'FROM' => array(FORUMS_TRACK_TABLE => 'ft'),
+					'ON'   => "ft.user_id = $user_id AND t.forum_id = ft.forum_id",
 				),
 			),
 
-			'WHERE'			=> "
+			'WHERE' => "
 				 t.topic_last_post_time > $last_mark AND
 				(
 				(tt.mark_time IS NOT NULL AND t.topic_last_post_time > tt.mark_time) OR
@@ -1234,15 +1235,15 @@ function get_unread_topics($user_id = false, $sql_extra = '', $sql_sort = '', $s
 }
 
 /**
-* Check for read forums and update topic tracking info accordingly
-*
-* @param int $forum_id the forum id to check
-* @param int $forum_last_post_time the forums last post time
-* @param int $f_mark_time the forums last mark time if user is registered and load_db_lastread enabled
-* @param int $mark_time_forum false if the mark time needs to be obtained, else the last users forum mark time
-*
-* @return true if complete forum got marked read, else false.
-*/
+ * Check for read forums and update topic tracking info accordingly
+ *
+ * @param int $forum_id             the forum id to check
+ * @param int $forum_last_post_time the forums last post time
+ * @param int $f_mark_time          the forums last mark time if user is registered and load_db_lastread enabled
+ * @param int $mark_time_forum      false if the mark time needs to be obtained, else the last users forum mark time
+ *
+ * @return true if complete forum got marked read, else false.
+ */
 function update_forum_tracking_info($forum_id, $forum_last_post_time, $f_mark_time = false, $mark_time_forum = false)
 {
 	global $db, $tracking_topics, $user, $config, $request, $phpbb_container;
@@ -1349,8 +1350,8 @@ function update_forum_tracking_info($forum_id, $forum_last_post_time, $f_mark_ti
 }
 
 /**
-* Transform an array into a serialized format
-*/
+ * Transform an array into a serialized format
+ */
 function tracking_serialize($input)
 {
 	$out = '';
@@ -1369,8 +1370,8 @@ function tracking_serialize($input)
 }
 
 /**
-* Transform a serialized array into an actual array
-*/
+ * Transform a serialized array into an actual array
+ */
 function tracking_unserialize($string, $max_depth = 3)
 {
 	$n = strlen($string);
@@ -1472,26 +1473,26 @@ function tracking_unserialize($string, $max_depth = 3)
 // Server functions (building urls, redirecting...)
 
 /**
-* Append session id to url.
-* This function supports hooks.
-*
-* @param string $url The url the session id needs to be appended to (can have params)
-* @param mixed $params String or array of additional url parameters
-* @param bool $is_amp Is url using &amp; (true) or & (false)
-* @param string $session_id Possibility to use a custom session id instead of the global one
-* @param bool $is_route Is url generated by a route.
-*
-* @return string The corrected url.
-*
-* Examples:
-* <code>
-* append_sid("{$phpbb_root_path}viewtopic.$phpEx?t=1&amp;f=2");
-* append_sid("{$phpbb_root_path}viewtopic.$phpEx", 't=1&amp;f=2');
-* append_sid("{$phpbb_root_path}viewtopic.$phpEx", 't=1&f=2', false);
-* append_sid("{$phpbb_root_path}viewtopic.$phpEx", array('t' => 1, 'f' => 2));
-* </code>
-*
-*/
+ * Append session id to url.
+ * This function supports hooks.
+ *
+ * @param string $url        The url the session id needs to be appended to (can have params)
+ * @param mixed  $params     String or array of additional url parameters
+ * @param bool   $is_amp     Is url using &amp; (true) or & (false)
+ * @param string $session_id Possibility to use a custom session id instead of the global one
+ * @param bool   $is_route   Is url generated by a route.
+ *
+ * @return string The corrected url.
+ *
+ * Examples:
+ * <code>
+ * append_sid("{$phpbb_root_path}viewtopic.$phpEx?t=1&amp;f=2");
+ * append_sid("{$phpbb_root_path}viewtopic.$phpEx", 't=1&amp;f=2');
+ * append_sid("{$phpbb_root_path}viewtopic.$phpEx", 't=1&f=2', false);
+ * append_sid("{$phpbb_root_path}viewtopic.$phpEx", array('t' => 1, 'f' => 2));
+ * </code>
+ *
+ */
 function append_sid($url, $params = false, $is_amp = true, $session_id = false, $is_route = false)
 {
 	global $_SID, $_EXTRA_URL, $phpbb_hook, $phpbb_path_helper;
@@ -1512,27 +1513,27 @@ function append_sid($url, $params = false, $is_amp = true, $session_id = false, 
 	$append_sid_overwrite = false;
 
 	/**
-	* This event can either supplement or override the append_sid() function
-	*
-	* To override this function, the event must set $append_sid_overwrite to
-	* the new URL value, which will be returned following the event
-	*
-	* @event core.append_sid
-	* @var	string		url						The url the session id needs
-	*											to be appended to (can have
-	*											params)
-	* @var	mixed		params					String or array of additional
-	*											url parameters
-	* @var	bool		is_amp					Is url using &amp; (true) or
-	*											& (false)
-	* @var	bool|string	session_id				Possibility to use a custom
-	*											session id (string) instead of
-	*											the global one (false)
-	* @var	bool|string	append_sid_overwrite	Overwrite function (string
-	*											URL) or not (false)
-	* @var	bool	is_route					Is url generated by a route.
-	* @since 3.1.0-a1
-	*/
+	 * This event can either supplement or override the append_sid() function
+	 *
+	 * To override this function, the event must set $append_sid_overwrite to
+	 * the new URL value, which will be returned following the event
+	 *
+	 * @event core.append_sid
+	 * @var    string        url                        The url the session id needs
+	 *                                            to be appended to (can have
+	 *                                            params)
+	 * @var    mixed        params                    String or array of additional
+	 *                                            url parameters
+	 * @var    bool        is_amp                    Is url using &amp; (true) or
+	 *                                            & (false)
+	 * @var    bool|string    session_id                Possibility to use a custom
+	 *                                            session id (string) instead of
+	 *                                            the global one (false)
+	 * @var    bool|string    append_sid_overwrite    Overwrite function (string
+	 *                                            URL) or not (false)
+	 * @var    bool    is_route                    Is url generated by a route.
+	 * @since 3.1.0-a1
+	 */
 	$vars = array('url', 'params', 'is_amp', 'session_id', 'append_sid_overwrite', 'is_route');
 	extract($phpbb_dispatcher->trigger_event('core.append_sid', compact($vars)));
 
@@ -1577,7 +1578,7 @@ function append_sid($url, $params = false, $is_amp = true, $session_id = false, 
 		}
 
 		$url_delim = (strpos($url, '?') === false) ? '?' : (($is_amp) ? '&amp;' : '&');
-		return $url . ($params !== false ? $url_delim. $params : '');
+		return $url . ($params !== false ? $url_delim . $params : '');
 	}
 
 	// Assign sid if session id is not specified
@@ -1613,7 +1614,7 @@ function append_sid($url, $params = false, $is_amp = true, $session_id = false, 
 
 		foreach ($params as $key => $item)
 		{
-			if ($item === NULL)
+			if ($item === null)
 			{
 				continue;
 			}
@@ -1636,12 +1637,12 @@ function append_sid($url, $params = false, $is_amp = true, $session_id = false, 
 }
 
 /**
-* Generate board url (example: http://www.example.com/phpBB)
-*
-* @param bool $without_script_path if set to true the script path gets not appended (example: http://www.example.com)
-*
-* @return string the generated board url
-*/
+ * Generate board url (example: http://www.example.com/phpBB)
+ *
+ * @param bool $without_script_path if set to true the script path gets not appended (example: http://www.example.com)
+ *
+ * @return string the generated board url
+ */
 function generate_board_url($without_script_path = false)
 {
 	global $config, $user, $request, $symfony_request;
@@ -1700,13 +1701,14 @@ function generate_board_url($without_script_path = false)
 }
 
 /**
-* Redirects the user to another page then exits the script nicely
-* This function is intended for urls within the board. It's not meant to redirect to cross-domains.
-*
-* @param string $url The url to redirect to
-* @param bool $return If true, do not redirect but return the sanitized URL. Default is no return.
-* @param bool $disable_cd_check If true, redirect() will redirect to an external domain. If false, the redirect point to the boards url if it does not match the current domain. Default is false.
-*/
+ * Redirects the user to another page then exits the script nicely
+ * This function is intended for urls within the board. It's not meant to redirect to cross-domains.
+ *
+ * @param string $url              The url to redirect to
+ * @param bool   $return           If true, do not redirect but return the sanitized URL. Default is no return.
+ * @param bool   $disable_cd_check If true, redirect() will redirect to an external domain. If false, the redirect
+ *                                 point to the boards url if it does not match the current domain. Default is false.
+ */
 function redirect($url, $return = false, $disable_cd_check = false)
 {
 	global $user, $phpbb_path_helper, $phpbb_dispatcher;
@@ -1791,14 +1793,14 @@ function redirect($url, $return = false, $disable_cd_check = false)
 	}
 
 	/**
-	* Execute code and/or overwrite redirect()
-	*
-	* @event core.functions.redirect
-	* @var	string	url					The url
-	* @var	bool	return				If true, do not redirect but return the sanitized URL.
-	* @var	bool	disable_cd_check	If true, redirect() will redirect to an external domain. If false, the redirect point to the boards url if it does not match the current domain.
-	* @since 3.1.0-RC3
-	*/
+	 * Execute code and/or overwrite redirect()
+	 *
+	 * @event core.functions.redirect
+	 * @var    string    url                    The url
+	 * @var    bool    return                If true, do not redirect but return the sanitized URL.
+	 * @var    bool    disable_cd_check    If true, redirect() will redirect to an external domain. If false, the redirect point to the boards url if it does not match the current domain.
+	 * @since 3.1.0-RC3
+	 */
 	$vars = array('url', 'return', 'disable_cd_check');
 	extract($phpbb_dispatcher->trigger_event('core.functions.redirect', compact($vars)));
 
@@ -1838,8 +1840,8 @@ function redirect($url, $return = false, $disable_cd_check = false)
 }
 
 /**
-* Re-Apply session id after page reloads
-*/
+ * Re-Apply session id after page reloads
+ */
 function reapply_sid($url, $is_route = false)
 {
 	global $phpEx, $phpbb_root_path;
@@ -1866,8 +1868,8 @@ function reapply_sid($url, $is_route = false)
 }
 
 /**
-* Returns url from the session/current page with an re-appended SID with optionally stripping vars from the url
-*/
+ * Returns url from the session/current page with an re-appended SID with optionally stripping vars from the url
+ */
 function build_url($strip_vars = false)
 {
 	global $config, $user, $phpbb_path_helper;
@@ -1890,13 +1892,15 @@ function build_url($strip_vars = false)
 }
 
 /**
-* Meta refresh assignment
-* Adds META template variable with meta http tag.
-*
-* @param int $time Time in seconds for meta refresh tag
-* @param string $url URL to redirect to. The url will go through redirect() first before the template variable is assigned
-* @param bool $disable_cd_check If true, meta_refresh() will redirect to an external domain. If false, the redirect point to the boards url if it does not match the current domain. Default is false.
-*/
+ * Meta refresh assignment
+ * Adds META template variable with meta http tag.
+ *
+ * @param int    $time             Time in seconds for meta refresh tag
+ * @param string $url              URL to redirect to. The url will go through redirect() first before the template
+ *                                 variable is assigned
+ * @param bool   $disable_cd_check If true, meta_refresh() will redirect to an external domain. If false, the redirect
+ *                                 point to the boards url if it does not match the current domain. Default is false.
+ */
 function meta_refresh($time, $url, $disable_cd_check = false)
 {
 	global $template, $refresh_data, $request;
@@ -1905,8 +1909,8 @@ function meta_refresh($time, $url, $disable_cd_check = false)
 	if ($request->is_ajax())
 	{
 		$refresh_data = array(
-			'time'	=> $time,
-			'url'	=> $url,
+			'time' => $time,
+			'url'  => $url,
 		);
 	}
 	else
@@ -1915,7 +1919,7 @@ function meta_refresh($time, $url, $disable_cd_check = false)
 		$url = str_replace('&', '&amp;', $url);
 
 		$template->assign_vars(array(
-			'META' => '<meta http-equiv="refresh" content="' . $time . '; url=' . $url . '" />')
+				'META' => '<meta http-equiv="refresh" content="' . $time . '; url=' . $url . '" />')
 		);
 	}
 
@@ -1923,25 +1927,25 @@ function meta_refresh($time, $url, $disable_cd_check = false)
 }
 
 /**
-* Outputs correct status line header.
-*
-* Depending on php sapi one of the two following forms is used:
-*
-* Status: 404 Not Found
-*
-* HTTP/1.x 404 Not Found
-*
-* HTTP version is taken from HTTP_VERSION environment variable,
-* and defaults to 1.0.
-*
-* Sample usage:
-*
-* send_status_line(404, 'Not Found');
-*
-* @param int $code HTTP status code
-* @param string $message Message for the status code
-* @return null
-*/
+ * Outputs correct status line header.
+ *
+ * Depending on php sapi one of the two following forms is used:
+ *
+ * Status: 404 Not Found
+ *
+ * HTTP/1.x 404 Not Found
+ *
+ * HTTP version is taken from HTTP_VERSION environment variable,
+ * and defaults to 1.0.
+ *
+ * Sample usage:
+ *
+ * send_status_line(404, 'Not Found');
+ *
+ * @param int    $code    HTTP status code
+ * @param string $message Message for the status code
+ * @return null
+ */
 function send_status_line($code, $message)
 {
 	if (substr(strtolower(@php_sapi_name()), 0, 3) === 'cgi')
@@ -1957,13 +1961,13 @@ function send_status_line($code, $message)
 }
 
 /**
-* Returns the HTTP version used in the current request.
-*
-* Handles the case of being called before $request is present,
-* in which case it falls back to the $_SERVER superglobal.
-*
-* @return string HTTP version
-*/
+ * Returns the HTTP version used in the current request.
+ *
+ * Handles the case of being called before $request is present,
+ * in which case it falls back to the $_SERVER superglobal.
+ *
+ * @return string HTTP version
+ */
 function phpbb_request_http_version()
 {
 	global $request;
@@ -1990,11 +1994,12 @@ function phpbb_request_http_version()
 
 
 /**
-* Add a secret hash   for use in links/GET requests
-* @param string  $link_name The name of the link; has to match the name used in check_link_hash, otherwise no restrictions apply
-* @return string the hash
-
-*/
+ * Add a secret hash   for use in links/GET requests
+ *
+ * @param string $link_name The name of the link; has to match the name used in check_link_hash, otherwise no
+ *                          restrictions apply
+ * @return string the hash
+ */
 function generate_link_hash($link_name)
 {
 	global $user;
@@ -2009,21 +2014,25 @@ function generate_link_hash($link_name)
 
 
 /**
-* checks a link hash - for GET requests
-* @param string $token the submitted token
-* @param string $link_name The name of the link
-* @return boolean true if all is fine
-*/
+ * checks a link hash - for GET requests
+ *
+ * @param string $token     the submitted token
+ * @param string $link_name The name of the link
+ * @return boolean true if all is fine
+ */
 function check_link_hash($token, $link_name)
 {
 	return $token === generate_link_hash($link_name);
 }
 
 /**
-* Add a secret token to the form (requires the S_FORM_TOKEN template variable)
-* @param string  $form_name The name of the form; has to match the name used in check_form_key, otherwise no restrictions apply
-* @param string  $template_variable_suffix A string that is appended to the name of the template variable to which the form elements are assigned
-*/
+ * Add a secret token to the form (requires the S_FORM_TOKEN template variable)
+ *
+ * @param string $form_name                The name of the form; has to match the name used in check_form_key,
+ *                                         otherwise no restrictions apply
+ * @param string $template_variable_suffix A string that is appended to the name of the template variable to which the
+ *                                         form elements are assigned
+ */
 function add_form_key($form_name, $template_variable_suffix = '')
 {
 	global $config, $template, $user, $phpbb_dispatcher;
@@ -2034,23 +2043,23 @@ function add_form_key($form_name, $template_variable_suffix = '')
 
 	$s_fields = build_hidden_fields(array(
 		'creation_time' => $now,
-		'form_token'	=> $token,
+		'form_token'    => $token,
 	));
 
 	/**
-	* Perform additional actions on creation of the form token
-	*
-	* @event core.add_form_key
-	* @var	string	form_name					The form name
-	* @var	int		now							Current time timestamp
-	* @var	string	s_fields					Generated hidden fields
-	* @var	string	token						Form token
-	* @var	string	token_sid					User session ID
-	* @var	string	template_variable_suffix	The string that is appended to template variable name
-	*
-	* @since 3.1.0-RC3
-	* @changed 3.1.11-RC1 Added template_variable_suffix
-	*/
+	 * Perform additional actions on creation of the form token
+	 *
+	 * @event   core.add_form_key
+	 * @var    string    form_name                    The form name
+	 * @var    int        now                            Current time timestamp
+	 * @var    string    s_fields                    Generated hidden fields
+	 * @var    string    token                        Form token
+	 * @var    string    token_sid                    User session ID
+	 * @var    string    template_variable_suffix    The string that is appended to template variable name
+	 *
+	 * @since   3.1.0-RC3
+	 * @changed 3.1.11-RC1 Added template_variable_suffix
+	 */
 	$vars = array(
 		'form_name',
 		'now',
@@ -2067,11 +2076,11 @@ function add_form_key($form_name, $template_variable_suffix = '')
 /**
  * Check the form key. Required for all altering actions not secured by confirm_box
  *
- * @param	string	$form_name	The name of the form; has to match the name used
- *								in add_form_key, otherwise no restrictions apply
- * @param	int		$timespan	The maximum acceptable age for a submitted form
- *								in seconds. Defaults to the config setting.
- * @return	bool	True, if the form key was valid, false otherwise
+ * @param    string $form_name    The name of the form; has to match the name used
+ *                                in add_form_key, otherwise no restrictions apply
+ * @param    int    $timespan     The maximum acceptable age for a submitted form
+ *                                in seconds. Defaults to the config setting.
+ * @return    bool    True, if the form key was valid, false otherwise
  */
 function check_form_key($form_name, $timespan = false)
 {
@@ -2085,7 +2094,7 @@ function check_form_key($form_name, $timespan = false)
 
 	if ($request->is_set_post('creation_time') && $request->is_set_post('form_token'))
 	{
-		$creation_time	= abs($request->variable('creation_time', 0));
+		$creation_time = abs($request->variable('creation_time', 0));
 		$token = $request->variable('form_token', '');
 
 		$diff = time() - $creation_time;
@@ -2109,16 +2118,18 @@ function check_form_key($form_name, $timespan = false)
 // Message/Login boxes
 
 /**
-* Build Confirm box
-* @param boolean $check True for checking if confirmed (without any additional parameters) and false for displaying the confirm box
-* @param string $title Title/Message used for confirm box.
-*		message text is _CONFIRM appended to title.
-*		If title cannot be found in user->lang a default one is displayed
-*		If title_CONFIRM cannot be found in user->lang the text given is used.
-* @param string $hidden Hidden variables
-* @param string $html_body Template used for confirm box
-* @param string $u_action Custom form action
-*/
+ * Build Confirm box
+ *
+ * @param boolean $check     True for checking if confirmed (without any additional parameters) and false for
+ *                           displaying the confirm box
+ * @param string  $title     Title/Message used for confirm box.
+ *                           message text is _CONFIRM appended to title.
+ *                           If title cannot be found in user->lang a default one is displayed
+ *                           If title_CONFIRM cannot be found in user->lang the text given is used.
+ * @param string  $hidden    Hidden variables
+ * @param string  $html_body Template used for confirm box
+ * @param string  $u_action  Custom form action
+ */
 function confirm_box($check, $title = '', $hidden = '', $html_body = 'confirm_body.html', $u_action = '')
 {
 	global $user, $template, $db, $request;
@@ -2155,9 +2166,9 @@ function confirm_box($check, $title = '', $hidden = '', $html_body = 'confirm_bo
 	}
 
 	$s_hidden_fields = build_hidden_fields(array(
-		'confirm_uid'	=> $user->data['user_id'],
-		'sess'			=> $user->session_id,
-		'sid'			=> $user->session_id,
+		'confirm_uid' => $user->data['user_id'],
+		'sess'        => $user->session_id,
+		'sid'         => $user->session_id,
 	));
 
 	// generate activation key
@@ -2173,7 +2184,7 @@ function confirm_box($check, $title = '', $hidden = '', $html_body = 'confirm_bo
 	}
 
 	$template->set_filenames(array(
-		'body' => $html_body)
+			'body' => $html_body)
 	);
 
 	// If activation key already exist, we better do not re-use the key (something very strange is going on...)
@@ -2189,13 +2200,13 @@ function confirm_box($check, $title = '', $hidden = '', $html_body = 'confirm_bo
 	$u_action .= ((strpos($u_action, '?') === false) ? '?' : '&amp;') . 'confirm_key=' . $confirm_key;
 
 	$template->assign_vars(array(
-		'MESSAGE_TITLE'		=> (!isset($user->lang[$title])) ? $user->lang['CONFIRM'] : $user->lang($title, 1),
-		'MESSAGE_TEXT'		=> (!isset($user->lang[$title . '_CONFIRM'])) ? $title : $user->lang[$title . '_CONFIRM'],
+		'MESSAGE_TITLE' => (!isset($user->lang[$title])) ? $user->lang['CONFIRM'] : $user->lang($title, 1),
+		'MESSAGE_TEXT'  => (!isset($user->lang[$title . '_CONFIRM'])) ? $title : $user->lang[$title . '_CONFIRM'],
 
-		'YES_VALUE'			=> $user->lang['YES'],
-		'S_CONFIRM_ACTION'	=> $u_action,
-		'S_HIDDEN_FIELDS'	=> $hidden . $s_hidden_fields,
-		'S_AJAX_REQUEST'	=> $request->is_ajax(),
+		'YES_VALUE'        => $user->lang['YES'],
+		'S_CONFIRM_ACTION' => $u_action,
+		'S_HIDDEN_FIELDS'  => $hidden . $s_hidden_fields,
+		'S_AJAX_REQUEST'   => $request->is_ajax(),
 	));
 
 	$sql = 'UPDATE ' . USERS_TABLE . " SET user_last_confirm_key = '" . $db->sql_escape($confirm_key) . "'
@@ -2207,13 +2218,13 @@ function confirm_box($check, $title = '', $hidden = '', $html_body = 'confirm_bo
 		$u_action .= '&confirm_uid=' . $user->data['user_id'] . '&sess=' . $user->session_id . '&sid=' . $user->session_id;
 		$json_response = new \phpbb\json_response;
 		$json_response->send(array(
-			'MESSAGE_BODY'		=> $template->assign_display('body'),
-			'MESSAGE_TITLE'		=> (!isset($user->lang[$title])) ? $user->lang['CONFIRM'] : $user->lang[$title],
-			'MESSAGE_TEXT'		=> (!isset($user->lang[$title . '_CONFIRM'])) ? $title : $user->lang[$title . '_CONFIRM'],
+			'MESSAGE_BODY'  => $template->assign_display('body'),
+			'MESSAGE_TITLE' => (!isset($user->lang[$title])) ? $user->lang['CONFIRM'] : $user->lang[$title],
+			'MESSAGE_TEXT'  => (!isset($user->lang[$title . '_CONFIRM'])) ? $title : $user->lang[$title . '_CONFIRM'],
 
-			'YES_VALUE'			=> $user->lang['YES'],
-			'S_CONFIRM_ACTION'	=> str_replace('&amp;', '&', $u_action), //inefficient, rewrite whole function
-			'S_HIDDEN_FIELDS'	=> $hidden . $s_hidden_fields
+			'YES_VALUE'        => $user->lang['YES'],
+			'S_CONFIRM_ACTION' => str_replace('&amp;', '&', $u_action), //inefficient, rewrite whole function
+			'S_HIDDEN_FIELDS'  => $hidden . $s_hidden_fields,
 		));
 	}
 
@@ -2228,8 +2239,8 @@ function confirm_box($check, $title = '', $hidden = '', $html_body = 'confirm_bo
 }
 
 /**
-* Generate login box or verify password
-*/
+ * Generate login box or verify password
+ */
 function login_box($redirect = '', $l_explain = '', $l_success = '', $admin = false, $s_display = true)
 {
 	global $user, $template, $auth, $phpEx, $phpbb_root_path, $config;
@@ -2247,12 +2258,12 @@ function login_box($redirect = '', $l_explain = '', $l_success = '', $admin = fa
 	 * This event allows an extension to modify the login process
 	 *
 	 * @event core.login_box_before
-	 * @var string	redirect	Redirect string
-	 * @var string	l_explain	Explain language string
-	 * @var string	l_success	Success language string
-	 * @var	bool	admin		Is admin?
-	 * @var bool	s_display	Display full login form?
-	 * @var string	err			Error string
+	 * @var string    redirect    Redirect string
+	 * @var string    l_explain    Explain language string
+	 * @var string    l_success    Success language string
+	 * @var    bool    admin        Is admin?
+	 * @var bool    s_display    Display full login form?
+	 * @var string    err            Error string
 	 * @since 3.1.9-RC1
 	 */
 	$vars = array('redirect', 'l_explain', 'l_success', 'admin', 's_display', 'err');
@@ -2288,17 +2299,17 @@ function login_box($redirect = '', $l_explain = '', $l_success = '', $admin = fa
 				trigger_error('NO_AUTH_ADMIN');
 			}
 
-			$password	= $request->untrimmed_variable('password_' . $credential, '', true);
+			$password = $request->untrimmed_variable('password_' . $credential, '', true);
 		}
 		else
 		{
-			$password	= $request->untrimmed_variable('password', '', true);
+			$password = $request->untrimmed_variable('password', '', true);
 		}
 
-		$username	= $request->variable('username', '', true);
-		$autologin	= $request->is_set_post('autologin');
+		$username = $request->variable('username', '', true);
+		$autologin = $request->is_set_post('autologin');
 		$viewonline = (int) !$request->is_set_post('viewonline');
-		$admin 		= ($admin) ? 1 : 0;
+		$admin = ($admin) ? 1 : 0;
 		$viewonline = ($admin) ? $user->data['session_viewonline'] : $viewonline;
 
 		// Check if the supplied username is equal to the one stored within the database if re-authenticating
@@ -2339,14 +2350,14 @@ function login_box($redirect = '', $l_explain = '', $l_success = '', $admin = fa
 			$redirect = $request->variable('redirect', "{$phpbb_root_path}index.$phpEx");
 
 			/**
-			* This event allows an extension to modify the redirection when a user successfully logs in
-			*
-			* @event core.login_box_redirect
-			* @var  string	redirect	Redirect string
-			* @var	bool	admin		Is admin?
-			* @since 3.1.0-RC5
-			* @changed 3.1.9-RC1 Removed undefined return variable
-			*/
+			 * This event allows an extension to modify the redirection when a user successfully logs in
+			 *
+			 * @event   core.login_box_redirect
+			 * @var  string    redirect    Redirect string
+			 * @var    bool    admin        Is admin?
+			 * @since   3.1.0-RC5
+			 * @changed 3.1.9-RC1 Removed undefined return variable
+			 */
 			$vars = array('redirect', 'admin');
 			extract($phpbb_dispatcher->trigger_event('core.login_box_redirect', compact($vars)));
 
@@ -2388,7 +2399,7 @@ function login_box($redirect = '', $l_explain = '', $l_success = '', $admin = fa
 				// $captcha->reset();
 
 				$template->assign_vars(array(
-					'CAPTCHA_TEMPLATE'			=> $captcha->get_template(),
+					'CAPTCHA_TEMPLATE' => $captcha->get_template(),
 				));
 			// no break;
 
@@ -2423,7 +2434,7 @@ function login_box($redirect = '', $l_explain = '', $l_success = '', $admin = fa
 	$credential = ($admin) ? md5(unique_id()) : false;
 
 	$s_hidden_fields = array(
-		'sid'		=> $user->session_id,
+		'sid' => $user->session_id,
 	);
 
 	if ($redirect)
@@ -2464,28 +2475,28 @@ function login_box($redirect = '', $l_explain = '', $l_success = '', $admin = fa
 	$s_hidden_fields = build_hidden_fields($s_hidden_fields);
 
 	$template->assign_vars(array(
-		'LOGIN_ERROR'		=> $err,
-		'LOGIN_EXPLAIN'		=> $l_explain,
+		'LOGIN_ERROR'   => $err,
+		'LOGIN_EXPLAIN' => $l_explain,
 
-		'U_SEND_PASSWORD' 		=> ($config['email_enable']) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=sendpassword') : '',
-		'U_RESEND_ACTIVATION'	=> ($config['require_activation'] == USER_ACTIVATION_SELF && $config['email_enable']) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=resend_act') : '',
-		'U_TERMS_USE'			=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=terms'),
-		'U_PRIVACY'				=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=privacy'),
+		'U_SEND_PASSWORD'     => ($config['email_enable']) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=sendpassword') : '',
+		'U_RESEND_ACTIVATION' => ($config['require_activation'] == USER_ACTIVATION_SELF && $config['email_enable']) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=resend_act') : '',
+		'U_TERMS_USE'         => append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=terms'),
+		'U_PRIVACY'           => append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=privacy'),
 
-		'S_DISPLAY_FULL_LOGIN'	=> ($s_display) ? true : false,
-		'S_HIDDEN_FIELDS' 		=> $s_hidden_fields,
+		'S_DISPLAY_FULL_LOGIN' => ($s_display) ? true : false,
+		'S_HIDDEN_FIELDS'      => $s_hidden_fields,
 
-		'S_ADMIN_AUTH'			=> $admin,
-		'USERNAME'				=> ($admin) ? $user->data['username'] : '',
+		'S_ADMIN_AUTH' => $admin,
+		'USERNAME'     => ($admin) ? $user->data['username'] : '',
 
-		'USERNAME_CREDENTIAL'	=> 'username',
-		'PASSWORD_CREDENTIAL'	=> ($admin) ? 'password_' . $credential : 'password',
+		'USERNAME_CREDENTIAL' => 'username',
+		'PASSWORD_CREDENTIAL' => ($admin) ? 'password_' . $credential : 'password',
 	));
 
 	page_header($user->lang['LOGIN']);
 
 	$template->set_filenames(array(
-		'body' => 'login_body.html')
+			'body' => 'login_body.html')
 	);
 	make_jumpbox(append_sid("{$phpbb_root_path}viewforum.$phpEx"));
 
@@ -2493,8 +2504,8 @@ function login_box($redirect = '', $l_explain = '', $l_success = '', $admin = fa
 }
 
 /**
-* Generate forum login box
-*/
+ * Generate forum login box
+ */
 function login_forum_box($forum_data)
 {
 	global $db, $phpbb_container, $request, $template, $user, $phpbb_dispatcher;
@@ -2530,8 +2541,7 @@ function login_forum_box($forum_data)
 			do
 			{
 				$sql_in[] = (string) $row['session_id'];
-			}
-			while ($row = $db->sql_fetchrow($result));
+			} while ($row = $db->sql_fetchrow($result));
 
 			// Remove expired sessions
 			$sql = 'DELETE FROM ' . FORUMS_ACCESS_TABLE . '
@@ -2546,9 +2556,9 @@ function login_forum_box($forum_data)
 		if ($passwords_manager->check($password, $forum_data['forum_password']))
 		{
 			$sql_ary = array(
-				'forum_id'		=> (int) $forum_data['forum_id'],
-				'user_id'		=> (int) $user->data['user_id'],
-				'session_id'	=> (string) $user->session_id,
+				'forum_id'   => (int) $forum_data['forum_id'],
+				'user_id'    => (int) $user->data['user_id'],
+				'session_id' => (string) $user->session_id,
 			);
 
 			$db->sql_query('INSERT INTO ' . FORUMS_ACCESS_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary));
@@ -2560,26 +2570,26 @@ function login_forum_box($forum_data)
 	}
 
 	/**
-	* Performing additional actions, load additional data on forum login
-	*
-	* @event core.login_forum_box
-	* @var	array	forum_data		Array with forum data
-	* @var	string	password		Password entered
-	* @since 3.1.0-RC3
-	*/
+	 * Performing additional actions, load additional data on forum login
+	 *
+	 * @event core.login_forum_box
+	 * @var    array    forum_data        Array with forum data
+	 * @var    string    password        Password entered
+	 * @since 3.1.0-RC3
+	 */
 	$vars = array('forum_data', 'password');
 	extract($phpbb_dispatcher->trigger_event('core.login_forum_box', compact($vars)));
 
 	page_header($user->lang['LOGIN']);
 
 	$template->assign_vars(array(
-		'FORUM_NAME'			=> isset($forum_data['forum_name']) ? $forum_data['forum_name'] : '',
-		'S_LOGIN_ACTION'		=> build_url(array('f')),
-		'S_HIDDEN_FIELDS'		=> build_hidden_fields(array('f' => $forum_data['forum_id'])))
+			'FORUM_NAME'      => isset($forum_data['forum_name']) ? $forum_data['forum_name'] : '',
+			'S_LOGIN_ACTION'  => build_url(array('f')),
+			'S_HIDDEN_FIELDS' => build_hidden_fields(array('f' => $forum_data['forum_id'])))
 	);
 
 	$template->set_filenames(array(
-		'body' => 'login_forum.html')
+			'body' => 'login_forum.html')
 	);
 
 	page_footer();
@@ -2588,8 +2598,8 @@ function login_forum_box($forum_data)
 // Little helpers
 
 /**
-* Little helper for the build_hidden_fields function
-*/
+ * Little helper for the build_hidden_fields function
+ */
 function _build_hidden_fields($key, $value, $specialchar, $stripslashes)
 {
 	$hidden_fields = '';
@@ -2616,14 +2626,14 @@ function _build_hidden_fields($key, $value, $specialchar, $stripslashes)
 }
 
 /**
-* Build simple hidden fields from array
-*
-* @param array $field_ary an array of values to build the hidden field from
-* @param bool $specialchar if true, keys and values get specialchared
-* @param bool $stripslashes if true, keys and values get stripslashed
-*
-* @return string the hidden fields
-*/
+ * Build simple hidden fields from array
+ *
+ * @param array $field_ary    an array of values to build the hidden field from
+ * @param bool  $specialchar  if true, keys and values get specialchared
+ * @param bool  $stripslashes if true, keys and values get stripslashed
+ *
+ * @return string the hidden fields
+ */
 function build_hidden_fields($field_ary, $specialchar = false, $stripslashes = false)
 {
 	$s_hidden_fields = '';
@@ -2640,8 +2650,8 @@ function build_hidden_fields($field_ary, $specialchar = false, $stripslashes = f
 }
 
 /**
-* Parse cfg file
-*/
+ * Parse cfg file
+ */
 function parse_cfg_file($filename, $lines = false)
 {
 	$parsed_items = array();
@@ -2678,7 +2688,7 @@ function parse_cfg_file($filename, $lines = false)
 		}
 		else if (($value[0] == "'" && $value[strlen($value) - 1] == "'") || ($value[0] == '"' && $value[strlen($value) - 1] == '"'))
 		{
-			$value = htmlspecialchars(substr($value, 1, strlen($value)-2));
+			$value = htmlspecialchars(substr($value, 1, strlen($value) - 2));
 		}
 		else
 		{
@@ -2697,13 +2707,13 @@ function parse_cfg_file($filename, $lines = false)
 }
 
 /**
-* Return a nicely formatted backtrace.
-*
-* Turns the array returned by debug_backtrace() into HTML markup.
-* Also filters out absolute paths to phpBB root.
-*
-* @return string	HTML markup
-*/
+ * Return a nicely formatted backtrace.
+ *
+ * Turns the array returned by debug_backtrace() into HTML markup.
+ * Also filters out absolute paths to phpBB root.
+ *
+ * @return string    HTML markup
+ */
 function get_backtrace()
 {
 	$output = '<div style="font-family: monospace;">';
@@ -2741,10 +2751,10 @@ function get_backtrace()
 }
 
 /**
-* This function returns a regular expression pattern for commonly used expressions
-* Use with / as delimiter for email mode and # for url modes
-* mode can be: email|bbcode_htm|url|url_inline|www_url|www_url_inline|relative_url|relative_url_inline|ipv4|ipv6
-*/
+ * This function returns a regular expression pattern for commonly used expressions
+ * Use with / as delimiter for email mode and # for url modes
+ * mode can be: email|bbcode_htm|url|url_inline|www_url|www_url_inline|relative_url|relative_url_inline|ipv4|ipv6
+ */
 function get_preg_expression($mode)
 {
 	switch ($mode)
@@ -2832,13 +2842,13 @@ function get_preg_expression($mode)
 }
 
 /**
-* Generate regexp for naughty words censoring
-* Depends on whether installed PHP version supports unicode properties
-*
-* @param string	$word			word template to be replaced
-*
-* @return string $preg_expr		regex to use with word censor
-*/
+ * Generate regexp for naughty words censoring
+ * Depends on whether installed PHP version supports unicode properties
+ *
+ * @param string $word word template to be replaced
+ *
+ * @return string $preg_expr        regex to use with word censor
+ */
 function get_censor_preg_expression($word)
 {
 	// Unescape the asterisk to simplify further conversions
@@ -2854,11 +2864,11 @@ function get_censor_preg_expression($word)
 }
 
 /**
-* Returns the first block of the specified IPv6 address and as many additional
-* ones as specified in the length paramater.
-* If length is zero, then an empty string is returned.
-* If length is greater than 3 the complete IP will be returned
-*/
+ * Returns the first block of the specified IPv6 address and as many additional
+ * ones as specified in the length paramater.
+ * If length is zero, then an empty string is returned.
+ * If length is greater than 3 the complete IP will be returned
+ */
 function short_ipv6($ip, $length)
 {
 	if ($length < 1)
@@ -2885,20 +2895,20 @@ function short_ipv6($ip, $length)
 }
 
 /**
-* Normalises an internet protocol address,
-* also checks whether the specified address is valid.
-*
-* IPv4 addresses are returned 'as is'.
-*
-* IPv6 addresses are normalised according to
-*	A Recommendation for IPv6 Address Text Representation
-*	http://tools.ietf.org/html/draft-ietf-6man-text-addr-representation-07
-*
-* @param string $address	IP address
-*
-* @return mixed		false if specified address is not valid,
-*					string otherwise
-*/
+ * Normalises an internet protocol address,
+ * also checks whether the specified address is valid.
+ *
+ * IPv4 addresses are returned 'as is'.
+ *
+ * IPv6 addresses are normalised according to
+ *    A Recommendation for IPv6 Address Text Representation
+ *    http://tools.ietf.org/html/draft-ietf-6man-text-addr-representation-07
+ *
+ * @param string $address IP address
+ *
+ * @return mixed        false if specified address is not valid,
+ *                    string otherwise
+ */
 function phpbb_ip_normalise($address)
 {
 	$address = trim($address);
@@ -2917,16 +2927,16 @@ function phpbb_ip_normalise($address)
 }
 
 /**
-* Wrapper for inet_ntop()
-*
-* Converts a packed internet address to a human readable representation
-* inet_ntop() is supported by PHP since 5.1.0, since 5.3.0 also on Windows.
-*
-* @param string $in_addr	A 32bit IPv4, or 128bit IPv6 address.
-*
-* @return mixed		false on failure,
-*					string otherwise
-*/
+ * Wrapper for inet_ntop()
+ *
+ * Converts a packed internet address to a human readable representation
+ * inet_ntop() is supported by PHP since 5.1.0, since 5.3.0 also on Windows.
+ *
+ * @param string $in_addr A 32bit IPv4, or 128bit IPv6 address.
+ *
+ * @return mixed        false on failure,
+ *                    string otherwise
+ */
 function phpbb_inet_ntop($in_addr)
 {
 	$in_addr = bin2hex($in_addr);
@@ -2986,16 +2996,16 @@ function phpbb_inet_ntop($in_addr)
 }
 
 /**
-* Wrapper for inet_pton()
-*
-* Converts a human readable IP address to its packed in_addr representation
-* inet_pton() is supported by PHP since 5.1.0, since 5.3.0 also on Windows.
-*
-* @param string $address	A human readable IPv4 or IPv6 address.
-*
-* @return mixed		false if address is invalid,
-*					in_addr representation of the given address otherwise (string)
-*/
+ * Wrapper for inet_pton()
+ *
+ * Converts a human readable IP address to its packed in_addr representation
+ * inet_pton() is supported by PHP since 5.1.0, since 5.3.0 also on Windows.
+ *
+ * @param string $address A human readable IPv4 or IPv6 address.
+ *
+ * @return mixed        false if address is invalid,
+ *                    in_addr representation of the given address otherwise (string)
+ */
 function phpbb_inet_pton($address)
 {
 	$ret = '';
@@ -3061,20 +3071,20 @@ function phpbb_inet_pton($address)
 }
 
 /**
-* Wrapper for php's checkdnsrr function.
-*
-* @param string $host	Fully-Qualified Domain Name
-* @param string $type	Resource record type to lookup
-*						Supported types are: MX (default), A, AAAA, NS, TXT, CNAME
-*						Other types may work or may not work
-*
-* @return mixed		true if entry found,
-*					false if entry not found,
-*					null if this function is not supported by this environment
-*
-* Since null can also be returned, you probably want to compare the result
-* with === true or === false,
-*/
+ * Wrapper for php's checkdnsrr function.
+ *
+ * @param string $host    Fully-Qualified Domain Name
+ * @param string $type    Resource record type to lookup
+ *                        Supported types are: MX (default), A, AAAA, NS, TXT, CNAME
+ *                        Other types may work or may not work
+ *
+ * @return mixed        true if entry found,
+ *                    false if entry not found,
+ *                    null if this function is not supported by this environment
+ *
+ * Since null can also be returned, you probably want to compare the result
+ * with === true or === false,
+ */
 function phpbb_checkdnsrr($host, $type = 'MX')
 {
 	// The dot indicates to search the DNS root (helps those having DNS prefixes on the same domain)
@@ -3143,7 +3153,7 @@ function phpbb_checkdnsrr($host, $type = 'MX')
 		// If output is empty, the nslookup failed
 		if (empty($output))
 		{
-			return NULL;
+			return null;
 		}
 
 		foreach ($output as $line)
@@ -3223,14 +3233,14 @@ function phpbb_checkdnsrr($host, $type = 'MX')
 		return false;
 	}
 
-	return NULL;
+	return null;
 }
 
 // Handler, header and footer
 
 /**
-* Error and message handler, call with trigger_error if read
-*/
+ * Error and message handler, call with trigger_error if read
+ */
 function msg_handler($errno, $msg_text, $errfile, $errline)
 {
 	global $cache, $db, $auth, $template, $config, $user, $request;
@@ -3428,14 +3438,14 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			}
 
 			$template->set_filenames(array(
-				'body' => 'message_body.html')
+					'body' => 'message_body.html')
 			);
 
 			$template->assign_vars(array(
-				'MESSAGE_TITLE'		=> $msg_title,
-				'MESSAGE_TEXT'		=> $msg_text,
-				'S_USER_WARNING'	=> ($errno == E_USER_WARNING) ? true : false,
-				'S_USER_NOTICE'		=> ($errno == E_USER_NOTICE) ? true : false)
+					'MESSAGE_TITLE'  => $msg_title,
+					'MESSAGE_TEXT'   => $msg_text,
+					'S_USER_WARNING' => ($errno == E_USER_WARNING) ? true : false,
+					'S_USER_NOTICE'  => ($errno == E_USER_NOTICE) ? true : false)
 			);
 
 			if ($request->is_ajax())
@@ -3444,11 +3454,11 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 
 				$json_response = new \phpbb\json_response;
 				$json_response->send(array(
-					'MESSAGE_TITLE'		=> $msg_title,
-					'MESSAGE_TEXT'		=> $msg_text,
-					'S_USER_WARNING'	=> ($errno == E_USER_WARNING) ? true : false,
-					'S_USER_NOTICE'		=> ($errno == E_USER_NOTICE) ? true : false,
-					'REFRESH_DATA'		=> (!empty($refresh_data)) ? $refresh_data : null
+					'MESSAGE_TITLE'  => $msg_title,
+					'MESSAGE_TEXT'   => $msg_text,
+					'S_USER_WARNING' => ($errno == E_USER_WARNING) ? true : false,
+					'S_USER_NOTICE'  => ($errno == E_USER_NOTICE) ? true : false,
+					'REFRESH_DATA'   => (!empty($refresh_data)) ? $refresh_data : null,
 				));
 			}
 
@@ -3479,16 +3489,16 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 }
 
 /**
-* Removes absolute path to phpBB root directory from error messages
-* and converts backslashes to forward slashes.
-*
-* @param string $errfile	Absolute file path
-*							(e.g. /var/www/phpbb3/phpBB/includes/functions.php)
-*							Please note that if $errfile is outside of the phpBB root,
-*							the root path will not be found and can not be filtered.
-* @return string			Relative file path
-*							(e.g. /includes/functions.php)
-*/
+ * Removes absolute path to phpBB root directory from error messages
+ * and converts backslashes to forward slashes.
+ *
+ * @param string $errfile     Absolute file path
+ *                            (e.g. /var/www/phpbb3/phpBB/includes/functions.php)
+ *                            Please note that if $errfile is outside of the phpBB root,
+ *                            the root path will not be found and can not be filtered.
+ * @return string            Relative file path
+ *                            (e.g. /includes/functions.php)
+ */
 function phpbb_filter_root_path($errfile)
 {
 	global $phpbb_filesystem;
@@ -3512,11 +3522,12 @@ function phpbb_filter_root_path($errfile)
 }
 
 /**
-* Queries the session table to get information about online guests
-* @param int $item_id Limits the search to the item with this id
-* @param string $item The name of the item which is stored in the session table as session_{$item}_id
-* @return int The number of active distinct guest sessions
-*/
+ * Queries the session table to get information about online guests
+ *
+ * @param int    $item_id Limits the search to the item with this id
+ * @param string $item    The name of the item which is stored in the session table as session_{$item}_id
+ * @return int The number of active distinct guest sessions
+ */
 function obtain_guest_count($item_id = 0, $item = 'forum')
 {
 	global $db, $config;
@@ -3541,7 +3552,7 @@ function obtain_guest_count($item_id = 0, $item = 'forum')
 				FROM ' . SESSIONS_TABLE . ' s
 				WHERE s.session_user_id = ' . ANONYMOUS . '
 					AND s.session_time >= ' . ($time - ((int) ($time % 60))) .
-				$reading_sql .
+			$reading_sql .
 			')';
 	}
 	else
@@ -3560,11 +3571,12 @@ function obtain_guest_count($item_id = 0, $item = 'forum')
 }
 
 /**
-* Queries the session table to get information about online users
-* @param int $item_id Limits the search to the item with this id
-* @param string $item The name of the item which is stored in the session table as session_{$item}_id
-* @return array An array containing the ids of online, hidden and visible users, as well as statistical info
-*/
+ * Queries the session table to get information about online users
+ *
+ * @param int    $item_id Limits the search to the item with this id
+ * @param string $item    The name of the item which is stored in the session table as session_{$item}_id
+ * @return array An array containing the ids of online, hidden and visible users, as well as statistical info
+ */
 function obtain_users_online($item_id = 0, $item = 'forum')
 {
 	global $db, $config;
@@ -3576,12 +3588,12 @@ function obtain_users_online($item_id = 0, $item = 'forum')
 	}
 
 	$online_users = array(
-		'online_users'			=> array(),
-		'hidden_users'			=> array(),
-		'total_online'			=> 0,
-		'visible_online'		=> 0,
-		'hidden_online'			=> 0,
-		'guests_online'			=> 0,
+		'online_users'   => array(),
+		'hidden_users'   => array(),
+		'total_online'   => 0,
+		'visible_online' => 0,
+		'hidden_online'  => 0,
+		'guests_online'  => 0,
 	);
 
 	if ($config['load_online_guests'])
@@ -3595,7 +3607,7 @@ function obtain_users_online($item_id = 0, $item = 'forum')
 	$sql = 'SELECT s.session_user_id, s.session_ip, s.session_viewonline
 		FROM ' . SESSIONS_TABLE . ' s
 		WHERE s.session_time >= ' . ($time - ((int) ($time % 30))) .
-			$reading_sql .
+		$reading_sql .
 		' AND s.session_user_id <> ' . ANONYMOUS;
 	$result = $db->sql_query($sql);
 
@@ -3623,12 +3635,14 @@ function obtain_users_online($item_id = 0, $item = 'forum')
 }
 
 /**
-* Uses the result of obtain_users_online to generate a localized, readable representation.
-* @param mixed $online_users result of obtain_users_online - array with user_id lists for total, hidden and visible users, and statistics
-* @param int $item_id Indicate that the data is limited to one item and not global
-* @param string $item The name of the item which is stored in the session table as session_{$item}_id
-* @return array An array containing the string for output to the template
-*/
+ * Uses the result of obtain_users_online to generate a localized, readable representation.
+ *
+ * @param mixed  $online_users result of obtain_users_online - array with user_id lists for total, hidden and visible
+ *                             users, and statistics
+ * @param int    $item_id      Indicate that the data is limited to one item and not global
+ * @param string $item         The name of the item which is stored in the session table as session_{$item}_id
+ * @return array An array containing the string for output to the template
+ */
 function obtain_users_online_string($online_users, $item_id = 0, $item = 'forum')
 {
 	global $config, $db, $user, $auth, $phpbb_dispatcher;
@@ -3640,28 +3654,28 @@ function obtain_users_online_string($online_users, $item_id = 0, $item = 'forum'
 	if (count($online_users['online_users']))
 	{
 		$sql_ary = array(
-			'SELECT'	=> 'u.username, u.username_clean, u.user_id, u.user_type, u.user_allow_viewonline, u.user_colour',
-			'FROM'		=> array(
-				USERS_TABLE	=> 'u',
+			'SELECT'   => 'u.username, u.username_clean, u.user_id, u.user_type, u.user_allow_viewonline, u.user_colour',
+			'FROM'     => array(
+				USERS_TABLE => 'u',
 			),
-			'WHERE'		=> $db->sql_in_set('u.user_id', $online_users['online_users']),
-			'ORDER_BY'	=> 'u.username_clean ASC',
+			'WHERE'    => $db->sql_in_set('u.user_id', $online_users['online_users']),
+			'ORDER_BY' => 'u.username_clean ASC',
 		);
 
 		/**
-		* Modify SQL query to obtain online users data
-		*
-		* @event core.obtain_users_online_string_sql
-		* @var	array	online_users	Array with online users data
-		*								from obtain_users_online()
-		* @var	int		item_id			Restrict online users to item id
-		* @var	string	item			Restrict online users to a certain
-		*								session item, e.g. forum for
-		*								session_forum_id
-		* @var	array	sql_ary			SQL query array to obtain users online data
-		* @since 3.1.4-RC1
-		* @changed 3.1.7-RC1			Change sql query into array and adjust var accordingly. Allows extension authors the ability to adjust the sql_ary.
-		*/
+		 * Modify SQL query to obtain online users data
+		 *
+		 * @event   core.obtain_users_online_string_sql
+		 * @var    array    online_users    Array with online users data
+		 *                                from obtain_users_online()
+		 * @var    int        item_id            Restrict online users to item id
+		 * @var    string    item            Restrict online users to a certain
+		 *                                session item, e.g. forum for
+		 *                                session_forum_id
+		 * @var    array    sql_ary            SQL query array to obtain users online data
+		 * @since   3.1.4-RC1
+		 * @changed 3.1.7-RC1            Change sql query into array and adjust var accordingly. Allows extension authors the ability to adjust the sql_ary.
+		 */
 		$vars = array('online_users', 'item_id', 'item', 'sql_ary');
 		extract($phpbb_dispatcher->trigger_event('core.obtain_users_online_string_sql', compact($vars)));
 
@@ -3688,19 +3702,19 @@ function obtain_users_online_string($online_users, $item_id = 0, $item = 'forum'
 	}
 
 	/**
-	* Modify online userlist data
-	*
-	* @event core.obtain_users_online_string_before_modify
-	* @var	array	online_users		Array with online users data
-	*									from obtain_users_online()
-	* @var	int		item_id				Restrict online users to item id
-	* @var	string	item				Restrict online users to a certain
-	*									session item, e.g. forum for
-	*									session_forum_id
-	* @var	array	rowset				Array with online users data
-	* @var	array	user_online_link	Array with online users items (usernames)
-	* @since 3.1.10-RC1
-	*/
+	 * Modify online userlist data
+	 *
+	 * @event core.obtain_users_online_string_before_modify
+	 * @var    array    online_users        Array with online users data
+	 *                                    from obtain_users_online()
+	 * @var    int        item_id                Restrict online users to item id
+	 * @var    string    item                Restrict online users to a certain
+	 *                                    session item, e.g. forum for
+	 *                                    session_forum_id
+	 * @var    array    rowset                Array with online users data
+	 * @var    array    user_online_link    Array with online users items (usernames)
+	 * @since 3.1.10-RC1
+	 */
 	$vars = array(
 		'online_users',
 		'item_id',
@@ -3744,21 +3758,21 @@ function obtain_users_online_string($online_users, $item_id = 0, $item = 'forum'
 	}
 
 	/**
-	* Modify online userlist data
-	*
-	* @event core.obtain_users_online_string_modify
-	* @var	array	online_users		Array with online users data
-	*									from obtain_users_online()
-	* @var	int		item_id				Restrict online users to item id
-	* @var	string	item				Restrict online users to a certain
-	*									session item, e.g. forum for
-	*									session_forum_id
-	* @var	array	rowset				Array with online users data
-	* @var	array	user_online_link	Array with online users items (usernames)
-	* @var	string	online_userlist		String containing users online list
-	* @var	string	l_online_users		String with total online users count info
-	* @since 3.1.4-RC1
-	*/
+	 * Modify online userlist data
+	 *
+	 * @event core.obtain_users_online_string_modify
+	 * @var    array    online_users        Array with online users data
+	 *                                    from obtain_users_online()
+	 * @var    int        item_id                Restrict online users to item id
+	 * @var    string    item                Restrict online users to a certain
+	 *                                    session item, e.g. forum for
+	 *                                    session_forum_id
+	 * @var    array    rowset                Array with online users data
+	 * @var    array    user_online_link    Array with online users items (usernames)
+	 * @var    string    online_userlist        String containing users online list
+	 * @var    string    l_online_users        String with total online users count info
+	 * @since 3.1.4-RC1
+	 */
 	$vars = array(
 		'online_users',
 		'item_id',
@@ -3771,32 +3785,32 @@ function obtain_users_online_string($online_users, $item_id = 0, $item = 'forum'
 	extract($phpbb_dispatcher->trigger_event('core.obtain_users_online_string_modify', compact($vars)));
 
 	return array(
-		'online_userlist'	=> $online_userlist,
-		'l_online_users'	=> $l_online_users,
+		'online_userlist' => $online_userlist,
+		'l_online_users'  => $l_online_users,
 	);
 }
 
 /**
-* Get option bitfield from custom data
-*
-* @param int	$bit		The bit/value to get
-* @param int	$data		Current bitfield to check
-* @return bool	Returns true if value of constant is set in bitfield, else false
-*/
+ * Get option bitfield from custom data
+ *
+ * @param int $bit  The bit/value to get
+ * @param int $data Current bitfield to check
+ * @return bool    Returns true if value of constant is set in bitfield, else false
+ */
 function phpbb_optionget($bit, $data)
 {
 	return ($data & 1 << (int) $bit) ? true : false;
 }
 
 /**
-* Set option bitfield
-*
-* @param int	$bit		The bit/value to set/unset
-* @param bool	$set		True if option should be set, false if option should be unset.
-* @param int	$data		Current bitfield to change
-*
-* @return int	The new bitfield
-*/
+ * Set option bitfield
+ *
+ * @param int  $bit  The bit/value to set/unset
+ * @param bool $set  True if option should be set, false if option should be unset.
+ * @param int  $data Current bitfield to change
+ *
+ * @return int    The new bitfield
+ */
 function phpbb_optionset($bit, $set, $data)
 {
 	if ($set && !($data & 1 << $bit))
@@ -3812,23 +3826,23 @@ function phpbb_optionset($bit, $set, $data)
 }
 
 /**
-* Login using http authenticate.
-*
-* @param array	$param		Parameter array, see $param_defaults array.
-*
-* @return null
-*/
+ * Login using http authenticate.
+ *
+ * @param array $param Parameter array, see $param_defaults array.
+ *
+ * @return null
+ */
 function phpbb_http_login($param)
 {
 	global $auth, $user, $request;
 	global $config;
 
 	$param_defaults = array(
-		'auth_message'	=> '',
+		'auth_message' => '',
 
-		'autologin'		=> false,
-		'viewonline'	=> true,
-		'admin'			=> false,
+		'autologin'  => false,
+		'viewonline' => true,
+		'admin'      => false,
 	);
 
 	// Overwrite default values with passed values
@@ -3915,18 +3929,18 @@ function phpbb_http_login($param)
 }
 
 /**
-* Escapes and quotes a string for use as an HTML/XML attribute value.
-*
-* This is a port of Python xml.sax.saxutils quoteattr.
-*
-* The function will attempt to choose a quote character in such a way as to
-* avoid escaping quotes in the string. If this is not possible the string will
-* be wrapped in double quotes and double quotes will be escaped.
-*
-* @param string $data The string to be escaped
-* @param array $entities Associative array of additional entities to be escaped
-* @return string Escaped and quoted string
-*/
+ * Escapes and quotes a string for use as an HTML/XML attribute value.
+ *
+ * This is a port of Python xml.sax.saxutils quoteattr.
+ *
+ * The function will attempt to choose a quote character in such a way as to
+ * avoid escaping quotes in the string. If this is not possible the string will
+ * be wrapped in double quotes and double quotes will be escaped.
+ *
+ * @param string $data     The string to be escaped
+ * @param array  $entities Associative array of additional entities to be escaped
+ * @return string Escaped and quoted string
+ */
 function phpbb_quoteattr($data, $entities = null)
 {
 	$data = str_replace('&', '&amp;', $data);
@@ -3962,19 +3976,19 @@ function phpbb_quoteattr($data, $entities = null)
 }
 
 /**
-* Converts query string (GET) parameters in request into hidden fields.
-*
-* Useful for forwarding GET parameters when submitting forms with GET method.
-*
-* It is possible to omit some of the GET parameters, which is useful if
-* they are specified in the form being submitted.
-*
-* sid is always omitted.
-*
-* @param \phpbb\request\request $request Request object
-* @param array $exclude A list of variable names that should not be forwarded
-* @return string HTML with hidden fields
-*/
+ * Converts query string (GET) parameters in request into hidden fields.
+ *
+ * Useful for forwarding GET parameters when submitting forms with GET method.
+ *
+ * It is possible to omit some of the GET parameters, which is useful if
+ * they are specified in the form being submitted.
+ *
+ * sid is always omitted.
+ *
+ * @param \phpbb\request\request $request Request object
+ * @param array                  $exclude A list of variable names that should not be forwarded
+ * @return string HTML with hidden fields
+ */
 function phpbb_build_hidden_fields_for_query_params($request, $exclude = null)
 {
 	$names = $request->variable_names(\phpbb\request\request_interface::GET);
@@ -4010,15 +4024,15 @@ function phpbb_build_hidden_fields_for_query_params($request, $exclude = null)
 }
 
 /**
-* Get user avatar
-*
-* @param array $user_row Row from the users table
-* @param string $alt Optional language string for alt tag within image, can be a language key or text
-* @param bool $ignore_config Ignores the config-setting, to be still able to view the avatar in the UCP
-* @param bool $lazy If true, will be lazy loaded (requires JS)
-*
-* @return string Avatar html
-*/
+ * Get user avatar
+ *
+ * @param array  $user_row      Row from the users table
+ * @param string $alt           Optional language string for alt tag within image, can be a language key or text
+ * @param bool   $ignore_config Ignores the config-setting, to be still able to view the avatar in the UCP
+ * @param bool   $lazy          If true, will be lazy loaded (requires JS)
+ *
+ * @return string Avatar html
+ */
 function phpbb_get_user_avatar($user_row, $alt = 'USER_AVATAR', $ignore_config = false, $lazy = false)
 {
 	$row = \phpbb\avatar\manager::clean_row($user_row, 'user');
@@ -4026,15 +4040,15 @@ function phpbb_get_user_avatar($user_row, $alt = 'USER_AVATAR', $ignore_config =
 }
 
 /**
-* Get group avatar
-*
-* @param array $group_row Row from the groups table
-* @param string $alt Optional language string for alt tag within image, can be a language key or text
-* @param bool $ignore_config Ignores the config-setting, to be still able to view the avatar in the UCP
-* @param bool $lazy If true, will be lazy loaded (requires JS)
-*
-* @return string Avatar html
-*/
+ * Get group avatar
+ *
+ * @param array  $group_row     Row from the groups table
+ * @param string $alt           Optional language string for alt tag within image, can be a language key or text
+ * @param bool   $ignore_config Ignores the config-setting, to be still able to view the avatar in the UCP
+ * @param bool   $lazy          If true, will be lazy loaded (requires JS)
+ *
+ * @return string Avatar html
+ */
 function phpbb_get_group_avatar($user_row, $alt = 'GROUP_AVATAR', $ignore_config = false, $lazy = false)
 {
 	$row = \phpbb\avatar\manager::clean_row($user_row, 'group');
@@ -4042,15 +4056,15 @@ function phpbb_get_group_avatar($user_row, $alt = 'GROUP_AVATAR', $ignore_config
 }
 
 /**
-* Get avatar
-*
-* @param array $row Row cleaned by \phpbb\avatar\manager::clean_row
-* @param string $alt Optional language string for alt tag within image, can be a language key or text
-* @param bool $ignore_config Ignores the config-setting, to be still able to view the avatar in the UCP
-* @param bool $lazy If true, will be lazy loaded (requires JS)
-*
-* @return string Avatar html
-*/
+ * Get avatar
+ *
+ * @param array  $row           Row cleaned by \phpbb\avatar\manager::clean_row
+ * @param string $alt           Optional language string for alt tag within image, can be a language key or text
+ * @param bool   $ignore_config Ignores the config-setting, to be still able to view the avatar in the UCP
+ * @param bool   $lazy          If true, will be lazy loaded (requires JS)
+ *
+ * @return string Avatar html
+ */
 function phpbb_get_avatar($row, $alt, $ignore_config = false, $lazy = false)
 {
 	global $user, $config;
@@ -4062,8 +4076,8 @@ function phpbb_get_avatar($row, $alt, $ignore_config = false, $lazy = false)
 	}
 
 	$avatar_data = array(
-		'src' => $row['avatar'],
-		'width' => $row['avatar_width'],
+		'src'    => $row['avatar'],
+		'width'  => $row['avatar_width'],
 		'height' => $row['avatar_height'],
 	);
 
@@ -4112,16 +4126,16 @@ function phpbb_get_avatar($row, $alt, $ignore_config = false, $lazy = false)
 	}
 
 	/**
-	* Event to modify HTML <img> tag of avatar
-	*
-	* @event core.get_avatar_after
-	* @var	array	row				Row cleaned by \phpbb\avatar\manager::clean_row
-	* @var	string	alt				Optional language string for alt tag within image, can be a language key or text
-	* @var	bool	ignore_config	Ignores the config-setting, to be still able to view the avatar in the UCP
-	* @var	array	avatar_data		The HTML attributes for avatar <img> tag
-	* @var	string	html			The HTML <img> tag of generated avatar
-	* @since 3.1.6-RC1
-	*/
+	 * Event to modify HTML <img> tag of avatar
+	 *
+	 * @event core.get_avatar_after
+	 * @var    array    row                Row cleaned by \phpbb\avatar\manager::clean_row
+	 * @var    string    alt                Optional language string for alt tag within image, can be a language key or text
+	 * @var    bool    ignore_config    Ignores the config-setting, to be still able to view the avatar in the UCP
+	 * @var    array    avatar_data        The HTML attributes for avatar <img> tag
+	 * @var    string    html            The HTML <img> tag of generated avatar
+	 * @since 3.1.6-RC1
+	 */
 	$vars = array('row', 'alt', 'ignore_config', 'avatar_data', 'html');
 	extract($phpbb_dispatcher->trigger_event('core.get_avatar_after', compact($vars)));
 
@@ -4129,8 +4143,8 @@ function phpbb_get_avatar($row, $alt, $ignore_config = false, $lazy = false)
 }
 
 /**
-* Generate page header
-*/
+ * Generate page header
+ */
 function page_header($page_title = '', $display_online_list = false, $item_id = 0, $item = 'forum', $send_headers = true)
 {
 	global $db, $config, $template, $SID, $_SID, $_EXTRA_URL, $user, $auth, $phpEx, $phpbb_root_path;
@@ -4147,19 +4161,19 @@ function page_header($page_title = '', $display_online_list = false, $item_id = 
 	$page_header_override = false;
 
 	/**
-	* Execute code and/or overwrite page_header()
-	*
-	* @event core.page_header
-	* @var	string	page_title			Page title
-	* @var	bool	display_online_list		Do we display online users list
-	* @var	string	item				Restrict online users to a certain
-	*									session item, e.g. forum for
-	*									session_forum_id
-	* @var	int		item_id				Restrict online users to item id
-	* @var	bool	page_header_override	Shall we return instead of running
-	*										the rest of page_header()
-	* @since 3.1.0-a1
-	*/
+	 * Execute code and/or overwrite page_header()
+	 *
+	 * @event core.page_header
+	 * @var    string    page_title            Page title
+	 * @var    bool    display_online_list        Do we display online users list
+	 * @var    string    item                Restrict online users to a certain
+	 *                                    session item, e.g. forum for
+	 *                                    session_forum_id
+	 * @var    int        item_id                Restrict online users to item id
+	 * @var    bool    page_header_override    Shall we return instead of running
+	 *                                        the rest of page_header()
+	 * @since 3.1.0-a1
+	 */
 	$vars = array('page_title', 'display_online_list', 'item_id', 'item', 'page_header_override');
 	extract($phpbb_dispatcher->trigger_event('core.page_header', compact($vars)));
 
@@ -4214,9 +4228,9 @@ function page_header($page_title = '', $display_online_list = false, $item_id = 
 	if ($config['load_online'] && $config['load_online_time'] && $display_online_list)
 	{
 		/**
-		* Load online data:
-		* For obtaining another session column use $item and $item_id in the function-parameter, whereby the column is session_{$item}_id.
-		*/
+		 * Load online data:
+		 * For obtaining another session column use $item and $item_id in the function-parameter, whereby the column is session_{$item}_id.
+		 */
 		$item_id = max($item_id, 0);
 
 		$online_users = obtain_users_online($item_id, $item);
@@ -4328,8 +4342,8 @@ function page_header($page_title = '', $display_online_list = false, $item_id = 
 		$phpbb_notifications = $phpbb_container->get('notification_manager');
 
 		$notifications = $phpbb_notifications->load_notifications('notification.method.board', array(
-			'all_unread'	=> true,
-			'limit'			=> 5,
+			'all_unread' => true,
+			'limit'      => 5,
 		));
 
 		foreach ($notifications['notifications'] as $notification)
@@ -4344,137 +4358,137 @@ function page_header($page_title = '', $display_online_list = false, $item_id = 
 
 	// The following assigns all _common_ variables that may be used at any point in a template.
 	$template->assign_vars(array(
-		'SITENAME'						=> $config['sitename'],
-		'SITE_DESCRIPTION'				=> $config['site_desc'],
-		'PAGE_TITLE'					=> $page_title,
-		'SCRIPT_NAME'					=> str_replace('.' . $phpEx, '', $user->page['page_name']),
-		'LAST_VISIT_DATE'				=> sprintf($user->lang['YOU_LAST_VISIT'], $s_last_visit),
-		'LAST_VISIT_YOU'				=> $s_last_visit,
-		'CURRENT_TIME'					=> sprintf($user->lang['CURRENT_TIME'], $user->format_date(time(), false, true)),
-		'TOTAL_USERS_ONLINE'			=> $l_online_users,
-		'LOGGED_IN_USER_LIST'			=> $online_userlist,
-		'RECORD_USERS'					=> $l_online_record,
+		'SITENAME'            => $config['sitename'],
+		'SITE_DESCRIPTION'    => $config['site_desc'],
+		'PAGE_TITLE'          => $page_title,
+		'SCRIPT_NAME'         => str_replace('.' . $phpEx, '', $user->page['page_name']),
+		'LAST_VISIT_DATE'     => sprintf($user->lang['YOU_LAST_VISIT'], $s_last_visit),
+		'LAST_VISIT_YOU'      => $s_last_visit,
+		'CURRENT_TIME'        => sprintf($user->lang['CURRENT_TIME'], $user->format_date(time(), false, true)),
+		'TOTAL_USERS_ONLINE'  => $l_online_users,
+		'LOGGED_IN_USER_LIST' => $online_userlist,
+		'RECORD_USERS'        => $l_online_record,
 
-		'PRIVATE_MESSAGE_COUNT'			=> (!empty($user->data['user_unread_privmsg'])) ? $user->data['user_unread_privmsg'] : 0,
-		'CURRENT_USER_AVATAR'			=> phpbb_get_user_avatar($user->data),
-		'CURRENT_USERNAME_SIMPLE'		=> get_username_string('no_profile', $user->data['user_id'], $user->data['username'], $user->data['user_colour']),
-		'CURRENT_USERNAME_FULL'			=> get_username_string('full', $user->data['user_id'], $user->data['username'], $user->data['user_colour']),
-		'UNREAD_NOTIFICATIONS_COUNT'	=> ($notifications !== false) ? $notifications['unread_count'] : '',
-		'NOTIFICATIONS_COUNT'			=> ($notifications !== false) ? $notifications['unread_count'] : '',
-		'U_VIEW_ALL_NOTIFICATIONS'		=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=ucp_notifications'),
-		'U_MARK_ALL_NOTIFICATIONS'		=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=ucp_notifications&amp;mode=notification_list&amp;mark=all&amp;token=' . $notification_mark_hash),
-		'U_NOTIFICATION_SETTINGS'		=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=ucp_notifications&amp;mode=notification_options'),
-		'S_NOTIFICATIONS_DISPLAY'		=> $config['load_notifications'] && $config['allow_board_notifications'],
+		'PRIVATE_MESSAGE_COUNT'      => (!empty($user->data['user_unread_privmsg'])) ? $user->data['user_unread_privmsg'] : 0,
+		'CURRENT_USER_AVATAR'        => phpbb_get_user_avatar($user->data),
+		'CURRENT_USERNAME_SIMPLE'    => get_username_string('no_profile', $user->data['user_id'], $user->data['username'], $user->data['user_colour']),
+		'CURRENT_USERNAME_FULL'      => get_username_string('full', $user->data['user_id'], $user->data['username'], $user->data['user_colour']),
+		'UNREAD_NOTIFICATIONS_COUNT' => ($notifications !== false) ? $notifications['unread_count'] : '',
+		'NOTIFICATIONS_COUNT'        => ($notifications !== false) ? $notifications['unread_count'] : '',
+		'U_VIEW_ALL_NOTIFICATIONS'   => append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=ucp_notifications'),
+		'U_MARK_ALL_NOTIFICATIONS'   => append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=ucp_notifications&amp;mode=notification_list&amp;mark=all&amp;token=' . $notification_mark_hash),
+		'U_NOTIFICATION_SETTINGS'    => append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=ucp_notifications&amp;mode=notification_options'),
+		'S_NOTIFICATIONS_DISPLAY'    => $config['load_notifications'] && $config['allow_board_notifications'],
 
-		'S_USER_NEW_PRIVMSG'			=> $user->data['user_new_privmsg'],
-		'S_USER_UNREAD_PRIVMSG'			=> $user->data['user_unread_privmsg'],
-		'S_USER_NEW'					=> $user->data['user_new'],
+		'S_USER_NEW_PRIVMSG'    => $user->data['user_new_privmsg'],
+		'S_USER_UNREAD_PRIVMSG' => $user->data['user_unread_privmsg'],
+		'S_USER_NEW'            => $user->data['user_new'],
 
-		'SID'				=> $SID,
-		'_SID'				=> $_SID,
-		'SESSION_ID'		=> $user->session_id,
-		'ROOT_PATH'			=> $web_path,
-		'BOARD_URL'			=> $board_url,
+		'SID'        => $SID,
+		'_SID'       => $_SID,
+		'SESSION_ID' => $user->session_id,
+		'ROOT_PATH'  => $web_path,
+		'BOARD_URL'  => $board_url,
 
-		'L_LOGIN_LOGOUT'	=> $l_login_logout,
-		'L_INDEX'			=> ($config['board_index_text'] !== '') ? $config['board_index_text'] : $user->lang['FORUM_INDEX'],
-		'L_SITE_HOME'		=> ($config['site_home_text'] !== '') ? $config['site_home_text'] : $user->lang['HOME'],
-		'L_ONLINE_EXPLAIN'	=> $l_online_time,
+		'L_LOGIN_LOGOUT'   => $l_login_logout,
+		'L_INDEX'          => ($config['board_index_text'] !== '') ? $config['board_index_text'] : $user->lang['FORUM_INDEX'],
+		'L_SITE_HOME'      => ($config['site_home_text'] !== '') ? $config['site_home_text'] : $user->lang['HOME'],
+		'L_ONLINE_EXPLAIN' => $l_online_time,
 
-		'U_PRIVATEMSGS'			=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&amp;folder=inbox'),
-		'U_RETURN_INBOX'		=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&amp;folder=inbox'),
-		'U_MEMBERLIST'			=> append_sid("{$phpbb_root_path}memberlist.$phpEx"),
-		'U_VIEWONLINE'			=> ($auth->acl_gets('u_viewprofile', 'a_user', 'a_useradd', 'a_userdel')) ? append_sid("{$phpbb_root_path}viewonline.$phpEx") : '',
-		'U_LOGIN_LOGOUT'		=> $u_login_logout,
-		'U_INDEX'				=> append_sid("{$phpbb_root_path}index.$phpEx"),
-		'U_SEARCH'				=> append_sid("{$phpbb_root_path}search.$phpEx"),
-		'U_SITE_HOME'			=> $config['site_home_url'],
-		'U_REGISTER'			=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=register'),
-		'U_PROFILE'				=> append_sid("{$phpbb_root_path}ucp.$phpEx"),
-		'U_USER_PROFILE'		=> get_username_string('profile', $user->data['user_id'], $user->data['username'], $user->data['user_colour']),
-		'U_MODCP'				=> append_sid("{$phpbb_root_path}mcp.$phpEx", false, true, $user->session_id),
-		'U_FAQ'					=> $controller_helper->route('phpbb_help_faq_controller'),
-		'U_SEARCH_SELF'			=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=egosearch'),
-		'U_SEARCH_NEW'			=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=newposts'),
-		'U_SEARCH_UNANSWERED'	=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=unanswered'),
-		'U_SEARCH_UNREAD'		=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=unreadposts'),
-		'U_SEARCH_ACTIVE_TOPICS'=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=active_topics'),
-		'U_DELETE_COOKIES'		=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=delete_cookies'),
-		'U_CONTACT_US'			=> ($config['contact_admin_form_enable'] && $config['email_enable']) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=contactadmin') : '',
-		'U_TEAM'				=> ($user->data['user_id'] != ANONYMOUS && !$auth->acl_get('u_viewprofile')) ? '' : append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=team'),
-		'U_TERMS_USE'			=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=terms'),
-		'U_PRIVACY'				=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=privacy'),
-		'U_RESTORE_PERMISSIONS'	=> ($user->data['user_perm_from'] && $auth->acl_get('a_switchperm')) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=restore_perm') : '',
-		'U_FEED'				=> $controller_helper->route('phpbb_feed_index'),
+		'U_PRIVATEMSGS'          => append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&amp;folder=inbox'),
+		'U_RETURN_INBOX'         => append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&amp;folder=inbox'),
+		'U_MEMBERLIST'           => append_sid("{$phpbb_root_path}memberlist.$phpEx"),
+		'U_VIEWONLINE'           => ($auth->acl_gets('u_viewprofile', 'a_user', 'a_useradd', 'a_userdel')) ? append_sid("{$phpbb_root_path}viewonline.$phpEx") : '',
+		'U_LOGIN_LOGOUT'         => $u_login_logout,
+		'U_INDEX'                => append_sid("{$phpbb_root_path}index.$phpEx"),
+		'U_SEARCH'               => append_sid("{$phpbb_root_path}search.$phpEx"),
+		'U_SITE_HOME'            => $config['site_home_url'],
+		'U_REGISTER'             => append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=register'),
+		'U_PROFILE'              => append_sid("{$phpbb_root_path}ucp.$phpEx"),
+		'U_USER_PROFILE'         => get_username_string('profile', $user->data['user_id'], $user->data['username'], $user->data['user_colour']),
+		'U_MODCP'                => append_sid("{$phpbb_root_path}mcp.$phpEx", false, true, $user->session_id),
+		'U_FAQ'                  => $controller_helper->route('phpbb_help_faq_controller'),
+		'U_SEARCH_SELF'          => append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=egosearch'),
+		'U_SEARCH_NEW'           => append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=newposts'),
+		'U_SEARCH_UNANSWERED'    => append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=unanswered'),
+		'U_SEARCH_UNREAD'        => append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=unreadposts'),
+		'U_SEARCH_ACTIVE_TOPICS' => append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=active_topics'),
+		'U_DELETE_COOKIES'       => append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=delete_cookies'),
+		'U_CONTACT_US'           => ($config['contact_admin_form_enable'] && $config['email_enable']) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=contactadmin') : '',
+		'U_TEAM'                 => ($user->data['user_id'] != ANONYMOUS && !$auth->acl_get('u_viewprofile')) ? '' : append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=team'),
+		'U_TERMS_USE'            => append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=terms'),
+		'U_PRIVACY'              => append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=privacy'),
+		'U_RESTORE_PERMISSIONS'  => ($user->data['user_perm_from'] && $auth->acl_get('a_switchperm')) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=restore_perm') : '',
+		'U_FEED'                 => $controller_helper->route('phpbb_feed_index'),
 
-		'S_USER_LOGGED_IN'		=> ($user->data['user_id'] != ANONYMOUS) ? true : false,
-		'S_AUTOLOGIN_ENABLED'	=> ($config['allow_autologin']) ? true : false,
-		'S_BOARD_DISABLED'		=> ($config['board_disable']) ? true : false,
-		'S_REGISTERED_USER'		=> (!empty($user->data['is_registered'])) ? true : false,
-		'S_IS_BOT'				=> (!empty($user->data['is_bot'])) ? true : false,
-		'S_USER_LANG'			=> $user_lang,
-		'S_USER_BROWSER'		=> (isset($user->data['session_browser'])) ? $user->data['session_browser'] : $user->lang['UNKNOWN_BROWSER'],
-		'S_USERNAME'			=> $user->data['username'],
-		'S_CONTENT_DIRECTION'	=> $user->lang['DIRECTION'],
-		'S_CONTENT_FLOW_BEGIN'	=> ($user->lang['DIRECTION'] == 'ltr') ? 'left' : 'right',
-		'S_CONTENT_FLOW_END'	=> ($user->lang['DIRECTION'] == 'ltr') ? 'right' : 'left',
-		'S_CONTENT_ENCODING'	=> 'UTF-8',
-		'S_TIMEZONE'			=> sprintf($user->lang['ALL_TIMES'], $timezone_offset, $timezone_name),
-		'S_DISPLAY_ONLINE_LIST'	=> ($l_online_time) ? 1 : 0,
-		'S_DISPLAY_SEARCH'		=> (!$config['load_search']) ? 0 : (isset($auth) ? ($auth->acl_get('u_search') && $auth->acl_getf_global('f_search')) : 1),
-		'S_DISPLAY_PM'			=> ($config['allow_privmsg'] && !empty($user->data['is_registered']) && ($auth->acl_get('u_readpm') || $auth->acl_get('u_sendpm'))) ? true : false,
-		'S_DISPLAY_MEMBERLIST'	=> (isset($auth)) ? $auth->acl_get('u_viewprofile') : 0,
-		'S_NEW_PM'				=> ($s_privmsg_new) ? 1 : 0,
-		'S_REGISTER_ENABLED'	=> ($config['require_activation'] != USER_ACTIVATION_DISABLE) ? true : false,
-		'S_FORUM_ID'			=> $forum_id,
-		'S_TOPIC_ID'			=> $topic_id,
+		'S_USER_LOGGED_IN'      => ($user->data['user_id'] != ANONYMOUS) ? true : false,
+		'S_AUTOLOGIN_ENABLED'   => ($config['allow_autologin']) ? true : false,
+		'S_BOARD_DISABLED'      => ($config['board_disable']) ? true : false,
+		'S_REGISTERED_USER'     => (!empty($user->data['is_registered'])) ? true : false,
+		'S_IS_BOT'              => (!empty($user->data['is_bot'])) ? true : false,
+		'S_USER_LANG'           => $user_lang,
+		'S_USER_BROWSER'        => (isset($user->data['session_browser'])) ? $user->data['session_browser'] : $user->lang['UNKNOWN_BROWSER'],
+		'S_USERNAME'            => $user->data['username'],
+		'S_CONTENT_DIRECTION'   => $user->lang['DIRECTION'],
+		'S_CONTENT_FLOW_BEGIN'  => ($user->lang['DIRECTION'] == 'ltr') ? 'left' : 'right',
+		'S_CONTENT_FLOW_END'    => ($user->lang['DIRECTION'] == 'ltr') ? 'right' : 'left',
+		'S_CONTENT_ENCODING'    => 'UTF-8',
+		'S_TIMEZONE'            => sprintf($user->lang['ALL_TIMES'], $timezone_offset, $timezone_name),
+		'S_DISPLAY_ONLINE_LIST' => ($l_online_time) ? 1 : 0,
+		'S_DISPLAY_SEARCH'      => (!$config['load_search']) ? 0 : (isset($auth) ? ($auth->acl_get('u_search') && $auth->acl_getf_global('f_search')) : 1),
+		'S_DISPLAY_PM'          => ($config['allow_privmsg'] && !empty($user->data['is_registered']) && ($auth->acl_get('u_readpm') || $auth->acl_get('u_sendpm'))) ? true : false,
+		'S_DISPLAY_MEMBERLIST'  => (isset($auth)) ? $auth->acl_get('u_viewprofile') : 0,
+		'S_NEW_PM'              => ($s_privmsg_new) ? 1 : 0,
+		'S_REGISTER_ENABLED'    => ($config['require_activation'] != USER_ACTIVATION_DISABLE) ? true : false,
+		'S_FORUM_ID'            => $forum_id,
+		'S_TOPIC_ID'            => $topic_id,
 
-		'S_LOGIN_ACTION'		=> ((!defined('ADMIN_START')) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=login') : append_sid("{$phpbb_admin_path}index.$phpEx", false, true, $user->session_id)),
-		'S_LOGIN_REDIRECT'		=> build_hidden_fields(array('redirect' => $phpbb_path_helper->remove_web_root_path(build_url()))),
+		'S_LOGIN_ACTION'   => ((!defined('ADMIN_START')) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=login') : append_sid("{$phpbb_admin_path}index.$phpEx", false, true, $user->session_id)),
+		'S_LOGIN_REDIRECT' => build_hidden_fields(array('redirect' => $phpbb_path_helper->remove_web_root_path(build_url()))),
 
-		'S_ENABLE_FEEDS'			=> ($config['feed_enable']) ? true : false,
-		'S_ENABLE_FEEDS_OVERALL'	=> ($config['feed_overall']) ? true : false,
-		'S_ENABLE_FEEDS_FORUMS'		=> ($config['feed_overall_forums']) ? true : false,
-		'S_ENABLE_FEEDS_TOPICS'		=> ($config['feed_topics_new']) ? true : false,
-		'S_ENABLE_FEEDS_TOPICS_ACTIVE'	=> ($config['feed_topics_active']) ? true : false,
-		'S_ENABLE_FEEDS_NEWS'		=> ($s_feed_news) ? true : false,
+		'S_ENABLE_FEEDS'               => ($config['feed_enable']) ? true : false,
+		'S_ENABLE_FEEDS_OVERALL'       => ($config['feed_overall']) ? true : false,
+		'S_ENABLE_FEEDS_FORUMS'        => ($config['feed_overall_forums']) ? true : false,
+		'S_ENABLE_FEEDS_TOPICS'        => ($config['feed_topics_new']) ? true : false,
+		'S_ENABLE_FEEDS_TOPICS_ACTIVE' => ($config['feed_topics_active']) ? true : false,
+		'S_ENABLE_FEEDS_NEWS'          => ($s_feed_news) ? true : false,
 
-		'S_LOAD_UNREADS'			=> ($config['load_unreads_search'] && ($config['load_anon_lastread'] || $user->data['is_registered'])) ? true : false,
+		'S_LOAD_UNREADS' => ($config['load_unreads_search'] && ($config['load_anon_lastread'] || $user->data['is_registered'])) ? true : false,
 
-		'S_SEARCH_HIDDEN_FIELDS'	=> build_hidden_fields($s_search_hidden_fields),
+		'S_SEARCH_HIDDEN_FIELDS' => build_hidden_fields($s_search_hidden_fields),
 
-		'T_ASSETS_VERSION'		=> $config['assets_version'],
-		'T_ASSETS_PATH'			=> "{$web_path}assets",
-		'T_THEME_PATH'			=> "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/theme',
-		'T_TEMPLATE_PATH'		=> "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/template',
-		'T_SUPER_TEMPLATE_PATH'	=> "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/template',
-		'T_IMAGES_PATH'			=> "{$web_path}images/",
-		'T_SMILIES_PATH'		=> "{$web_path}{$config['smilies_path']}/",
-		'T_AVATAR_PATH'			=> "{$web_path}{$config['avatar_path']}/",
-		'T_AVATAR_GALLERY_PATH'	=> "{$web_path}{$config['avatar_gallery_path']}/",
-		'T_ICONS_PATH'			=> "{$web_path}{$config['icons_path']}/",
-		'T_RANKS_PATH'			=> "{$web_path}{$config['ranks_path']}/",
-		'T_UPLOAD_PATH'			=> "{$web_path}{$config['upload_path']}/",
-		'T_STYLESHEET_LINK'		=> "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/theme/stylesheet.css?assets_version=' . $config['assets_version'],
-		'T_STYLESHEET_LANG_LINK'=> "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/theme/' . $user->lang_name . '/stylesheet.css?assets_version=' . $config['assets_version'],
-		'T_FONT_AWESOME_LINK'	=> !empty($config['allow_cdn']) && !empty($config['load_font_awesome_url']) ? $config['load_font_awesome_url'] : "{$web_path}assets/css/font-awesome.min.css?assets_version=" . $config['assets_version'],
-		'T_JQUERY_LINK'			=> !empty($config['allow_cdn']) && !empty($config['load_jquery_url']) ? $config['load_jquery_url'] : "{$web_path}assets/javascript/jquery.min.js?assets_version=" . $config['assets_version'],
-		'S_ALLOW_CDN'			=> !empty($config['allow_cdn']),
-		'S_COOKIE_NOTICE'		=> !empty($config['cookie_notice']),
+		'T_ASSETS_VERSION'       => $config['assets_version'],
+		'T_ASSETS_PATH'          => "{$web_path}assets",
+		'T_THEME_PATH'           => "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/theme',
+		'T_TEMPLATE_PATH'        => "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/template',
+		'T_SUPER_TEMPLATE_PATH'  => "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/template',
+		'T_IMAGES_PATH'          => "{$web_path}images/",
+		'T_SMILIES_PATH'         => "{$web_path}{$config['smilies_path']}/",
+		'T_AVATAR_PATH'          => "{$web_path}{$config['avatar_path']}/",
+		'T_AVATAR_GALLERY_PATH'  => "{$web_path}{$config['avatar_gallery_path']}/",
+		'T_ICONS_PATH'           => "{$web_path}{$config['icons_path']}/",
+		'T_RANKS_PATH'           => "{$web_path}{$config['ranks_path']}/",
+		'T_UPLOAD_PATH'          => "{$web_path}{$config['upload_path']}/",
+		'T_STYLESHEET_LINK'      => "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/theme/stylesheet.css?assets_version=' . $config['assets_version'],
+		'T_STYLESHEET_LANG_LINK' => "{$web_path}styles/" . rawurlencode($user->style['style_path']) . '/theme/' . $user->lang_name . '/stylesheet.css?assets_version=' . $config['assets_version'],
+		'T_FONT_AWESOME_LINK'    => !empty($config['allow_cdn']) && !empty($config['load_font_awesome_url']) ? $config['load_font_awesome_url'] : "{$web_path}assets/css/font-awesome.min.css?assets_version=" . $config['assets_version'],
+		'T_JQUERY_LINK'          => !empty($config['allow_cdn']) && !empty($config['load_jquery_url']) ? $config['load_jquery_url'] : "{$web_path}assets/javascript/jquery.min.js?assets_version=" . $config['assets_version'],
+		'S_ALLOW_CDN'            => !empty($config['allow_cdn']),
+		'S_COOKIE_NOTICE'        => !empty($config['cookie_notice']),
 
-		'T_THEME_NAME'			=> rawurlencode($user->style['style_path']),
-		'T_THEME_LANG_NAME'		=> $user->data['user_lang'],
-		'T_TEMPLATE_NAME'		=> $user->style['style_path'],
-		'T_SUPER_TEMPLATE_NAME'	=> rawurlencode((isset($user->style['style_parent_tree']) && $user->style['style_parent_tree']) ? $user->style['style_parent_tree'] : $user->style['style_path']),
-		'T_IMAGES'				=> 'images',
-		'T_SMILIES'				=> $config['smilies_path'],
-		'T_AVATAR'				=> $config['avatar_path'],
-		'T_AVATAR_GALLERY'		=> $config['avatar_gallery_path'],
-		'T_ICONS'				=> $config['icons_path'],
-		'T_RANKS'				=> $config['ranks_path'],
-		'T_UPLOAD'				=> $config['upload_path'],
+		'T_THEME_NAME'          => rawurlencode($user->style['style_path']),
+		'T_THEME_LANG_NAME'     => $user->data['user_lang'],
+		'T_TEMPLATE_NAME'       => $user->style['style_path'],
+		'T_SUPER_TEMPLATE_NAME' => rawurlencode((isset($user->style['style_parent_tree']) && $user->style['style_parent_tree']) ? $user->style['style_parent_tree'] : $user->style['style_path']),
+		'T_IMAGES'              => 'images',
+		'T_SMILIES'             => $config['smilies_path'],
+		'T_AVATAR'              => $config['avatar_path'],
+		'T_AVATAR_GALLERY'      => $config['avatar_gallery_path'],
+		'T_ICONS'               => $config['icons_path'],
+		'T_RANKS'               => $config['ranks_path'],
+		'T_UPLOAD'              => $config['upload_path'],
 
-		'SITE_LOGO_IMG'			=> $user->img('site_logo'),
+		'SITE_LOGO_IMG' => $user->img('site_logo'),
 	));
 
 	$http_headers = array();
@@ -4484,9 +4498,9 @@ function page_header($page_title = '', $display_online_list = false, $item_id = 
 		// An array of http headers that phpbb will set. The following event may override these.
 		$http_headers += array(
 			// application/xhtml+xml not used because of IE
-			'Content-type' => 'text/html; charset=UTF-8',
+			'Content-type'  => 'text/html; charset=UTF-8',
 			'Cache-Control' => 'private, no-cache="set-cookie"',
-			'Expires' => gmdate('D, d M Y H:i:s', time()) . ' GMT',
+			'Expires'       => gmdate('D, d M Y H:i:s', time()) . ' GMT',
 		);
 		if (!empty($user->data['is_bot']))
 		{
@@ -4496,19 +4510,19 @@ function page_header($page_title = '', $display_online_list = false, $item_id = 
 	}
 
 	/**
-	* Execute code and/or overwrite _common_ template variables after they have been assigned.
-	*
-	* @event core.page_header_after
-	* @var	string	page_title			Page title
-	* @var	bool	display_online_list		Do we display online users list
-	* @var	string	item				Restrict online users to a certain
-	*									session item, e.g. forum for
-	*									session_forum_id
-	* @var	int		item_id				Restrict online users to item id
-	* @var	array		http_headers			HTTP headers that should be set by phpbb
-	*
-	* @since 3.1.0-b3
-	*/
+	 * Execute code and/or overwrite _common_ template variables after they have been assigned.
+	 *
+	 * @event core.page_header_after
+	 * @var    string    page_title            Page title
+	 * @var    bool    display_online_list        Do we display online users list
+	 * @var    string    item                Restrict online users to a certain
+	 *                                    session item, e.g. forum for
+	 *                                    session_forum_id
+	 * @var    int        item_id                Restrict online users to item id
+	 * @var    array        http_headers            HTTP headers that should be set by phpbb
+	 *
+	 * @since 3.1.0-b3
+	 */
 	$vars = array('page_title', 'display_online_list', 'item_id', 'item', 'http_headers');
 	extract($phpbb_dispatcher->trigger_event('core.page_header_after', compact($vars)));
 
@@ -4521,12 +4535,12 @@ function page_header($page_title = '', $display_online_list = false, $item_id = 
 }
 
 /**
-* Check and display the SQL report if requested.
-*
-* @param \phpbb\request\request_interface		$request	Request object
-* @param \phpbb\auth\auth						$auth		Auth object
-* @param \phpbb\db\driver\driver_interface		$db			Database connection
-*/
+ * Check and display the SQL report if requested.
+ *
+ * @param \phpbb\request\request_interface  $request Request object
+ * @param \phpbb\auth\auth                  $auth    Auth object
+ * @param \phpbb\db\driver\driver_interface $db      Database connection
+ */
 function phpbb_check_and_display_sql_report(\phpbb\request\request_interface $request, \phpbb\auth\auth $auth, \phpbb\db\driver\driver_interface $db)
 {
 	if ($request->variable('explain', false) && $auth->acl_get('a_') && defined('DEBUG'))
@@ -4536,15 +4550,15 @@ function phpbb_check_and_display_sql_report(\phpbb\request\request_interface $re
 }
 
 /**
-* Generate the debug output string
-*
-* @param \phpbb\db\driver\driver_interface	$db			Database connection
-* @param \phpbb\config\config				$config		Config object
-* @param \phpbb\auth\auth					$auth		Auth object
-* @param \phpbb\user						$user		User object
-* @param \phpbb\event\dispatcher_interface	$phpbb_dispatcher	Event dispatcher
-* @return string
-*/
+ * Generate the debug output string
+ *
+ * @param \phpbb\db\driver\driver_interface $db               Database connection
+ * @param \phpbb\config\config              $config           Config object
+ * @param \phpbb\auth\auth                  $auth             Auth object
+ * @param \phpbb\user                       $user             User object
+ * @param \phpbb\event\dispatcher_interface $phpbb_dispatcher Event dispatcher
+ * @return string
+ */
 function phpbb_generate_debug_output(\phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\auth\auth $auth, \phpbb\user $user, \phpbb\event\dispatcher_interface $phpbb_dispatcher)
 {
 	$debug_info = array();
@@ -4585,13 +4599,13 @@ function phpbb_generate_debug_output(\phpbb\db\driver\driver_interface $db, \php
 	}
 
 	/**
-	* Modify debug output information
-	*
-	* @event core.phpbb_generate_debug_output
-	* @var	array	debug_info		Array of strings with debug information
-	*
-	* @since 3.1.0-RC3
-	*/
+	 * Modify debug output information
+	 *
+	 * @event core.phpbb_generate_debug_output
+	 * @var    array    debug_info        Array of strings with debug information
+	 *
+	 * @since 3.1.0-RC3
+	 */
 	$vars = array('debug_info');
 	extract($phpbb_dispatcher->trigger_event('core.phpbb_generate_debug_output', compact($vars)));
 
@@ -4599,12 +4613,12 @@ function phpbb_generate_debug_output(\phpbb\db\driver\driver_interface $db, \php
 }
 
 /**
-* Generate page footer
-*
-* @param bool $run_cron Whether or not to run the cron
-* @param bool $display_template Whether or not to display the template
-* @param bool $exit_handler Whether or not to run the exit_handler()
-*/
+ * Generate page footer
+ *
+ * @param bool $run_cron         Whether or not to run the cron
+ * @param bool $display_template Whether or not to display the template
+ * @param bool $exit_handler     Whether or not to run the exit_handler()
+ */
 function page_footer($run_cron = true, $display_template = true, $exit_handler = true)
 {
 	global $db, $config, $template, $user, $auth, $cache, $phpEx;
@@ -4614,14 +4628,14 @@ function page_footer($run_cron = true, $display_template = true, $exit_handler =
 	$page_footer_override = false;
 
 	/**
-	* Execute code and/or overwrite page_footer()
-	*
-	* @event core.page_footer
-	* @var	bool	run_cron			Shall we run cron tasks
-	* @var	bool	page_footer_override	Shall we return instead of running
-	*										the rest of page_footer()
-	* @since 3.1.0-a1
-	*/
+	 * Execute code and/or overwrite page_footer()
+	 *
+	 * @event core.page_footer
+	 * @var    bool    run_cron            Shall we run cron tasks
+	 * @var    bool    page_footer_override    Shall we return instead of running
+	 *                                        the rest of page_footer()
+	 * @since 3.1.0-a1
+	 */
 	$vars = array('run_cron', 'page_footer_override');
 	extract($phpbb_dispatcher->trigger_event('core.page_footer', compact($vars)));
 
@@ -4633,11 +4647,11 @@ function page_footer($run_cron = true, $display_template = true, $exit_handler =
 	phpbb_check_and_display_sql_report($request, $auth, $db);
 
 	$template->assign_vars(array(
-		'DEBUG_OUTPUT'			=> phpbb_generate_debug_output($db, $config, $auth, $user, $phpbb_dispatcher),
-		'TRANSLATION_INFO'		=> (!empty($user->lang['TRANSLATION_INFO'])) ? $user->lang['TRANSLATION_INFO'] : '',
-		'CREDIT_LINE'			=> $user->lang('POWERED_BY', '<a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Limited'),
+			'DEBUG_OUTPUT'     => phpbb_generate_debug_output($db, $config, $auth, $user, $phpbb_dispatcher),
+			'TRANSLATION_INFO' => (!empty($user->lang['TRANSLATION_INFO'])) ? $user->lang['TRANSLATION_INFO'] : '',
+			'CREDIT_LINE'      => $user->lang('POWERED_BY', '<a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Limited'),
 
-		'U_ACP' => ($auth->acl_get('a_') && !empty($user->data['is_registered'])) ? append_sid("{$phpbb_admin_path}index.$phpEx", false, true, $user->session_id) : '')
+			'U_ACP' => ($auth->acl_get('a_') && !empty($user->data['is_registered'])) ? append_sid("{$phpbb_admin_path}index.$phpEx", false, true, $user->session_id) : '')
 	);
 
 	// Call cron-type script
@@ -4681,14 +4695,14 @@ function page_footer($run_cron = true, $display_template = true, $exit_handler =
 	}
 
 	/**
-	* Execute code and/or modify output before displaying the template.
-	*
-	* @event core.page_footer_after
-	* @var	bool display_template	Whether or not to display the template
-	* @var	bool exit_handler		Whether or not to run the exit_handler()
-	*
-	* @since 3.1.0-RC5
-	*/
+	 * Execute code and/or modify output before displaying the template.
+	 *
+	 * @event core.page_footer_after
+	 * @var    bool display_template    Whether or not to display the template
+	 * @var    bool exit_handler        Whether or not to run the exit_handler()
+	 *
+	 * @since 3.1.0-RC5
+	 */
 	$vars = array('display_template', 'exit_handler');
 	extract($phpbb_dispatcher->trigger_event('core.page_footer_after', compact($vars)));
 
@@ -4706,9 +4720,9 @@ function page_footer($run_cron = true, $display_template = true, $exit_handler =
 }
 
 /**
-* Closing the cache object and the database
-* Cool function name, eh? We might want to add operations to it later
-*/
+ * Closing the cache object and the database
+ * Cool function name, eh? We might want to add operations to it later
+ */
 function garbage_collection()
 {
 	global $cache, $db;
@@ -4717,11 +4731,11 @@ function garbage_collection()
 	if (!empty($phpbb_dispatcher))
 	{
 		/**
-		* Unload some objects, to free some memory, before we finish our task
-		*
-		* @event core.garbage_collection
-		* @since 3.1.0-a1
-		*/
+		 * Unload some objects, to free some memory, before we finish our task
+		 *
+		 * @event core.garbage_collection
+		 * @since 3.1.0-a1
+		 */
 		$phpbb_dispatcher->dispatch('core.garbage_collection');
 	}
 
@@ -4739,11 +4753,11 @@ function garbage_collection()
 }
 
 /**
-* Handler for exit calls in phpBB.
-* This function supports hooks.
-*
-* Note: This function is called after the template has been outputted.
-*/
+ * Handler for exit calls in phpBB.
+ * This function supports hooks.
+ *
+ * Note: This function is called after the template has been outputted.
+ */
 function exit_handler()
 {
 	global $phpbb_hook;
@@ -4763,9 +4777,9 @@ function exit_handler()
 }
 
 /**
-* Handler for init calls in phpBB. This function is called in \phpbb\user::setup();
-* This function supports hooks.
-*/
+ * Handler for init calls in phpBB. This function is called in \phpbb\user::setup();
+ * This function supports hooks.
+ */
 function phpbb_user_session_handler()
 {
 	global $phpbb_hook;
@@ -4782,25 +4796,25 @@ function phpbb_user_session_handler()
 }
 
 /**
-* Casts a numeric string $input to an appropriate numeric type (i.e. integer or float)
-*
-* @param string $input		A numeric string.
-*
-* @return int|float			Integer $input if $input fits integer,
-*							float $input otherwise.
-*/
+ * Casts a numeric string $input to an appropriate numeric type (i.e. integer or float)
+ *
+ * @param string $input A numeric string.
+ *
+ * @return int|float            Integer $input if $input fits integer,
+ *                            float $input otherwise.
+ */
 function phpbb_to_numeric($input)
 {
 	return ($input > PHP_INT_MAX) ? (float) $input : (int) $input;
 }
 
 /**
-* Get the board contact details (e.g. for emails)
-*
-* @param \phpbb\config\config	$config
-* @param string					$phpEx
-* @return string
-*/
+ * Get the board contact details (e.g. for emails)
+ *
+ * @param \phpbb\config\config $config
+ * @param string               $phpEx
+ * @return string
+ */
 function phpbb_get_board_contact(\phpbb\config\config $config, $phpEx)
 {
 	if ($config['contact_admin_form_enable'])
@@ -4814,13 +4828,13 @@ function phpbb_get_board_contact(\phpbb\config\config $config, $phpEx)
 }
 
 /**
-* Get a clickable board contact details link
-*
-* @param \phpbb\config\config	$config
-* @param string					$phpbb_root_path
-* @param string					$phpEx
-* @return string
-*/
+ * Get a clickable board contact details link
+ *
+ * @param \phpbb\config\config $config
+ * @param string               $phpbb_root_path
+ * @param string               $phpEx
+ * @return string
+ */
 function phpbb_get_board_contact_link(\phpbb\config\config $config, $phpbb_root_path, $phpEx)
 {
 	if ($config['contact_admin_form_enable'] && $config['email_enable'])
@@ -4831,4 +4845,10 @@ function phpbb_get_board_contact_link(\phpbb\config\config $config, $phpbb_root_
 	{
 		return 'mailto:' . htmlspecialchars($config['board_contact']);
 	}
+}
+
+
+function isEmptyOrWhitespace($str)
+{
+	return ctype_space($str) || $str == null || $str == "";
 }
