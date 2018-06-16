@@ -89,7 +89,9 @@ class db extends \phpbb\auth\provider\base
 
 		$sql = 'SELECT *
 			FROM ' . USERS_TABLE . "
-			WHERE username_clean = '" . $this->db->sql_escape($username_clean) . "'";
+			WHERE username_clean = '" . $this->db->sql_escape($username_clean) . "'
+			or user_tel = '".$this->db->sql_escape($username) ."' 
+			or user_email = '". $this->db->sql_escape($username) ."'";
 		$result = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($result);
 		$this->db->sql_freeresult($result);
