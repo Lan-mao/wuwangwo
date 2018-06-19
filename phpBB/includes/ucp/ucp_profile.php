@@ -44,9 +44,13 @@ class ucp_profile
 		{
 			case 'reg_details':
 
+
 				$data = array(
 					'username'			=> $request->variable('username', $user->data['username'], true),
-					'email'				=> strtolower($request->variable('email', $user->data['user_email'])),
+					'email'				=> strtolower($request->variable('email', $user->data['user_email']?$user->data['user_email']:'')),
+					'user_tel'				=> $request->variable('user_tel', $user->data['user_tel']?$user->data['user_tel']:''),
+					'email_or_tel'				=>strtolower( $request->variable('email_or_tel', $user->data['user_tel']?$user->data['user_tel']:'')),
+					'verify_code'      => $request->variable('verify_code', ''),
 					'new_password'		=> $request->variable('new_password', '', true),
 					'cur_password'		=> $request->variable('cur_password', '', true),
 					'password_confirm'	=> $request->variable('password_confirm', '', true),
@@ -73,9 +77,12 @@ class ucp_profile
 							array('string', true, $config['min_pass_chars'], $config['max_pass_chars']),
 							array('password')),
 						'password_confirm'	=> array('string', true, $config['min_pass_chars'], $config['max_pass_chars']),
-						'email'				=> array(
-							array('string', false, 6, 60),
-							array('user_email')),
+						'email_or_tel'       => array(
+							array('string', true, 6, 60),
+							array('user_emailOrTel', false, '')),
+						'verify_code'      => array(
+							array('string', true, 6, 60),
+							array('verify_code', $data['email_or_tel'], '')),
 					);
 
 					if ($auth->acl_get('u_chgname') && $config['allow_namechange'])
@@ -127,9 +134,21 @@ class ucp_profile
 
 					if (!count($error))
 					{
+						if (strpos($data['email_or_tel'], '@') !== false)
+						{
+							$data['email'] = $data['email_or_tel'];
+						}
+						else if(strlen($data['email_or_tel']) === 11)
+						{
+
+							$data['user_tel'] = $data['email_or_tel'];
+						}
+
+
 						$sql_ary = array(
 							'username'			=> ($auth->acl_get('u_chgname') && $config['allow_namechange']) ? $data['username'] : $user->data['username'],
 							'username_clean'	=> ($auth->acl_get('u_chgname') && $config['allow_namechange']) ? utf8_clean_string($data['username']) : $user->data['username_clean'],
+							'user_tel'		=> ($auth->acl_get('u_chgemail')) ? $data['user_tel'] : $user->data['user_tel'],
 							'user_email'		=> ($auth->acl_get('u_chgemail')) ? $data['email'] : $user->data['user_email'],
 							'user_email_hash'	=> ($auth->acl_get('u_chgemail')) ? phpbb_email_hash($data['email']) : $user->data['user_email_hash'],
 							'user_password'		=> ($auth->acl_get('u_chgpasswd') && $data['new_password']) ? $passwords_manager->hash($data['new_password']) : $user->data['user_password'],
@@ -161,6 +180,16 @@ class ucp_profile
 								$user->data['username'],
 								$data['user_email'],
 								$data['email']
+							));
+						}
+
+						if ($auth->acl_get('u_chgemail') && $data['user_tel'] != $user->data['user_tel'])
+						{
+							$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_USER_UPDATE_EMAIL', false, array(
+								'reportee_id' => $user->data['user_id'],
+								$user->data['username'],
+								$data['user_tel'],
+								$data['user_tel']
 							));
 						}
 
@@ -261,6 +290,7 @@ class ucp_profile
 
 					'USERNAME'			=> $data['username'],
 					'EMAIL'				=> $data['email'],
+					'USER_TEL'				=> $data['user_tel'],
 					'PASSWORD_CONFIRM'	=> $data['password_confirm'],
 					'NEW_PASSWORD'		=> $data['new_password'],
 					'CUR_PASSWORD'		=> '',

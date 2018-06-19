@@ -40,7 +40,7 @@ class ucp_verify_code
 				'existRequirement' => $request->variable('existRequirement', '', true),
 			);
 
-			$message = validate_user_emailOrTel($data['emailOrTel'], $data[existRequirement] == RD_CONSTANTS['exist']);
+			$message = validate_user_emailOrTel($data['emailOrTel'], $data['existRequirement'] == RD_CONSTANTS['exist']);
 			if ($message)
 			{
 				$responseData = array(

@@ -251,7 +251,7 @@ class ucp_register
 		$data = array(
 			'username'         => $request->variable('username', '', true),
 			'emailOrTel'       => strtolower($request->variable('emailOrTel', '')),
-			'verify_code'      => strtolower($request->variable('verify_code', '')),
+			'verify_code'      => $request->variable('verify_code', ''),
 			'new_password'     => $request->variable('new_password', '', true),
 			'password_confirm' => $request->variable('password_confirm', '', true),
 			'lang'             => basename($request->variable('lang', $user->lang_name)),
@@ -296,7 +296,7 @@ class ucp_register
 					array('string', false, $config['min_name_chars'], $config['max_name_chars']),
 					array('username', '')),
 				'emailOrTel'       => array(
-					array('user_emailOrTel')),
+					array('user_emailOrTel', false)),
 				'verify_code'      => array(
 					array('verify_code', $data['emailOrTel'])),
 				'new_password'     => array(

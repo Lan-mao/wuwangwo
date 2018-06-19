@@ -1947,9 +1947,18 @@ function validate_user_email($email, $allowed_email = false)
 	return false;
 }
 
-function validate_user_emailOrTel($emailOrTel, $existed = false)
+function validate_user_emailOrTel($emailOrTel, $existed = false, $allowed = false)
 {
 	global $config, $db, $user;
+
+	$emailOrTel = strtolower($emailOrTel);
+	$allowed = ($allowed === false) ? $allowed: strtolower($allowed);
+
+	if ($allowed == $emailOrTel && $allowed !== false)
+	{
+		return false;
+	}
+
 
 	$emailOrTel = strtolower($emailOrTel);
 	$validate_email = phpbb_validate_email($emailOrTel, $config);
@@ -1990,7 +1999,7 @@ function validate_user_emailOrTel($emailOrTel, $existed = false)
 
 		$sql = 'SELECT user_tel
 			FROM ' . USERS_TABLE . "
-			WHERE user_tel = " . $db->sql_escape(user_tel);
+			WHERE user_tel = " . $db->sql_escape($emailOrTel);
 		$result = $db->sql_query($sql);
 		$row = $db->sql_fetchrow($result);
 		$db->sql_freeresult($result);
@@ -2008,9 +2017,15 @@ function validate_user_emailOrTel($emailOrTel, $existed = false)
 	return false;
 }
 
-function validate_verify_code($verifyCode, $emailOrTel)
-{
+function validate_verify_code($verifyCode, $emailOrTel, $allowed=false)
+	{
 	global $config, $db, $user;
+	$allowed = ($allowed === false) ? $allowed : strtolower($allowed);
+
+	if ($allowed == $verifyCode && $allowed !== false)
+	{
+		return false;
+	}
 
 	$emailOrTel = strtolower($emailOrTel);
 
