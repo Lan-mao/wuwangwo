@@ -1,0 +1,60 @@
+Subject: “{SITENAME}”邮箱验证码
+
+<table border="0" cellpadding="0" cellspacing="0" width="800"
+	   style="border:1.0px solid #edecec;padding:0 20.0px;font-size:14.0px;color:#333333;">
+	<tbody>
+	<tr>
+		<td colspan="2" width="760" style="vertical-align:bottom;border-bottom:1.0px dashed #dbe4eb;"><h2
+			style="font-family:Microsoft YaHei;font-weight:normal;font-size:20.0px;">“{SITENAME}”注册</h2></td>
+	</tr>
+	<tr>
+		<td colspan="2" width="760"
+			style="font-family:Microsoft YaHei;font-size:16.0px;vertical-align:bottom;padding-top:8.0px;"><strong>燃点爱好</strong>的尊敬用户：
+		</td>
+	</tr>
+	<tr>
+		<td width="760" colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+		<td valign="middle" width="40"
+			style="width: 40px; text-align: left; vertical-align: middle; line-height: 32px; float: left; height: auto;"></td>
+		<td valign="middle" width="720"
+			style="width: 720px; text-align: left; vertical-align: middle; line-height: 32px; font-family: &quot;Microsoft YaHei&quot;; height: auto;">您的验证码是：
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720" style="padding-left:40.0px;font-family:Microsoft YaHei;"><p><span
+			style="font-size:22.0px;"><span style="color:#ff0000;"><strong><em>{VERIFY_CODE}</em></strong></span></span></p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720" style="padding-left:40.0px;">验证码<strong>10分钟</strong>内有效</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720" style="padding-left:40.0px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720" style="padding-left:40.0px;font-family:Microsoft YaHei;">客户服务</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720" style="padding-left:40.0px;font-family:Microsoft YaHei;">网&nbsp;&nbsp;&nbsp;&nbsp;址：<a
+			href="http://www.randianfw.com" target="_blank">{U_BOARD}</a></td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720" style="padding-left:40.0px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720" style="padding-left:40.0px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720"
+			style="padding-bottom:16.0px;border-bottom:1.0px dashed #e5e5e5;font-family:Microsoft YaHei;">{SITENAME}
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="720"
+			style="padding:8.0px 0 28.0px;color:#999999;font-size:12.0px;font-family:Microsoft YaHei;">此为系统邮件请勿回复
+		</td>
+	</tr>
+	</tbody>
+</table>
