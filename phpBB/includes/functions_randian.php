@@ -127,7 +127,7 @@ WHERE
 	{
 		$verifyCode = array(
 			'emailOrTel' => $emailOrTel,
-			'code'       => rand(1000, 10000),
+			'code'       => rand(100000, 1000000),
 		);
 		$verifyCode = addVerifyCode($verifyCode);
 		return array(
