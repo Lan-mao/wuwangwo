@@ -12,6 +12,7 @@
 /phpBB/images/ranks/*
 /phpBB/install/schemas/schema.json
 /phpBB/language/*
+!/phpBB/language/zh_cmn_hans
 !/phpBB/language/en
 /phpBB/store/*
 /phpBB/styles/*
