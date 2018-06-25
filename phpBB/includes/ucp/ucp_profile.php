@@ -291,6 +291,9 @@ class ucp_profile
 					'USERNAME'			=> $data['username'],
 					'EMAIL'				=> $data['email'],
 					'USER_TEL'				=> $data['user_tel'],
+					'EMAIL_OR_TEL'				=> $data['email_or_tel'],
+					'VERIFY_CODE'				=> $data['verify_code'],
+
 					'PASSWORD_CONFIRM'	=> $data['password_confirm'],
 					'NEW_PASSWORD'		=> $data['new_password'],
 					'CUR_PASSWORD'		=> '',

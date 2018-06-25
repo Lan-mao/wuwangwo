@@ -755,7 +755,6 @@ var RD_Global = {
 	stateError: "error",
 	existRequirement_Exist: "exist",
 	existRequirement_NotExist: "notExist",
-	existRequirement_NoRequirement: "NoRequirement",
 	stateSuccess: "success",
 	THREE_MESSAGES_IN_FIVE_MINUTE: "五分钟内三条消息",
 	SYSTEM_ERROR: "系统异常，请稍后再试或联系我们。",

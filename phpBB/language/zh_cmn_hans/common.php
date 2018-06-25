@@ -749,6 +749,8 @@ $lang = array_merge($lang, array(
 	'TOO_LONG_USER_PASSWORD'		=> '您输入的密码太长了。',
 	'TOO_LONG_USERNAME'				=> '您输入的用户名太长了。',
 	'TOO_LONG_EMAIL'				=> '您输入的 email 地址太长了。',
+	'TOO_LONG_EMAIL_OR_TEL'	=> '请输入正确的电子邮箱或手机号',
+	'TOO_LONG_VERIFY_CODE'	=> '请输入正确验证码',
 
 	'TOO_MANY_VOTE_OPTIONS'			=> '您在投票中选择了过多的选项。',
 
@@ -763,6 +765,8 @@ $lang = array_merge($lang, array(
 	'TOO_SHORT_USERNAME'			=> '您输入的用户名太短了。',
 	'TOO_SHORT_EMAIL'				=> '您输入的 email 地址太短了。',
 	'TOO_SHORT_EMAIL_CONFIRM'		=> '您输入的 email 验证地址太短了。',
+	'TOO_SHORT_EMAIL_OR_TEL'	=> '请输入正确的电子邮箱或手机号',
+	'TOO_SHORT_VERIFY_CODE'	=> '请输入正确验证码',
 	'TOO_SMALL'                  => '您输入的值太小了。',
 	'TOO_SMALL_MAX_RECIPIENTS'      => '您输入的<strong>每个站内短信允许的最大收件人数目</strong>太小。',
 
