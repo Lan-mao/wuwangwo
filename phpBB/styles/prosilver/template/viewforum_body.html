@@ -25,6 +25,8 @@
 	</div>
 <!-- ENDIF -->
 
+<!-- IF 0 -->
+<!--todo randian-->
 <!-- IF S_HAS_SUBFORUM -->
 <!-- IF not S_IS_BOT and U_MARK_FORUMS -->
 	<div class="action-bar compact">
@@ -32,6 +34,7 @@
 	</div>
 <!-- ENDIF -->
 	<!-- INCLUDE forumlist_body.html -->
+<!-- ENDIF -->
 <!-- ENDIF -->
 
 <!-- IF S_DISPLAY_POST_INFO or .pagination or TOTAL_POSTS or TOTAL_TOPICS -->
@@ -295,6 +298,8 @@
 
 <!-- INCLUDE jumpbox.html -->
 
+<!-- IF 0 -->
+<!--todo randian-->
 <!-- IF S_DISPLAY_ONLINE_LIST and U_VIEWONLINE -->
 	<div class="stat-block online-list">
 		<h3><a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a></h3>
@@ -307,6 +312,7 @@
 		<h3>{L_FORUM_PERMISSIONS}</h3>
 		<p><!-- BEGIN rules -->{rules.RULE}<br /><!-- END rules --></p>
 	</div>
+<!-- ENDIF -->
 <!-- ENDIF -->
 
 <!-- INCLUDE overall_footer.html -->

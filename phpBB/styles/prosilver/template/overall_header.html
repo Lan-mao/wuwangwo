@@ -79,12 +79,14 @@
 			<div class="inner">
 
 			<div id="site-description" class="site-description">
-				<a id="logo" class="logo" href="<!-- IF U_SITE_HOME -->{U_SITE_HOME}<!-- ELSE -->{U_INDEX}<!-- ENDIF -->" title="<!-- IF U_SITE_HOME -->{L_SITE_HOME}<!-- ELSE -->{L_INDEX}<!-- ENDIF -->"><span class="site_logo"></span></a>
-				<h1>{SITENAME}</h1>
+				<a id="logo" class="logo" href="<!-- IF U_SITE_HOME -->{U_SITE_HOME}<!-- ELSE -->{U_INDEX}<!-- ENDIF -->" title="<!-- IF U_SITE_HOME -->{L_SITE_HOME}<!-- ELSE -->{L_INDEX}<!-- ENDIF -->"></a>
+				<h1 class="text-logo"><a href="<!-- IF U_SITE_HOME -->{U_SITE_HOME}<!-- ELSE -->{U_INDEX}<!-- ENDIF -->" title="<!-- IF U_SITE_HOME -->{L_SITE_HOME}<!-- ELSE -->{L_INDEX}<!-- ENDIF -->">{SITENAME}</a></h1>
 				<p>{SITE_DESCRIPTION}</p>
 				<p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
 			</div>
 
+				<!-- IF 0 -->
+				<!--todo randian-->
 			<!-- EVENT overall_header_searchbox_before -->
 			<!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
 			<div id="search-box" class="search-box search-header" role="search">
@@ -103,6 +105,7 @@
 			</div>
 			<!-- ENDIF -->
 			<!-- EVENT overall_header_searchbox_after -->
+				<!-- ENDIF -->
 
 			</div>
 			<!-- EVENT overall_header_headerbar_after -->
