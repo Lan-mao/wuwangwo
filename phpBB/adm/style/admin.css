@@ -44,7 +44,8 @@ html {
 body {
 	/* Text-Sizing with ems: http://www.clagnut.com/blog/348/ */
 	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
-	color: #536482;
+	/*color: #536482;*/
+	color: rgba(0,0,0,0.87);
 	background: #DBD7D1;
 	font-size: 62.5%;	/* This sets the default font size to be equivalent to 10px */
 	margin: 10px 15px;
@@ -153,7 +154,7 @@ a:link, a:visited {
 }
 
 a:hover {
-	color: #BC2A4D;
+	/*color: #BC2A4D;*/
 	text-decoration: underline;
 }
 

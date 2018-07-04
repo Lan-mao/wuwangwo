@@ -81,6 +81,14 @@ ul.topiclist dfn {
 	left: -999px;
 	width: 990px;
 }
+ul.topiclist a{
+
+	color: rgba(0,0,0,0.87);
+}
+ ul.topiclist a:hover, ul.topiclist a:focus, ul.topiclist a:active {
+	color: rgba(0,0,0,0.87);
+	text-decoration: underline;
+}
 
 .forum-image {
 	float: left;
@@ -103,13 +111,13 @@ li.header dt, li.header dd {
 	margin: 2px 0 4px 0;
 	padding-top: 2px;
 	padding-bottom: 2px;
-	font-size: 1em;
-	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1rem;
+	font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti,"Microsoft YaHei";
 	text-transform: uppercase;
 }
 
 li.header dt {
-	font-weight: bold;
+	/*font-weight: bold;*/
 	width: 100%;
 	margin-right: -440px;
 }
@@ -131,7 +139,7 @@ li.header dl.row-item dt, li.header dl.row-item dd {
 
 li.header dl.row-item dt .list-inner {
 	/* Tweak for headers alignment when folder icon used */
-	padding-left: 0;
+	padding-left: 8px;
 	padding-right: 50px;
 }
 

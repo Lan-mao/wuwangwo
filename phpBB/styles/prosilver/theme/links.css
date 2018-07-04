@@ -58,9 +58,9 @@ a {
 
 /* Links for forum/topic lists */
 a.forumtitle {
-	font-family: "Trebuchet MS", Helvetica, Arial, Sans-serif;
+	/*font-family: "Trebuchet MS", Helvetica, Arial, Sans-serif;*/
 	font-size: 1.2em;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	text-decoration: none;
 }
 
@@ -69,9 +69,9 @@ a.forumtitle:hover {
 }
 
 a.topictitle {
-	font-family: "Trebuchet MS", Helvetica, Arial, Sans-serif;
+	/*font-family: "Trebuchet MS", Helvetica, Arial, Sans-serif;*/
 	font-size: 1.2em;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	text-decoration: none;
 	display: inline;
 }
@@ -97,7 +97,7 @@ a.lastsubject:hover {
 .row-item .subforum:hover,
 .row-item .username:hover,
 .row-item .username-coloured:hover {
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 
 /* Post body links */

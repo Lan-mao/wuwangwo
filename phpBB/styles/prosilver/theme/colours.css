@@ -31,8 +31,10 @@ hr {
 Colours and backgrounds for links.css
 -------------------------------------------------------------- */
 
-a { color: #105289; }
-a:hover { color: #D31141; }
+a { color: #0f9d58; }
+a:hover {
+	/*color: #D31141; */
+}
 
 /* Links on gradient backgrounds */
 .forumbg .header a, .forabg .header a, th a {
@@ -88,12 +90,24 @@ a:hover { color: #D31141; }
 .headerbar {
 	color: #FFFFFF;
 }
+.headerbar{
 
-.headerbar, .forumbg {
 	background-color: #0f9d58;
+	background-repeat: repeat-x;
+}
+
+ .forumbg {
+	/*background-color: #0f9d58;*/
 	/*background-image: -webkit-linear-gradient(top, #6ACEFF 0%, #0076B1 2px, #0f9d58 92px, #0f9d58 100%);
 	background-image: linear-gradient(to bottom, #6ACEFF 0%,#0076B1 2px,#0f9d58 92px,#0f9d58 100%);*/
-	background-repeat: repeat-x;
+	/*background-repeat: repeat-x;*/
+	-webkit-transition: -webkit-box-shadow .25s;
+	transition: -webkit-box-shadow .25s;.action-bar
+	transition: box-shadow .25s;
+	transition: box-shadow .25s, -webkit-box-shadow .25s;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
 .forabg {
@@ -106,9 +120,13 @@ a:hover { color: #D31141; }
 .navbar {
 	/*background-color: #CADCEB;*/
 
+	-webkit-transition: -webkit-box-shadow .25s;
+	transition: -webkit-box-shadow .25s;
 	transition: box-shadow .25s;
+	transition: box-shadow .25s, -webkit-box-shadow .25s;
 	border-radius: 2px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
 .panel {
@@ -125,7 +143,7 @@ a:hover { color: #D31141; }
 }
 
 .bg1 {
-	background-color: #ECF3F7;
+	/*background-color: #ECF3F7;*/
 }
 
 table.zebra-list tr:nth-child(odd) td, ul.zebra-list li:nth-child(odd) {
@@ -133,7 +151,7 @@ table.zebra-list tr:nth-child(odd) td, ul.zebra-list li:nth-child(odd) {
 }
 
 .bg2 {
-	background-color: #E1EBF2;
+	/*background-color: #E1EBF2;*/
 }
 
 table.zebra-list tr:nth-child(even) td, ul.zebra-list li:nth-child(even) {
@@ -344,7 +362,8 @@ ul.topiclist dd {
 
 li.row {
 	border-top-color:  #FFFFFF;
-	border-bottom-color: #00608F;
+	/*border-bottom-color: #00608F;*/
+	border-bottom: 1px solid rgba(0,0,0,0.12);
 }
 
 li.row strong {
@@ -352,7 +371,7 @@ li.row strong {
 }
 
 li.row:hover {
-	background-color: #F6F4D0;
+	/*background-color: #F6F4D0;*/
 }
 
 li.row:hover dd {

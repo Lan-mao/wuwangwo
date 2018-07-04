@@ -131,6 +131,17 @@
 
 <!-- EVENT viewforum_body_topic_row_before -->
 
+<div id="tabs" class="tabs sub-panels" role="tablist" data-show-panel="topics-panel">
+	<ul>
+		<li id="options-panel-tab" class="tab activetab"><a href="#tabs" data-subpanel="topics-panel" role="tab" aria-controls="options-panel"><span>主题</span></a></li>
+		<li id="attach-panel-tab" class="tab">
+			<a href="#tabs" data-subpanel="guides-panel" role="tab" aria-controls="attach-panel">
+				指南
+			</a>
+		</li>
+	</ul>
+</div>
+
 <!-- BEGIN topicrow -->
 
 	<!-- IF not topicrow.S_TOPIC_TYPE_SWITCH and not topicrow.S_FIRST_ROW -->
@@ -140,10 +151,10 @@
 	<!-- ENDIF -->
 
 	<!-- IF topicrow.S_FIRST_ROW or not topicrow.S_TOPIC_TYPE_SWITCH -->
-		<div class="forumbg<!-- IF topicrow.S_TOPIC_TYPE_SWITCH and (topicrow.S_POST_ANNOUNCE or topicrow.S_POST_GLOBAL) --> announcement<!-- ENDIF -->">
+		<div id="topics-panel" class="forumbg<!-- IF topicrow.S_TOPIC_TYPE_SWITCH and (topicrow.S_POST_ANNOUNCE or topicrow.S_POST_GLOBAL) --> announcement<!-- ENDIF -->">
 		<div class="inner">
 		<ul class="topiclist">
-			<li class="header">
+			<li class="header row">
 				<dl class="row-item">
 					<dt<!-- IF S_DISPLAY_ACTIVE --> id="active_topics"<!-- ENDIF -->><div class="list-inner"><!-- IF S_DISPLAY_ACTIVE -->{L_ACTIVE_TOPICS}<!-- ELSEIF topicrow.S_TOPIC_TYPE_SWITCH and (topicrow.S_POST_ANNOUNCE or topicrow.S_POST_GLOBAL) -->{L_ANNOUNCEMENTS}<!-- ELSE -->{L_TOPICS}<!-- ENDIF --></div></dt>
 					<dd class="posts">{L_REPLIES}</dd>
