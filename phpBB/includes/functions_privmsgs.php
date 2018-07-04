@@ -119,7 +119,7 @@ $global_rule_conditions = array(
 */
 function get_folder($user_id, $folder_id = false)
 {
-	global $db, $user, $template;
+	global $db, $user, $auth, $template;
 	global $phpbb_root_path, $phpEx;
 
 	$folder = array();
@@ -180,18 +180,20 @@ function get_folder($user_id, $folder_id = false)
 		);
 	}
 	$db->sql_freeresult($result);
+	if($auth->acl_get('u_sendpm')){
 
-	$folder[PRIVMSGS_OUTBOX] = array(
-		'folder_name'		=> $user->lang['PM_OUTBOX'],
-		'num_messages'		=> $num_messages[PRIVMSGS_OUTBOX],
-		'unread_messages'	=> $num_unread[PRIVMSGS_OUTBOX]
-	);
+		$folder[PRIVMSGS_OUTBOX] = array(
+			'folder_name'		=> $user->lang['PM_OUTBOX'],
+			'num_messages'		=> $num_messages[PRIVMSGS_OUTBOX],
+			'unread_messages'	=> $num_unread[PRIVMSGS_OUTBOX]
+		);
 
-	$folder[PRIVMSGS_SENTBOX] = array(
-		'folder_name'		=> $user->lang['PM_SENTBOX'],
-		'num_messages'		=> $num_messages[PRIVMSGS_SENTBOX],
-		'unread_messages'	=> $num_unread[PRIVMSGS_SENTBOX]
-	);
+		$folder[PRIVMSGS_SENTBOX] = array(
+			'folder_name'		=> $user->lang['PM_SENTBOX'],
+			'num_messages'		=> $num_messages[PRIVMSGS_SENTBOX],
+			'unread_messages'	=> $num_unread[PRIVMSGS_SENTBOX]
+		);
+	}
 
 	// Define Folder Array for template designers (and for making custom folders usable by the template too)
 	foreach ($folder as $f_id => $folder_ary)

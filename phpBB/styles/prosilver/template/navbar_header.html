@@ -125,11 +125,14 @@
 								<i class="icon fa-sliders fa-fw" aria-hidden="true"></i><span>{L_PROFILE}</span>
 							</a>
 						</li>
+						<!-- IF 0 -->
+						<!--todo randian-->
 						<li>
 							<a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}" role="menuitem">
 								<i class="icon fa-user fa-fw" aria-hidden="true"></i><span>{L_READ_PROFILE}</span>
 							</a>
 						</li>
+						<!-- ENDIF -->
 
 						<!-- EVENT navbar_header_profile_list_after -->
 
@@ -151,6 +154,8 @@
 				</a>
 			</li>
 		<!-- ENDIF -->
+		<!-- IF 0 -->
+		<!--todo randian-->
 		<!-- IF S_NOTIFICATIONS_DISPLAY -->
 			<li class="dropdown-container dropdown-{S_CONTENT_FLOW_END} rightside" data-skip-responsive="true">
 				<a href="{U_VIEW_ALL_NOTIFICATIONS}" id="notification_list_button" class="dropdown-trigger">
@@ -158,6 +163,7 @@
 				</a>
 				<!-- INCLUDE notification_dropdown.html -->
 			</li>
+		<!-- ENDIF -->
 		<!-- ENDIF -->
 		<!-- EVENT navbar_header_user_profile_append -->
 	<!-- ELSE -->

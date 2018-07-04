@@ -813,7 +813,7 @@ class p_master
 	*/
 	function assign_tpl_vars($module_url)
 	{
-		global $template;
+		global $template, $auth;
 
 		$current_id = $right_id = false;
 
@@ -833,6 +833,10 @@ class p_master
 			// Skip hidden modules
 			if (!$item_ary['display'])
 			{
+				continue;
+			}
+
+			if(($item_ary['mode'] == 'compose' || $item_ary['mode'] == 'drafts') && !$auth->acl_get('u_sendpm')){
 				continue;
 			}
 
