@@ -186,6 +186,7 @@ $lang = array_merge($lang, array(
 	'CURRENT_TIME'			=> '现在的时间是 %s',
 
 	'DAY'					=> '天',
+	'DAY_BIRTH'					=> '日',
 	'DAYS'					=> '天',
 	'DELETE'				=> '删除',
 	'DELETE_ALL'			=> '删除全部',
@@ -369,7 +370,7 @@ $lang = array_merge($lang, array(
 	'LEGEND'							=> '颜色说明',
 	'LIVE_SEARCHES_NOT_ALLOWED'			=> '不允许实时搜索。',
 	'LOADING'							=> '加载',
-	'LOCATION'							=> '来自',
+	'LOCATION'							=> '常住地址',
 	'LOCK_POST'							=> '锁定帖子',
 	'LOCK_POST_EXPLAIN'					=> '阻止编辑',
 	'LOCK_TOPIC'						=> '锁定主题',
