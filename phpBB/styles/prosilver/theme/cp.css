@@ -214,6 +214,126 @@ ul.cplist {
 	text-align: left;
 }
 
+
+/*region randian custom tabs style*/
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+.row.col{
+	float: left;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0 .75rem;
+	min-height: 1px;
+}
+
+.tabs-rd {
+	position: relative;
+	overflow-x: auto;
+	overflow-y: hidden;
+	height: 48px;
+	width: 100%;
+	background-color: #fff;
+	margin: 0 auto;
+	white-space: nowrap;
+}
+
+.tabs-rd.tabs-transparent {
+	background-color: transparent;
+}
+
+.tabs-rd.tabs-transparent .tab a,
+.tabs-rd.tabs-transparent .tab.disabled a,
+.tabs-rd.tabs-transparent .tab.disabled a:hover {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.tabs-rd.tabs-transparent .tab a:hover,
+.tabs-rd.tabs-transparent .tab a.active {
+	color: #fff;
+}
+
+.tabs-rd.tabs-transparent .indicator {
+	background-color: #fff;
+}
+
+.tabs-rd.tabs-fixed-width {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.tabs-rd.tabs-fixed-width .tab {
+	-webkit-flex-grow: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+}
+
+.tabs-rd .tab {
+	display: inline-block;
+	text-align: center;
+	line-height: 48px;
+	height: 48px;
+	padding: 0;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.tabs-rd .tab a {
+	color: rgba(15, 157, 88, 0.7);
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 0 24px;
+	font-size: 14px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	transition: color .28s ease;
+	background-color: rgba(15, 157, 88,0.1);
+	border: 1px solid rgba(0,0,0,0.12);
+	border-bottom: none;
+}
+
+.tabs-rd .tab a.active {
+	background-color: transparent;
+	border-bottom: none;
+	color: #0f9d58;
+}
+
+.tabs-rd .tab.disabled a,
+.tabs-rd .tab.disabled a:hover {
+	color: rgba(15, 157, 88, 0.7);
+	cursor: default;
+}
+
+.tabs-rd .indicator {
+	position: absolute;
+	bottom: 0;
+	height: 2px;
+	background-color: #16e37f;
+	will-change: left, right;
+}
+
+@media only screen and (max-width: 992px) {
+	.tabs-rd {
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+	}
+	.tabs-rd .tab {
+		-webkit-flex-grow: 1;
+		-ms-flex-positive: 1;
+		flex-grow: 1;
+	}
+	.tabs-rd .tab a {
+		padding: 0 12px;
+	}
+}
+/*endregion*/
+
+
 /* UCP navigation menu
 ----------------------------------------*/
 /* Container for sub-navigation list */
