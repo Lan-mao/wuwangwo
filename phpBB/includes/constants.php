@@ -121,6 +121,10 @@ define('POST_STICKY', 1);
 define('POST_ANNOUNCE', 2);
 define('POST_GLOBAL', 3);
 
+// Topic category
+define('POST_NORMAL', 0);
+define('POST_GUIDE', 1);
+
 // Lastread types
 define('TRACK_NORMAL', 0);
 define('TRACK_POSTED', 1);

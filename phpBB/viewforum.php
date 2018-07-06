@@ -26,6 +26,7 @@ $auth->acl($user->data);
 
 // Start initial var setup
 $forum_id	= $request->variable('f', 0);
+$is_guide	= $request->variable('g', 0);
 $mark_read	= $request->variable('mark', '');
 $start		= $request->variable('start', 0);
 
@@ -418,8 +419,10 @@ $template->assign_vars(array(
 	'U_MCP'				=> ($auth->acl_get('m_', $forum_id)) ? append_sid("{$phpbb_root_path}mcp.$phpEx", "f=$forum_id&amp;i=main&amp;mode=forum_view", true, $user->session_id) : '',
 	'U_POST_NEW_TOPIC'	=> ($auth->acl_get('f_post', $forum_id) || $user->data['user_id'] == ANONYMOUS) ? append_sid("{$phpbb_root_path}posting.$phpEx", 'mode=post&amp;f=' . $forum_id) : '',
 	'U_VIEW_FORUM'		=> append_sid("{$phpbb_root_path}viewforum.$phpEx", "f=$forum_id" . ((strlen($u_sort_param)) ? "&amp;$u_sort_param" : '') . (($start == 0) ? '' : "&amp;start=$start")),
+	'U_VIEW_FORUM_GUIDE'		=> append_sid("{$phpbb_root_path}viewforum.$phpEx", "f=$forum_id". '&amp;g=1'. ((strlen($u_sort_param)) ? "&amp;$u_sort_param" : '') . (($start == 0) ? '' : "&amp;start=$start")),
 	'U_CANONICAL'		=> generate_board_url() . '/' . append_sid("viewforum.$phpEx", "f=$forum_id" . (($start) ? "&amp;start=$start" : ''), true, ''),
 	'U_MARK_TOPICS'		=> ($user->data['is_registered'] || $config['load_anon_lastread']) ? append_sid("{$phpbb_root_path}viewforum.$phpEx", 'hash=' . generate_link_hash('global') . "&amp;f=$forum_id&amp;mark=topics&amp;mark_time=" . time()) : '',
+	'S_GUIDE' => ($is_guide == 1?true:false),
 ));
 
 // Grab icons
@@ -621,6 +624,7 @@ else
 	$get_forum_ids = array_diff($active_forum_ary['forum_id'], $active_forum_ary['exclude_forum_id']);
 	$sql_where = (count($get_forum_ids)) ? $db->sql_in_set('t.forum_id', $get_forum_ids) : 't.forum_id = ' . $forum_id;
 }
+$sql_where_category = $is_guide?' and t.topic_category = 1 ':' and t.topic_category = 0 ';
 
 // Grab just the sorted topic ids
 $sql_ary = array(
@@ -628,7 +632,7 @@ $sql_ary = array(
 	'FROM'		=> array(
 		TOPICS_TABLE => 't',
 	),
-	'WHERE'		=> "$sql_where
+	'WHERE'		=> "$sql_where $sql_where_category
 		AND t.topic_type IN (" . POST_NORMAL . ', ' . POST_STICKY . ")
 		$sql_approved
 		$sql_limit_time",
@@ -951,6 +955,7 @@ if (count($topic_list))
 			'U_TOPIC_AUTHOR'		=> get_username_string('profile', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
 			'U_VIEW_TOPIC'			=> $view_topic_url,
 			'U_VIEW_FORUM'			=> append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $row['forum_id']),
+			'U_VIEW_FORUM_GUIDE'			=> append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $row['forum_id'].'&amp;g=1'),
 			'U_MCP_REPORT'			=> append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=reports&amp;mode=reports&amp;f=' . $row['forum_id'] . '&amp;t=' . $topic_id, true, $user->session_id),
 			'U_MCP_QUEUE'			=> $u_mcp_queue,
 

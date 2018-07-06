@@ -143,8 +143,8 @@
 </div>-->
 <div class="row col">
 	<ul class="tabs-rd">
-		<li class="tab col s3"><a class="active" href="#test1">主题</a></li>
-		<li class="tab col s3"><a href="#test2">指南</a></li>
+		<li class="tab col s3"><a class="<!-- IF not S_GUIDE -->active<!-- ENDIF -->" href="{U_VIEW_FORUM}">主题</a></li>
+		<li class="tab col s3"><a class="<!-- IF S_GUIDE -->active<!-- ENDIF -->" href="{U_VIEW_FORUM_GUIDE}">指南</a></li>
 	</ul>
 </div>
 <!-- BEGIN topicrow -->
@@ -264,13 +264,13 @@
 
 <!-- BEGINELSE -->
 	<!-- IF S_IS_POSTABLE -->
-	<div class="panel">
+	<div class="panel" style="clear: both">
 		<div class="inner">
 		<strong>{L_NO_TOPICS}</strong>
 		</div>
 	</div>
 	<!-- ELSE IF not S_HAS_SUBFORUM -->
-	<div class="panel">
+	<div class="panel" style="clear: both">
 		<div class="inner">
 			<strong>{L_NO_FORUMS_IN_CATEGORY}</strong>
 		</div>
