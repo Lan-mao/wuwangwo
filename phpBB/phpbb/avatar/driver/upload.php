@@ -13,6 +13,9 @@
 
 namespace phpbb\avatar\driver;
 
+use randian\Common;
+use randian\Config;
+
 /**
 * Handles avatars uploaded to the board
 */
@@ -62,12 +65,15 @@ class upload extends \phpbb\avatar\driver\driver
 	*/
 	public function get_data($row)
 	{
+		global $config;
 		$root_path = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $this->path_helper->get_web_root_path();
 
 		return array(
-			'src' => $root_path . 'download/file.' . $this->php_ext . '?avatar=' . $row['avatar'],
-			'width' => $row['avatar_width'],
-			'height' => $row['avatar_height'],
+//			'src' => $root_path . 'download/file.' . $this->php_ext . '?avatar=' . $row['avatar'],
+			'src' =>
+				$config['oss_endpoint']. $row['avatar'],
+			'width' => 36,
+			'height' => 36,
 		);
 	}
 
@@ -94,6 +100,7 @@ class upload extends \phpbb\avatar\driver\driver
 	*/
 	public function process_form($request, $template, $user, $row, &$error)
 	{
+		global $phpbb_root_path, $phpEx;
 		if (!$this->can_upload())
 		{
 			return false;
@@ -113,6 +120,8 @@ class upload extends \phpbb\avatar\driver\driver
 
 		$url = $request->variable('avatar_upload_url', '');
 		$upload_file = $request->file('avatar_upload_file');
+
+
 
 		if (!empty($upload_file['name']))
 		{
@@ -174,6 +183,11 @@ class upload extends \phpbb\avatar\driver\driver
 			return false;
 		}
 
+
+
+
+
+
 		// Calculate new destination
 		$destination = $this->config['avatar_path'];
 
@@ -223,12 +237,32 @@ class upload extends \phpbb\avatar\driver\driver
 		extract($this->dispatcher->trigger_event('core.avatar_driver_upload_move_file_before', compact($vars)));
 
 		unset($filedata);
-
+		$avatarPath = '';
 		if (!count($error))
 		{
 			// Move file and overwrite any existing image
-			$file->move_file($destination, true);
+//			$file->move_file($destination, true);
+
+			//////////// todo randian upload avatar
+			include_once($phpbb_root_path . 'includes/aliyun/aliyun-oss-php-sdk-2.3.0/randian/Object.' . $phpEx);
+
+
+			$bucket = Common::getBucketName();
+			$ossClient = Common::getOssClient();
+			$avatarPath = Config::OSS_AVATAR_DIR. utf8_basename($file->get('realname'));
+			$options = array();
+
+			try {
+
+				Common::resize_crop_image(192, 192, $file->get('filename'), $file->get('filename'));
+				$ossClient->uploadFile($bucket, $avatarPath, $file->get('filename'), $options);
+			} catch (OssException $e) {
+				return;
+			}
 		}
+
+
+
 
 		// If there was an error during move, then clean up leftovers
 		$error = array_merge($error, $file->error);
@@ -246,7 +280,7 @@ class upload extends \phpbb\avatar\driver\driver
 		}
 
 		return array(
-			'avatar' => $row['id'] . '_' . time() . '.' . $file->get('extension'),
+			'avatar' => $avatarPath,
 			'avatar_width' => $file->get('width'),
 			'avatar_height' => $file->get('height'),
 		);

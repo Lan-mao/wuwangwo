@@ -7,7 +7,7 @@
 	<fieldset>
 	<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
 		<dl>
-			<dt><label>{L_CURRENT_IMAGE}{L_COLON}</label><br /><span>{L_AVATAR_EXPLAIN}</span></dt>
+			<dt><label>{L_CURRENT_IMAGE}{L_COLON}</label><br /></dt>
 			<dd><!-- IF AVATAR -->{AVATAR}<!-- ELSE --><img src="{T_THEME_PATH}/images/no_avatar.gif" alt="" /><!-- ENDIF --></dd>
 			<dd><label for="avatar_delete"><input type="checkbox" name="avatar_delete" id="avatar_delete" /> {L_DELETE_AVATAR}</label></dd>
 		</dl>
@@ -39,6 +39,7 @@
 	</div>
 <!-- IF not S_GROUP_MANAGE -->
 	<fieldset class="submit-buttons">
+		<p class="bad">可以上传jpg、gif、png格式的图片，最大可以到5MB</p>
 		<input type="reset" value="{L_RESET}" name="reset" class="button2" /> &nbsp;
 		<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
 	</fieldset>
