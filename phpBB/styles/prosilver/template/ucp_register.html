@@ -1,119 +1,140 @@
 <!-- INCLUDE overall_header.html -->
 
 <script type="text/javascript">
-// <![CDATA[
+	// <![CDATA[
 	/**
-	* Change language
-	*/
-	function change_language(lang_iso)
-	{
+	 * Change language
+	 */
+	function change_language(lang_iso) {
 		document.cookie = '{COOKIE_NAME}_lang=' + lang_iso + '; path={COOKIE_PATH}';
 		document.forms['register'].change_lang.value = lang_iso;
 		document.forms['register'].submit.click();
 	}
-// ]]>
+
+	// ]]>
 </script>
 
-<form id="register" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+<form id="register" method="post" action="{S_UCP_ACTION}" {S_FORM_ENCTYPE}>
 
-<div class="panel">
-	<div class="inner">
+	<div class="panel">
+		<div class="inner">
 
-	<h2>{SITENAME} - {L_REGISTRATION}</h2>
+			<h2>{SITENAME} - {L_REGISTRATION}</h2>
 
-	<fieldset class="fields2">
-	<!-- IF ERROR --><dl><dd class="error">{ERROR}</dd></dl><!-- ENDIF -->
-		<dl><dd class="error ajax-msg hide"></dd></dl>
-	<!-- IF L_REG_COND -->
-		<dl><dd><strong>{L_REG_COND}</strong></dd></dl>
-	<!-- ENDIF -->
-	<!-- EVENT ucp_register_credentials_before -->
-	<dl class="hide">
-		<dt><label for="username">{L_USERNAME}{L_COLON}</label><br /><span>{L_USERNAME_EXPLAIN}</span></dt>
-		<dd><input type="text" tabindex="1" name="username" id="username" size="25" value="{USERNAME}" class="inputbox autowidth" title="{L_USERNAME}" /></dd>
-	</dl>
-		<dl>
-			<dt><label for="emailOrTel">电子邮箱或手机号：</label></dt>
-			<dd><input type="text" tabindex="2" name="emailOrTel" id="emailOrTel" size="25" maxlength="100"
-					   value="{EMAIL_OR_TEL}" class="inputbox autowidth" title="电子邮箱或手机号" autocomplete="off"/>
-			</dd>
-		</dl>
-		<dl>
-			<dt><label for="verify_code">验证码：</label></dt>
-			<dd><input type="text" tabindex="3" name="verify_code" id="verify_code" size="15" value="{VERIFY_CODE}"
-					   class="inputbox autowidth" title="验证码" autocomplete="off"/>
+			<fieldset class="fields2">
+				<!-- IF ERROR -->
+				<dl>
+					<dd class="error">{ERROR}</dd>
+				</dl><!-- ENDIF -->
+				<dl>
+					<dd class="error ajax-msg hide"></dd>
+				</dl>
+				<!-- IF L_REG_COND -->
+				<dl>
+					<dd><strong>{L_REG_COND}</strong></dd>
+				</dl>
+				<!-- ENDIF -->
+				<!-- EVENT ucp_register_credentials_before -->
+				<dl class="hide">
+					<dt><label for="username">{L_USERNAME}{L_COLON}</label><br/><span>{L_USERNAME_EXPLAIN}</span></dt>
+					<dd><input type="text" tabindex="1" name="username" id="username" size="25" value="{USERNAME}"
+							   class="inputbox autowidth" title="{L_USERNAME}"/></dd>
+				</dl>
+				<dl>
+					<dt><label for="emailOrTel">电子邮箱或手机号：</label></dt>
+					<dd><input type="text" tabindex="2" name="emailOrTel" id="emailOrTel" size="25" maxlength="100"
+							   value="{EMAIL_OR_TEL}" class="inputbox autowidth" title="电子邮箱或手机号" autocomplete="off"/>
+					</dd>
+				</dl>
+				<dl>
+					<dt><label for="verify_code">验证码：</label></dt>
+					<dd><input type="text" tabindex="3" name="verify_code" id="verify_code" size="15"
+							   value="{VERIFY_CODE}"
+							   class="inputbox autowidth" title="验证码" autocomplete="off"/>
 
-				<input type="button" value="获取验证码" name="sendEmail" class="button2 verify-code-btn"/>&nbsp;
-			</dd>
-		</dl>
-	<dl>
-		<dt><label for="new_password">{L_PASSWORD}{L_COLON}</label><br /><span>{L_PASSWORD_EXPLAIN}</span></dt>
-		<dd><input type="password" tabindex="4" name="new_password" id="new_password" size="25" value="{PASSWORD}" class="inputbox autowidth" title="{L_NEW_PASSWORD}" autocomplete="off" /></dd>
-	</dl>
-	<dl>
-		<dt><label for="password_confirm">确认密码{L_COLON}</label></dt>
-		<dd><input type="password"  tabindex="5" name="password_confirm" id="password_confirm" size="25" value="{PASSWORD_CONFIRM}" class="inputbox autowidth" title="{L_CONFIRM_PASSWORD}" autocomplete="off" /></dd>
-	</dl>
+						<input type="button" value="获取验证码" name="sendEmail" class="button2 verify-code-btn"/>&nbsp;
+					</dd>
+				</dl>
+				<dl>
+					<dt><label for="new_password">{L_PASSWORD}{L_COLON}</label><br/><span>{L_PASSWORD_EXPLAIN}</span>
+					</dt>
+					<dd><input type="password" tabindex="4" name="new_password" id="new_password" size="25"
+							   value="{PASSWORD}" class="inputbox autowidth" title="{L_NEW_PASSWORD}"
+							   autocomplete="off"/></dd>
+				</dl>
+				<dl>
+					<dt><label for="password_confirm">确认密码{L_COLON}</label></dt>
+					<dd><input type="password" tabindex="5" name="password_confirm" id="password_confirm" size="25"
+							   value="{PASSWORD_CONFIRM}" class="inputbox autowidth" title="{L_CONFIRM_PASSWORD}"
+							   autocomplete="off"/></dd>
+				</dl>
 
-	<!-- EVENT ucp_register_credentials_after -->
+				<!-- EVENT ucp_register_credentials_after -->
 
-	<!-- EVENT ucp_register_options_before -->
+				<!-- EVENT ucp_register_options_before -->
 
-	<!-- EVENT ucp_register_profile_fields_before -->
-	<!-- IF .profile_fields -->
-		<dl><dd><strong>{L_ITEMS_REQUIRED}</strong></dd></dl>
+				<!-- EVENT ucp_register_profile_fields_before -->
+				<!-- IF .profile_fields -->
+				<dl>
+					<dd><strong>{L_ITEMS_REQUIRED}</strong></dd>
+				</dl>
 
-	<!-- BEGIN profile_fields -->
-		<dl>
-			<dt><label<!-- IF profile_fields.FIELD_ID --> for="{profile_fields.FIELD_ID}"<!-- ENDIF -->>{profile_fields.LANG_NAME}{L_COLON}<!-- IF profile_fields.S_REQUIRED --> *<!-- ENDIF --></label>
-			<!-- IF profile_fields.LANG_EXPLAIN --><br /><span>{profile_fields.LANG_EXPLAIN}</span><!-- ENDIF -->
-			<!-- IF profile_fields.ERROR --><br /><span class="error">{profile_fields.ERROR}</span><!-- ENDIF --></dt>
-			<dd>{profile_fields.FIELD}</dd>
-		</dl>
-	<!-- END profile_fields -->
-	<!-- ENDIF -->
+				<!-- BEGIN profile_fields -->
+				<dl>
+					<dt>
+						<label<!-- IF profile_fields.FIELD_ID --> for="{profile_fields.FIELD_ID}"<!-- ENDIF --> >{profile_fields.LANG_NAME}{L_COLON}<!-- IF profile_fields.S_REQUIRED --> *<!-- ENDIF --></label>
+						<!-- IF profile_fields.LANG_EXPLAIN -->
+						<br/><span>{profile_fields.LANG_EXPLAIN}</span><!-- ENDIF -->
+						<!-- IF profile_fields.ERROR --><br/><span
+						class="error">{profile_fields.ERROR}</span><!-- ENDIF --></dt>
+					<dd>{profile_fields.FIELD}</dd>
+				</dl>
+				<!-- END profile_fields -->
+				<!-- ENDIF -->
 
-	<!-- EVENT ucp_register_profile_fields_after -->
-	</fieldset>
+				<!-- EVENT ucp_register_profile_fields_after -->
+			</fieldset>
+		</div>
 	</div>
-</div>
-<!-- IF CAPTCHA_TEMPLATE -->
+	<!-- IF CAPTCHA_TEMPLATE -->
 	<!-- DEFINE $CAPTCHA_TAB_INDEX = 8 -->
 	<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
-<!-- ENDIF -->
+	<!-- ENDIF -->
 
-<!-- IF S_COPPA -->
-<div class="panel">
-	<div class="inner">
+	<!-- IF S_COPPA -->
+	<div class="panel">
+		<div class="inner">
 
-	<h4>{L_COPPA_COMPLIANCE}</h4>
+			<h4>{L_COPPA_COMPLIANCE}</h4>
 
-	<p>{L_COPPA_EXPLAIN}</p>
+			<p>{L_COPPA_EXPLAIN}</p>
+		</div>
 	</div>
-</div>
-<!-- ENDIF -->
+	<!-- ENDIF -->
 
-<!-- EVENT ucp_register_buttons_before -->
+	<!-- EVENT ucp_register_buttons_before -->
 
-<div class="panel">
-	<div class="inner">
+	<div class="panel">
+		<div class="inner">
 
-	<fieldset class="submit-buttons">
-		{S_HIDDEN_FIELDS}
-		<input type="reset" value="{L_RESET}" name="reset" class="button2" />&nbsp;
-		<input type="submit" tabindex="9" name="submit" id="submit" value="{L_SUBMIT}" class="button1 default-submit-action" />
-		{S_FORM_TOKEN}
-	</fieldset>
-
+			<fieldset class="submit-buttons">
+				{S_HIDDEN_FIELDS}
+				<input type="reset" value="{L_RESET}" name="reset" class="button2"/>&nbsp;
+				<input type="submit" tabindex="9" name="submit" id="submit" value="{L_REGISTRATION}"
+					   class="button1 default-submit-action"/>
+				<p class="Register-declaration" style="margin-top: 1em; font-size: 0.8em;">注册即代表同意<strong><a
+					href="{U_TERMS_USE}">{L_TERMS_USE}</a> | <a href="{U_PRIVACY}">{L_PRIVACY}</a></strong></p>
+				{S_FORM_TOKEN}
+			</fieldset>
+		</div>
 	</div>
-</div>
 </form>
 
 <!-- INCLUDE overall_footer_start.html -->
 
 <script type="text/javascript">
 	// <![CDATA[
-	(function ($) {
+	(function($) {
 
 		var $sendEmailOrTelVerifyCodeBtn = $(".verify-code-btn").first();
 

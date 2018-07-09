@@ -388,6 +388,7 @@ dl.faq dt {
 
 .content li {
 	list-style-type: inherit;
+	margin-bottom: 1em;
 }
 
 .content ul, .content ol {

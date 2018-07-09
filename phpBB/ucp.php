@@ -146,6 +146,10 @@ switch ($mode)
 			'AGREEMENT_TEXT'		=> sprintf($user->lang[$message], $config['sitename'], generate_board_url()),
 			'U_BACK'				=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=login'),
 			'L_BACK'				=> $user->lang['BACK_TO_LOGIN'],
+			'U_REGISTER'				=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=register'),
+			'L_REGISTER'				=> $user->lang['REGISTER'],
+			'U_LOGIN'				=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=login'),
+			'L_LOGIN'				=> $user->lang['LOGIN'],
 		));
 
 		page_footer();
