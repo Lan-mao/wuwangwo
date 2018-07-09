@@ -862,3 +862,8 @@ table.fixed-width-table {
 #memberlist tr.inactive, #team tr.inactive {
 	font-style: italic;
 }
+
+
+.content .first-line-indent-2{
+	TEXT-INDENT: 2em;
+}

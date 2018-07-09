@@ -134,7 +134,7 @@ switch ($mode)
 		}
 
 		$template->set_filenames(array(
-			'body'		=> 'ucp_agreement.html')
+				'body'		=> 'ucp_agreement.html')
 		);
 
 		// Disable online list
@@ -150,6 +150,21 @@ switch ($mode)
 			'L_REGISTER'				=> $user->lang['REGISTER'],
 			'U_LOGIN'				=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=login'),
 			'L_LOGIN'				=> $user->lang['LOGIN'],
+		));
+
+		page_footer();
+
+	break;
+	case 'about':
+
+		$template->set_filenames(array(
+				'body'		=> 'ucp_about.html')
+		);
+
+		// Disable online list
+		page_header('关于我们');
+
+		$template->assign_vars(array(
 		));
 
 		page_footer();
