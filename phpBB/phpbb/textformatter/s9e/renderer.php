@@ -249,6 +249,7 @@ class renderer implements \phpbb\textformatter\renderer_interface
 
 		$html = $this->renderer->render($xml);
 
+		$html = \str_replace("\n<br>", '&nbsp;</p><p>', $html);
 		$html = '<p>'. \str_replace('<br>', '</p><p>', $html). '</p>';
 		if (isset($this->censor) && $this->viewcensors)
 		{
