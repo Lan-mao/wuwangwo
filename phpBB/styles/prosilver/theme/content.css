@@ -369,6 +369,12 @@ dd.option {
 	line-height: 1.4em;
 }
 
+.content.randian p{
+	font-size: 1em;
+	clear: both;
+	float: left;
+}
+
 dl.faq {
 	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
 	font-size: 1.1em;

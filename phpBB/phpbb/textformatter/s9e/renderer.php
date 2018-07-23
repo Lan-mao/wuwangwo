@@ -248,6 +248,8 @@ class renderer implements \phpbb\textformatter\renderer_interface
 		extract($this->dispatcher->trigger_event('core.text_formatter_s9e_render_before', compact($vars)));
 
 		$html = $this->renderer->render($xml);
+
+		$html = '<p>'. \str_replace('<br>', '</p><p>', $html). '</p>';
 		if (isset($this->censor) && $this->viewcensors)
 		{
 			$html = $this->censor->censorHtml($html, true);
