@@ -848,6 +848,7 @@ if ($submit || $preview || $refresh)
 
 	$post_data['orig_topic_type']	= $post_data['topic_type'];
 	$post_data['topic_type']		= $request->variable('topic_type', (($mode != 'post') ? (int) $post_data['topic_type'] : POST_NORMAL));
+	$post_data['topic_category']		= $request->variable('topic_category', (($mode != 'post') ? (int) $post_data['topic_category'] : 0));
 	$post_data['topic_time_limit']	= $request->variable('topic_time_limit', (($mode != 'post') ? (int) $post_data['topic_time_limit'] : 0));
 
 	if ($post_data['enable_icons'] && $auth->acl_get('f_icons', $forum_id))
@@ -1358,6 +1359,7 @@ if ($submit || $preview || $refresh)
 			}
 
 			$data = array(
+				'topic_category' => $post_data['topic_category'],
 				'topic_title'			=> (empty($post_data['topic_title'])) ? $post_data['post_subject'] : $post_data['topic_title'],
 				'topic_first_post_id'	=> (isset($post_data['topic_first_post_id'])) ? (int) $post_data['topic_first_post_id'] : 0,
 				'topic_last_post_id'	=> (isset($post_data['topic_last_post_id'])) ? (int) $post_data['topic_last_post_id'] : 0,
@@ -1704,6 +1706,7 @@ $topic_type_toggle = false;
 if ($mode == 'post' || ($mode == 'edit' && $post_id == $post_data['topic_first_post_id']))
 {
 	$topic_type_toggle = posting_gen_topic_types($forum_id, $post_data['topic_type']);
+	posting_gen_topic_category($forum_id, $post_data['topic_category']);
 }
 
 $s_topic_icons = false;

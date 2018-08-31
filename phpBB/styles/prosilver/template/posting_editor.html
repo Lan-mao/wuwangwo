@@ -163,6 +163,10 @@
 				<dt><label for="topic_type-0"><!-- IF S_EDIT_POST -->{L_CHANGE_TOPIC_TO}<!-- ELSE -->{L_POST_TOPIC_AS}<!-- ENDIF -->{L_COLON}</label></dt>
 				<dd><!-- BEGIN topic_type --><label for="topic_type-{topic_type.VALUE}"><input type="radio" name="topic_type" id="topic_type-{topic_type.VALUE}" value="{topic_type.VALUE}"{topic_type.S_CHECKED} />{topic_type.L_TOPIC_TYPE}</label> <!-- END topic_type --></dd>
 			</dl>
+			<dl>
+				<dt><label for="topic_category-0">主题标签{L_COLON}</label></dt>
+				<dd><!-- BEGIN topic_category --><label for="topic_category-{topic_category.VALUE}"><input type="radio" name="topic_category" id="topic_category-{topic_category.VALUE}" value="{topic_category.VALUE}"{topic_category.S_CHECKED} />{topic_category.L_TOPIC_CATEGORY}</label> <!-- END topic_category --></dd>
+			</dl>
 			<!-- ENDIF -->
 
 			<!-- IF S_TOPIC_TYPE_ANNOUNCE or S_TOPIC_TYPE_STICKY -->

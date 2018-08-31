@@ -392,6 +392,42 @@ function posting_gen_topic_types($forum_id, $cur_topic_type = POST_NORMAL)
 	return $toggle;
 }
 
+function posting_gen_topic_category($forum_id, $cur_topic_category = 0)
+{
+	global $auth, $user, $template;
+
+	$toggle = false;
+
+	$topic_categories = array(
+		'normal'			=> array('const' => 0, 'lang' => '普通'),
+		'assist'			=> array('const' => 1, 'lang' => '指南'),
+	);
+
+	$topic_category_array = array();
+
+	foreach ($topic_categories as $auth_key => $topic_value)
+	{
+			$toggle = true;
+
+			$topic_category_array[] = array(
+				'VALUE'			=> $topic_value['const'],
+				'S_CHECKED'		=> ($cur_topic_category == $topic_value['const']) ? ' checked="checked"' : '',
+				'L_TOPIC_CATEGORY'	=> $topic_value['lang']
+			);
+	}
+
+	if ($toggle)
+	{
+
+		foreach ($topic_category_array as $array)
+		{
+			$template->assign_block_vars('topic_category', $array);
+		}
+	}
+
+	return $toggle;
+}
+
 //
 // Attachment related functions
 //
@@ -1720,6 +1756,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 				'topic_first_poster_colour'	=> $user->data['user_colour'],
 				'topic_type'				=> $topic_type,
 				'topic_time_limit'			=> $topic_type != POST_NORMAL ? ($data_ary['topic_time_limit'] * 86400) : 0,
+				'topic_category' => $data_ary['topic_category'],
 				'topic_attachment'			=> (!empty($data_ary['attachment_data'])) ? 1 : 0,
 				'topic_status'				=> (isset($data_ary['topic_status'])) ? $data_ary['topic_status'] : ITEM_UNLOCKED,
 			);
@@ -1815,6 +1852,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 				'topic_first_poster_name'	=> $username,
 				'topic_type'				=> $topic_type,
 				'topic_time_limit'			=> $topic_type != POST_NORMAL ? ($data_ary['topic_time_limit'] * 86400) : 0,
+				'topic_category' => $data_ary['topic_category'],
 				'poll_title'				=> (isset($poll_ary['poll_options'])) ? $poll_ary['poll_title'] : '',
 				'poll_start'				=> (isset($poll_ary['poll_options'])) ? $poll_start : 0,
 				'poll_max_options'			=> (isset($poll_ary['poll_options'])) ? $poll_ary['poll_max_options'] : 1,
