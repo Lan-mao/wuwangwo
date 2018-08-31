@@ -1742,7 +1742,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 		case 'post':
 			$sql_data[TOPICS_TABLE]['sql'] = array(
 				'topic_poster'				=> (int) $user->data['user_id'],
-				'topic_time'				=> $current_time,
+				'topic_time'				=> $data_ary['topic_time']?$data_ary['topic_time']:$current_time,
 				'topic_last_view_time'		=> $current_time,
 				'forum_id'					=> $data_ary['forum_id'],
 				'icon_id'					=> $data_ary['icon_id'],
@@ -1853,6 +1853,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 				'topic_type'				=> $topic_type,
 				'topic_time_limit'			=> $topic_type != POST_NORMAL ? ($data_ary['topic_time_limit'] * 86400) : 0,
 				'topic_category' => $data_ary['topic_category'],
+				'topic_time'				=> $data_ary['topic_time']?$data_ary['topic_time']:$current_time,
 				'poll_title'				=> (isset($poll_ary['poll_options'])) ? $poll_ary['poll_title'] : '',
 				'poll_start'				=> (isset($poll_ary['poll_options'])) ? $poll_start : 0,
 				'poll_max_options'			=> (isset($poll_ary['poll_options'])) ? $poll_ary['poll_max_options'] : 1,
@@ -1929,7 +1930,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 		{
 			$sql_data[TOPICS_TABLE]['sql'] = array(
 				'topic_last_post_id'		=> $data_ary['post_id'],
-				'topic_last_post_time'		=> $current_time,
+				'topic_last_post_time'				=> $data_ary['topic_last_post_time']?$data_ary['topic_last_post_time']:$current_time,
 				'topic_last_poster_id'		=> $sql_data[POSTS_TABLE]['sql']['poster_id'],
 				'topic_last_poster_name'	=> ($user->data['user_id'] == ANONYMOUS) ? $sql_data[POSTS_TABLE]['sql']['post_username'] : $user->data['username'],
 				'topic_last_poster_colour'	=> $user->data['user_colour'],

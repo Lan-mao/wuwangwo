@@ -849,6 +849,20 @@ if ($submit || $preview || $refresh)
 	$post_data['orig_topic_type']	= $post_data['topic_type'];
 	$post_data['topic_type']		= $request->variable('topic_type', (($mode != 'post') ? (int) $post_data['topic_type'] : POST_NORMAL));
 	$post_data['topic_category']		= $request->variable('topic_category', (($mode != 'post') ? (int) $post_data['topic_category'] : 0));
+	$post_data['topic_time']		= $request->variable('topic_time', (($mode != 'post') ? $post_data['topic_time'] :''));
+	if($post_data['topic_time']){
+
+		$post_data['topic_time']=DateTime::createFromFormat('Ymd,Hi', $post_data['topic_time']);
+		if($post_data['topic_time'])
+		{
+			$post_data['topic_time'] = $post_data['topic_time']->getTimestamp();
+		}
+	}
+	$post_data['topic_last_post_time']		= $request->variable('topic_last_post_time', (($mode != 'post') ? $post_data['topic_last_post_time'] : ''));
+	if($post_data['topic_last_post_time'])
+	{
+		$post_data['topic_last_post_time'] = DateTime::createFromFormat('Ymd,Hi', $post_data['topic_last_post_time'])->getTimestamp();
+	}
 	$post_data['topic_time_limit']	= $request->variable('topic_time_limit', (($mode != 'post') ? (int) $post_data['topic_time_limit'] : 0));
 
 	if ($post_data['enable_icons'] && $auth->acl_get('f_icons', $forum_id))
@@ -1360,6 +1374,8 @@ if ($submit || $preview || $refresh)
 
 			$data = array(
 				'topic_category' => $post_data['topic_category'],
+				'topic_time' => $post_data['topic_time'],
+				'topic_last_post_time' => '',
 				'topic_title'			=> (empty($post_data['topic_title'])) ? $post_data['post_subject'] : $post_data['topic_title'],
 				'topic_first_post_id'	=> (isset($post_data['topic_first_post_id'])) ? (int) $post_data['topic_first_post_id'] : 0,
 				'topic_last_post_id'	=> (isset($post_data['topic_last_post_id'])) ? (int) $post_data['topic_last_post_id'] : 0,
@@ -1801,6 +1817,8 @@ $page_data = array(
 	'MODERATORS'			=> (count($moderators)) ? implode($user->lang['COMMA_SEPARATOR'], $moderators[$forum_id]) : '',
 	'USERNAME'				=> ((!$preview && $mode != 'quote') || $preview) ? $post_data['username'] : '',
 	'SUBJECT'				=> $post_data['post_subject'],
+	'TOPIC_TIME' => $post_data['topic_time']?date('Ymd,Hi', $post_data['topic_time']):date('Ymd,Hi'),
+	'TOPIC_LAST_POST_TIME' => $post_data['topic_last_post_time']?date('Ymd,Hi', $post_data['topic_last_post_time']):date('Ymd,Hi'),
 	'MESSAGE'				=> $post_data['post_text'],
 	'BBCODE_STATUS'			=> $user->lang(($bbcode_status ? 'BBCODE_IS_ON' : 'BBCODE_IS_OFF'), '<a href="' . $controller_helper->route('phpbb_help_bbcode_controller') . '">', '</a>'),
 	'IMG_STATUS'			=> ($img_status) ? $user->lang['IMAGES_ARE_ON'] : $user->lang['IMAGES_ARE_OFF'],

@@ -167,6 +167,14 @@
 				<dt><label for="topic_category-0">主题标签{L_COLON}</label></dt>
 				<dd><!-- BEGIN topic_category --><label for="topic_category-{topic_category.VALUE}"><input type="radio" name="topic_category" id="topic_category-{topic_category.VALUE}" value="{topic_category.VALUE}"{topic_category.S_CHECKED} />{topic_category.L_TOPIC_CATEGORY}</label> <!-- END topic_category --></dd>
 			</dl>
+			<dl>
+				<dt><label for="topic_time">发表日期{L_COLON}</label></dt>
+				<dd><label for="topic_time"><input type="text" name="topic_time" id="topic_time" value="" class="inputbox autowidth" /></label></dd>
+			</dl>
+			<dl>
+				<dt><label for="topic_last_post_time">最后更新日期{L_COLON}</label></dt>
+				<dd><label for="topic_last_post_time"><input type="text" name="topic_last_post_time" id="topic_last_post_time" value="" class="inputbox autowidth" /></label></dd>
+			</dl>
 			<!-- ENDIF -->
 
 			<!-- IF S_TOPIC_TYPE_ANNOUNCE or S_TOPIC_TYPE_STICKY -->
