@@ -849,7 +849,7 @@ if ($submit || $preview || $refresh)
 	$post_data['orig_topic_type']	= $post_data['topic_type'];
 	$post_data['topic_type']		= $request->variable('topic_type', (($mode != 'post') ? (int) $post_data['topic_type'] : POST_NORMAL));
 	$post_data['topic_category']		= $request->variable('topic_category', (($mode != 'post') ? (int) $post_data['topic_category'] : 0));
-	$post_data['topic_time']		= $request->variable('topic_time', (($mode != 'post') ? $post_data['topic_time'] :''));
+	$post_data['topic_time']		= $request->variable('topic_time','');
 	if($post_data['topic_time']){
 
 		$post_data['topic_time']=DateTime::createFromFormat('Ymd,Hi', $post_data['topic_time']);
@@ -858,10 +858,14 @@ if ($submit || $preview || $refresh)
 			$post_data['topic_time'] = $post_data['topic_time']->getTimestamp();
 		}
 	}
-	$post_data['topic_last_post_time']		= $request->variable('topic_last_post_time', (($mode != 'post') ? $post_data['topic_last_post_time'] : ''));
+	$post_data['topic_last_post_time']		= $request->variable('topic_last_post_time', '');
 	if($post_data['topic_last_post_time'])
 	{
-		$post_data['topic_last_post_time'] = DateTime::createFromFormat('Ymd,Hi', $post_data['topic_last_post_time'])->getTimestamp();
+		$post_data['topic_last_post_time']=DateTime::createFromFormat('Ymd,Hi', $post_data['topic_last_post_time']);
+		if($post_data['topic_last_post_time'])
+		{
+			$post_data['topic_last_post_time'] = $post_data['topic_last_post_time']->getTimestamp();
+		}
 	}
 	$post_data['topic_time_limit']	= $request->variable('topic_time_limit', (($mode != 'post') ? (int) $post_data['topic_time_limit'] : 0));
 
