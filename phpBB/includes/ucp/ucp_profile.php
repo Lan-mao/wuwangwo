@@ -76,14 +76,18 @@ class ucp_profile
 						'new_password'		=> array(
 							array('string', true, $config['min_pass_chars'], $config['max_pass_chars']),
 							array('password')),
-						'password_confirm'	=> array('string', true, $config['min_pass_chars'], $config['max_pass_chars']),
-						'email_or_tel'       => array(
-							array('string', true, 6, 60),
-							array('user_emailOrTel', false, '')),
-						'verify_code'      => array(
-							array('string', true, 6, 60),
-							array('verify_code', $data['email_or_tel'], '')),
+						'password_confirm'	=> array('string', true, $config['min_pass_chars'], $config['max_pass_chars'])
 					);
+
+					if ($data['email_or_tel']){
+
+						$check_ary['email_or_tel'] = array(
+							array('string', false, 6, 60),
+							array('user_emailOrTel', false, ''));
+						$check_ary['verify_code'] = array(
+							array('string', false, 6, 60),
+							array('verify_code', $data['email_or_tel'], ''));
+					}
 
 					if ($auth->acl_get('u_chgname') && $config['allow_namechange'])
 					{
@@ -154,6 +158,12 @@ class ucp_profile
 							'user_password'		=> ($auth->acl_get('u_chgpasswd') && $data['new_password']) ? $passwords_manager->hash($data['new_password']) : $user->data['user_password'],
 							'user_passchg'		=> ($auth->acl_get('u_chgpasswd') && $data['new_password']) ? time() : 0,
 						);
+
+						if ($data['username'] != $user->data['username']){
+
+							$sql_ary['username_changed_date'] = time();
+						}
+
 
 						if ($auth->acl_get('u_chgname') && $config['allow_namechange'] && $data['username'] != $user->data['username'])
 						{
@@ -284,6 +294,12 @@ class ucp_profile
 					// Replace "error" strings with their real, localised form
 					$error = array_map(array($user, 'lang'), $error);
 				}
+				$username_changed_date = $user->data['username_changed_date'];
+
+				$change_username_date_left = 360 - floor((time() - $username_changed_date)/(60*60*24));
+//				echo $change_username_date_left;
+				$change_username = $change_username_date_left <=0;
+//				$username_changed_date_str = $username_changed_date?date('Ymd,Hi', $username_changed_date):'';
 
 				$template->assign_vars(array(
 					'ERROR'				=> (count($error)) ? implode('<br />', $error) : '',
@@ -297,12 +313,13 @@ class ucp_profile
 					'PASSWORD_CONFIRM'	=> $data['password_confirm'],
 					'NEW_PASSWORD'		=> $data['new_password'],
 					'CUR_PASSWORD'		=> '',
+					'LEFT_DATES' =>$change_username?'':$change_username_date_left,
 
 					'L_USERNAME_EXPLAIN'		=> $user->lang($config['allow_name_chars'] . '_EXPLAIN', $user->lang('CHARACTERS', (int) $config['min_name_chars']), $user->lang('CHARACTERS', (int) $config['max_name_chars'])),
 					'L_CHANGE_PASSWORD_EXPLAIN'	=> $user->lang($config['pass_complex'] . '_EXPLAIN', $user->lang('CHARACTERS', (int) $config['min_pass_chars']), $user->lang('CHARACTERS', (int) $config['max_pass_chars'])),
 
 					'S_FORCE_PASSWORD'	=> ($auth->acl_get('u_chgpasswd') && $config['chg_passforce'] && $user->data['user_passchg'] < time() - ($config['chg_passforce'] * 86400)) ? true : false,
-					'S_CHANGE_USERNAME' => ($config['allow_namechange'] && $auth->acl_get('u_chgname')) ? true : false,
+					'S_CHANGE_USERNAME' => ($config['allow_namechange'] && $auth->acl_get('u_chgname') && $change_username) ? true : false,
 					'S_CHANGE_EMAIL'	=> ($auth->acl_get('u_chgemail')) ? true : false,
 					'S_CHANGE_PASSWORD'	=> ($auth->acl_get('u_chgpasswd')) ? true : false)
 				);

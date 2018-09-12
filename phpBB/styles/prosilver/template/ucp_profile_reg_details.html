@@ -11,11 +11,14 @@
 	<!-- ENDIF -->
 
 	<fieldset>
+
 	<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+		<em>编辑步骤：1，输入修改后的信息；2，输入当前密码；3，提交。</em>
 		<dl><dd class="error ajax-msg hide"></dd></dl>
 	<!-- EVENT ucp_profile_register_details_before -->
 	<dl>
-		<dt><label <!-- IF S_CHANGE_USERNAME -->for="username"<!-- ENDIF -->>{L_USERNAME}{L_COLON}</label><br /><span>{L_USERNAME_EXPLAIN}</span></dt>
+		<dt><label <!-- IF S_CHANGE_USERNAME -->for="username"<!-- ENDIF -->>{L_USERNAME}{L_COLON}</label><br />
+			<span><!-- IF not S_CHANGE_USERNAME -->一年只能修改一次，{LEFT_DATES}天后可修改<!-- ELSE -->{L_USERNAME_EXPLAIN}<!-- ENDIF --></span></dt>
 		<dd><!-- IF S_CHANGE_USERNAME --><input type="text" name="username" id="username" value="{USERNAME}" class="inputbox" title="{L_USERNAME}" /><!-- ELSE --><strong>{USERNAME}</strong><!-- ENDIF --></dd>
 	</dl>
 		<dl>
