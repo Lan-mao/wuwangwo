@@ -20,12 +20,6 @@
 					<dt><label for="{PASSWORD_CREDENTIAL}">{L_PASSWORD}{L_COLON}</label></dt>
 					<dd><input type="password" tabindex="2" id="{PASSWORD_CREDENTIAL}" name="{PASSWORD_CREDENTIAL}"
 							   size="25" class="inputbox autowidth" autocomplete="off"/></dd>
-					<!-- IF S_DISPLAY_FULL_LOGIN and (U_SEND_PASSWORD or U_RESEND_ACTIVATION) -->
-					<!-- IF U_SEND_PASSWORD -->
-					<dd><a href="{U_SEND_PASSWORD}">{L_FORGOT_PASS}</a></dd><!-- ENDIF -->
-					<!-- IF U_RESEND_ACTIVATION -->
-					<dd><a href="{U_RESEND_ACTIVATION}">{L_RESEND_ACTIVATION}</a></dd><!-- ENDIF -->
-					<!-- ENDIF -->
 				</dl>
 				<!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_CODE -->
 				<!-- DEFINE $CAPTCHA_TAB_INDEX = 3 -->
@@ -46,6 +40,18 @@
 					<dt>&nbsp;</dt>
 					<dd>{S_HIDDEN_FIELDS}<input type="submit" name="login" tabindex="6" value="{L_LOGIN}"
 												class="button1"/></dd>
+				</dl>
+
+
+				<dl>
+					<dd>&nbsp;</dd>
+					<!-- IF S_DISPLAY_FULL_LOGIN and (U_SEND_PASSWORD or U_RESEND_ACTIVATION) -->
+					<!-- IF U_SEND_PASSWORD -->
+					<dt><a href="{U_SEND_PASSWORD}">{L_FORGOT_PASS}</a></dt><!-- ENDIF -->
+					<!-- IF U_RESEND_ACTIVATION -->
+					<dd><a href="{U_RESEND_ACTIVATION}">{L_RESEND_ACTIVATION}</a>
+					</dd><!-- ENDIF -->
+					<!-- ENDIF -->
 				</dl>
 				</fieldset>
 			</div>
