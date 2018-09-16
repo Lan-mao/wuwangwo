@@ -268,6 +268,7 @@ define('FORUMS_ACCESS_TABLE',		$table_prefix . 'forums_access');
 define('FORUMS_TRACK_TABLE',		$table_prefix . 'forums_track');
 define('FORUMS_WATCH_TABLE',		$table_prefix . 'forums_watch');
 define('GROUPS_TABLE',				$table_prefix . 'groups');
+define('HOT_TOPICS_TABLE',				$table_prefix . 'hot_topics');
 define('ICONS_TABLE',				$table_prefix . 'icons');
 define('LANG_TABLE',				$table_prefix . 'lang');
 define('LOG_TABLE',					$table_prefix . 'log');

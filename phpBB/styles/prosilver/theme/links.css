@@ -14,7 +14,7 @@ a {
 
 /* Coloured usernames */
 .username-coloured {
-	font-weight: bold;
+	/*font-weight: bold;*/
 	display: inline !important;
 	padding: 0 !important;
 }
@@ -119,7 +119,7 @@ a.lastsubject:hover {
 
 /* Profile links */
 .postprofile a, .postprofile dt.author a {
-	font-weight: bold;
+	/*font-weight: bold;*/
 	text-decoration: none;
 }
 

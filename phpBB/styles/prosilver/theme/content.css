@@ -81,12 +81,13 @@ ul.topiclist dfn {
 	left: -999px;
 	width: 990px;
 }
-ul.topiclist a{
 
-	color: rgba(0,0,0,0.87);
+ul.topiclist a {
+	color: rgba(0, 0, 0, 0.87);
 }
- ul.topiclist a:hover, ul.topiclist a:focus, ul.topiclist a:active {
-	color: rgba(0,0,0,0.87);
+
+ul.topiclist a:hover, ul.topiclist a:focus, ul.topiclist a:active {
+	color: rgba(0, 0, 0, 0.87);
 	text-decoration: underline;
 }
 
@@ -112,7 +113,7 @@ li.header dt, li.header dd {
 	padding-top: 2px;
 	padding-bottom: 2px;
 	font-size: 1rem;
-	font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti,"Microsoft YaHei";
+	font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
 	text-transform: uppercase;
 }
 
@@ -147,19 +148,19 @@ li.header dl.row-item dt .list-inner {
 .row .list-inner { padding: 4px 0; }
 
 dl.row-item {
-	background-position: 10px 50%;		/* Position of folder icon */
+	background-position: 10px 50%; /* Position of folder icon */
 	background-repeat: no-repeat;
 	background-size: 32px;
 }
 
 dl.row-item dt {
 	background-repeat: no-repeat;
-	background-position: 5px 95%;		/* Position of topic icon */
+	background-position: 5px 95%; /* Position of topic icon */
 	background-size: 17px;
 }
 
 dl.row-item dt .list-inner {
-	padding-left: 52px;					/* Space for folder icon */
+	padding-left: 52px; /* Space for folder icon */
 }
 
 dl.row-item dt, dl.row-item dd {
@@ -170,7 +171,7 @@ dl.row-item dt a {
 	display: inline;
 }
 
-dl a.row-item-link {						/* topic row icon links */
+dl a.row-item-link { /* topic row icon links */
 	display: block;
 	width: 30px;
 	height: 30px;
@@ -369,7 +370,7 @@ dd.option {
 	line-height: 1.4em;
 }
 
-.content.randian p{
+.content.randian p {
 	font-size: 1em;
 }
 
@@ -484,7 +485,7 @@ blockquote blockquote {
 blockquote cite {
 	/* Username/source of quoter */
 	font-style: normal;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	display: block;
 	font-size: 0.9em;
 }
@@ -535,7 +536,7 @@ blockquote .codebox {
 	height: auto;
 	max-height: 200px;
 	padding: 5px 3px;
-	font: 0.9em Monaco, "Andale Mono","Courier New", Courier, monospace;
+	font: 0.9em Monaco, "Andale Mono", "Courier New", Courier, monospace;
 	line-height: 1.3em;
 }
 
@@ -578,8 +579,7 @@ blockquote .codebox {
 	clear: left;
 }
 
-.attachbox p.stats
-{
+.attachbox p.stats {
 	line-height: 110%;
 	font-weight: normal;
 	clear: left;
@@ -592,7 +592,7 @@ blockquote .codebox {
 
 .attach-image img {
 	border: 1px solid transparent;
-/*	cursor: move; */
+	/*	cursor: move; */
 	cursor: default;
 }
 
@@ -867,7 +867,35 @@ table.fixed-width-table {
 	font-style: italic;
 }
 
-
-.content .first-line-indent-2{
+.content .first-line-indent-2 {
 	TEXT-INDENT: 2em;
+}
+
+
+
+.rd-titles dl.row-item dt .list-inner {
+	margin-right: auto;
+}
+
+.rd-truncate {
+	display: block !important;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.rd-titles dl.row-item dt .list-inner {
+	padding-left: 12px;
+}
+
+.rd-titles a.topictitle {
+	height: 36px;
+	line-height: 36px;
+	font-size: 18px;
+}
+
+.rd-divider{
+	height: 1px;
+	overflow: hidden;
+	background-color: #e0e0e0;
 }
