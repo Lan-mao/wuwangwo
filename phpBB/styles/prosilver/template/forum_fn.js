@@ -37,13 +37,14 @@ function pageJump(item) {
 	var page = parseInt(item.val(), 10),
 		perPage = item.attr('data-per-page'),
 		baseUrl = item.attr('data-base-url'),
+		urlAnchor = item.attr('data-anchor'),
 		startName = item.attr('data-start-name');
 
 	if (page !== null && !isNaN(page) && page === Math.floor(page) && page > 0) {
 		if (baseUrl.indexOf('?') === -1) {
-			document.location.href = baseUrl + '?' + startName + '=' + ((page - 1) * perPage);
+			document.location.href = baseUrl + '?' + startName + '=' + ((page - 1) * perPage) + urlAnchor;
 		} else {
-			document.location.href = baseUrl.replace(/&amp;/g, '&') + '&' + startName + '=' + ((page - 1) * perPage);
+			document.location.href = baseUrl.replace(/&amp;/g, '&') + '&' + startName + '=' + ((page - 1) * perPage) + urlAnchor;
 		}
 	}
 }

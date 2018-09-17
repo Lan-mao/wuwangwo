@@ -159,11 +159,10 @@
 <!-- ENDIF -->
 
 
-<div style="margin-top: 12px;" class="rd-divider"></div>
+<div id="tie" style="margin-top: 12px;" class="rd-divider"></div>
 
 <!-- IF S_DISPLAY_POST_INFO or .pagination or TOTAL_POSTS or TOTAL_TOPICS -->
 <div class="action-bar bar-top">
-
 	<!-- IF not S_IS_BOT and S_DISPLAY_POST_INFO -->
 	<!-- EVENT viewforum_buttons_top_before -->
 
@@ -197,8 +196,6 @@
 	<!-- ENDIF -->
 
 	<div class="pagination">
-		<!-- IF not S_IS_BOT and U_MARK_TOPICS and .topicrow --><a href="{U_MARK_TOPICS}" class="mark" accesskey="m"
-																   data-ajax="mark_topics_read">{L_MARK_TOPICS_READ}</a> &bull; <!-- ENDIF -->
 		{TOTAL_TOPICS}
 		<!-- IF .pagination -->
 		<!-- INCLUDE pagination.html -->
@@ -363,26 +360,6 @@
 							href="{topicrow.U_VIEW_FORUM}">{topicrow.FORUM_NAME}</a><!-- ENDIF -->
 						</div>
 
-						<!-- IF .topicrow.pagination -->
-						<div class="pagination">
-							<span><i class="icon fa-clone fa-fw" aria-hidden="true"></i></span>
-							<ul>
-								<!-- BEGIN pagination -->
-								<!-- IF topicrow.pagination.S_IS_PREV -->
-								<!-- ELSEIF topicrow.pagination.S_IS_CURRENT -->
-								<li class="active"><span>{topicrow.pagination.PAGE_NUMBER}</span></li>
-								<!-- ELSEIF topicrow.pagination.S_IS_ELLIPSIS -->
-								<li class="ellipsis"><span>{L_ELLIPSIS}</span></li>
-								<!-- ELSEIF topicrow.pagination.S_IS_NEXT -->
-								<!-- ELSE -->
-								<li><a class="button"
-									   href="{topicrow.pagination.PAGE_URL}">{topicrow.pagination.PAGE_NUMBER}</a></li>
-								<!-- ENDIF -->
-								<!-- END pagination -->
-							</ul>
-						</div>
-						<!-- ENDIF -->
-
 						<!-- EVENT topiclist_row_append -->
 					</div>
 					</dt>
@@ -450,8 +427,6 @@
 	<!-- ENDIF -->
 
 	<div class="pagination">
-		<!-- IF not S_IS_BOT and U_MARK_TOPICS and .topicrow --><a href="{U_MARK_TOPICS}"
-																   data-ajax="mark_topics_read">{L_MARK_TOPICS_READ}</a> &bull; <!-- ENDIF -->
 		{TOTAL_TOPICS}
 		<!-- IF .pagination -->
 		<!-- INCLUDE pagination.html -->

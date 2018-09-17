@@ -134,7 +134,7 @@ class pagination
 	* @param bool $ignore_on_page decides whether we enable an active (unlinked) item, used primarily for embedded lists
 	* @return null
 	*/
-	public function generate_template_pagination($base_url, $block_var_name, $start_name, $num_items, $per_page, $start = 1, $reverse_count = false, $ignore_on_page = false)
+	public function generate_template_pagination($base_url, $block_var_name, $start_name, $num_items, $per_page, $start = 1, $reverse_count = false, $ignore_on_page = false, $anchor = '')
 	{
 		if (empty($base_url))
 		{
@@ -179,7 +179,7 @@ class pagination
 
 				$this->template->assign_block_vars($block_var_name, array(
 					'PAGE_NUMBER'	=> '',
-					'PAGE_URL'		=> $u_previous_page,
+					'PAGE_URL'		=> $u_previous_page. $anchor,
 					'S_IS_CURRENT'	=> false,
 					'S_IS_PREV'		=> true,
 					'S_IS_NEXT'		=> false,
@@ -199,7 +199,7 @@ class pagination
 				// on at least page 3 and ending three pages before the final item.
 				$this->template->assign_block_vars($block_var_name, array(
 					'PAGE_NUMBER'	=> $at_page,
-					'PAGE_URL'		=> $this->generate_page_link($base_url, $at_page, $start_name, $per_page),
+					'PAGE_URL'		=> $this->generate_page_link($base_url, $at_page, $start_name, $per_page). $anchor,
 					'S_IS_CURRENT'	=> (!$ignore_on_page && $at_page == $on_page),
 					'S_IS_NEXT'		=> false,
 					'S_IS_PREV'		=> false,
@@ -233,7 +233,7 @@ class pagination
 
 				$this->template->assign_block_vars($block_var_name, array(
 					'PAGE_NUMBER'	=> '',
-					'PAGE_URL'		=> $u_next_page,
+					'PAGE_URL'		=> $u_next_page. $anchor,
 					'S_IS_CURRENT'	=> false,
 					'S_IS_PREV'		=> false,
 					'S_IS_NEXT'		=> true,
@@ -261,6 +261,7 @@ class pagination
 
 		$template_array = array(
 			$tpl_prefix . 'BASE_URL'		=> is_string($base_url) ? $base_url : '',//@todo: Fix this for routes
+			$tpl_prefix . 'ANCHOR'		=> $anchor,//@todo: Fix this for routes
 			$tpl_prefix . 'START_NAME'		=> $start_name,
 			$tpl_prefix . 'PER_PAGE'		=> $per_page,
 			'U_' . $tpl_prefix . 'PREVIOUS_PAGE'	=> ($on_page != 1) ? $u_previous_page : '',
