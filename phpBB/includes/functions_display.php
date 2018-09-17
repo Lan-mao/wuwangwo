@@ -730,7 +730,7 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 FROM
     pb_hot_topics ht
 WHERE
-    ht.deleted != 1
+    ht.deleted != 1 AND ht.homepage = 1
 ORDER BY ht.lft ASC';
 
 	$result = $db->sql_query_limit($sql, 50, 0);
@@ -751,7 +751,8 @@ FROM
     pb_forums f ON (f.forum_id = t.forum_id)
         JOIN
     pb_hot_topics ht ON t.topic_id = ht.topicId
-        AND ht.deleted != 1
+WHERE
+    ht.deleted != 1 AND ht.homepage = 1
 ORDER BY ht.lft ASC';
 	$result = $db->sql_query($sql, 50, 0);
 
