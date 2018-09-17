@@ -280,6 +280,7 @@ dd.option {
 .postbody .content {
 	font-size: 1.3em;
 	overflow-x: auto;
+	padding-top: 0.6em;
 }
 
 .postbody img.postimage {
@@ -405,8 +406,9 @@ dl.faq dt {
 }
 
 /* Post author */
-p.author {
+p.author, .card .card-content p.author {
 	margin-bottom: 0.6em;
+	margin-top: 0.6em;
 	padding: 0 0 5px 0;
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-size: 1em;

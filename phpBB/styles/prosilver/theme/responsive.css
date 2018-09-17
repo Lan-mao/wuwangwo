@@ -25,16 +25,16 @@
 	}
 
 	.action-bar .search-box .inputbox ::-moz-placeholder {
-    	content: "Search...";
-  	}
+		content: "Search...";
+	}
 
-  	.action-bar .search-box .inputbox :-ms-input-placeholder {
-  		content: "Search...";
-  	}
+	.action-bar .search-box .inputbox :-ms-input-placeholder {
+		content: "Search...";
+	}
 
-  	.action-bar .search-box .inputbox ::-webkit-input-placeholder {
-  		content: "Search...";
-  	}
+	.action-bar .search-box .inputbox ::-webkit-input-placeholder {
+		content: "Search...";
+	}
 }
 
 @media (max-width: 500px) {
@@ -72,7 +72,7 @@
 
 	.action-bar > div {
 		margin-bottom: 5px;
- 	}
+	}
 
 	.action-bar > .pagination {
 		float: none;
@@ -120,8 +120,11 @@
 
 @media (max-width: 700px) {
 	.responsive-hide { display: none !important; }
+
 	.responsive-show { display: block !important; }
+
 	.responsive-show-inline { display: inline !important; }
+
 	.responsive-show-inline-block { display: inline-block !important; }
 
 	/* Content wrappers
@@ -233,6 +236,7 @@
 	ul.topiclist dd {
 		display: none;
 	}
+
 	ul.topiclist dd.mark {
 		display: block;
 	}
@@ -563,20 +567,26 @@
 @media (max-width: 850px) {
 	.postprofile { width: 28%; }
 
-
 }
 
 @media (min-width: 701px) and (max-width: 950px) {
 
 	ul.topiclist dt {
-    	margin-right: -410px;
+		margin-right: -410px;
 	}
 
 	ul.topiclist dt .list-inner {
-    	margin-right: 410px;
+		margin-right: 410px;
 	}
 
 	dd.posts, dd.topics, dd.views {
-    	width: 80px;
+		width: 80px;
+	}
+}
+
+/*ranidan */
+@media (max-width: 700px) {
+	.page-body {
+		padding: 10px;
 	}
 }
