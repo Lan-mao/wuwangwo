@@ -257,7 +257,8 @@ dd.option {
 .postbody h3 {
 	/* Postbody requires a different h3 format - so change it here */
 	float: left;
-	font-size: 1.5em;
+	font-size: 1.3em;
+	font-weight: normal;
 	padding: 2px 0 0 0;
 	margin-top: 0 !important;
 	margin-bottom: 0.3em !important;
@@ -873,8 +874,6 @@ table.fixed-width-table {
 	TEXT-INDENT: 2em;
 }
 
-
-
 .rd-titles dl.row-item dt .list-inner {
 	margin-right: auto;
 }
@@ -896,8 +895,28 @@ table.fixed-width-table {
 	font-size: 18px;
 }
 
-.rd-divider{
+.rd-divider {
 	height: 1px;
 	overflow: hidden;
 	background-color: #e0e0e0;
+}
+
+.text-logo {
+	font-size: 1.5rem;
+	font-weight: normal;
+	color: #fff;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+a.text-logo:hover {
+	text-decoration-line: none;
+}
+
+.postbody .randian a {
+	display: inline;
+}
+
+.postbody .randian.content h2 {
+	border-bottom-style: dashed;
 }

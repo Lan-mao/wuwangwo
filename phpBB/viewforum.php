@@ -696,7 +696,6 @@ $rd_sql = $db->sql_build_query('SELECT', $sql_ary);
 $result = $db->sql_query($rd_sql);
 $rd_topics_count = (int) $db->sql_fetchfield('num_topics');
 $db->sql_freeresult($result);
-echo $rd_topics_count."aaaaaaaaaa";
 if ($rd_topics_count)
 {
 	$topics_count = $topics_count - $rd_topics_count;

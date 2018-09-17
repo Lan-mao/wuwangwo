@@ -589,4 +589,22 @@
 	.page-body {
 		padding: 10px;
 	}
+
+	img.rd-article-img-1 {
+		width: 90%;
+	}
+
+	.ckeditor-html5-video video {
+		width: 90%;
+	}
+}
+
+@media only screen and (min-width: 701px) {
+	img.rd-article-img-1 {
+		width: 50%;
+	}
+
+	.ckeditor-html5-video video {
+		width: 50%;
+	}
 }
