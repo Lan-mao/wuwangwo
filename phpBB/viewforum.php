@@ -332,6 +332,7 @@ if ($sort_days)
 
 	$result = $db->sql_query($db->sql_build_query('SELECT', $sql_array));
 	$topics_count = (int) $db->sql_fetchfield('num_topics');
+
 	$db->sql_freeresult($result);
 
 	if (isset($_POST['sort']))
@@ -678,6 +679,29 @@ while ($row = $db->sql_fetchrow($result))
 	$topic_list[] = (int) $row['topic_id'];
 }
 $db->sql_freeresult($result);
+
+
+$sql_ary = array(
+	'SELECT' => 'COUNT(t.topic_id) AS num_topics',
+	'FROM'   => array(
+		TOPICS_TABLE => 't',
+	),
+	'WHERE'  => "$sql_where and t.topic_category != 0
+		AND t.topic_type IN (" . POST_NORMAL . ', ' . POST_STICKY . ")
+		$sql_approved
+		$sql_limit_time",
+);
+
+$rd_sql = $db->sql_build_query('SELECT', $sql_ary);
+$result = $db->sql_query($rd_sql);
+$rd_topics_count = (int) $db->sql_fetchfield('num_topics');
+$db->sql_freeresult($result);
+echo $rd_topics_count."aaaaaaaaaa";
+if ($rd_topics_count)
+{
+	$topics_count = $topics_count - $rd_topics_count;
+}
+
 
 // For storing shadow topics
 $shadow_topic_list = array();
@@ -1039,8 +1063,8 @@ while ($assist = $db->sql_fetchrow($result))
 		'TOPIC_AUTHOR_FULL' => get_username_string('full', $assist['topic_poster'], $assist['topic_first_poster_name'], $assist['topic_first_poster_colour']),
 		'FIRST_POST_TIME'   => $user->format_date($assist['topic_time']),
 		'TOPIC_TITLE'       => censor_text($assist['topic_title']),
-		'S_GUIDE'       => $assist['topic_category'] == 1,
-		'S_ASSIST'       => $assist['topic_category'] == 2,
+		'S_GUIDE'           => $assist['topic_category'] == 1,
+		'S_ASSIST'          => $assist['topic_category'] == 2,
 		'U_VIEW_TOPIC'      => $view_assist_url,
 	);
 	$template->assign_block_vars('assist_row', $assist_row);
