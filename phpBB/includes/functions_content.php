@@ -579,7 +579,7 @@ function generate_text_for_display($text, $uid, $bitfield, $flags, $censor_text 
 	$vars = array('text', 'uid', 'bitfield', 'flags', 'censor_text');
 	extract($phpbb_dispatcher->trigger_event('core.modify_text_for_display_before', compact($vars)));
 
-	if (preg_match('#^<[rt][ >]#', $text))
+	if (preg_match('#^<(r|t|rd)[ >]#', $text))
 	{
 		$renderer = $phpbb_container->get('text_formatter.renderer');
 

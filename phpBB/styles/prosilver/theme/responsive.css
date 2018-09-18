@@ -591,17 +591,24 @@
 	}
 
 	img.rd-article-img-1 {
-		width: 90%;
+		width: 100%;
+	}
+	.responsive-width-1{
+		width: 100%;
 	}
 
 	.ckeditor-html5-video video {
-		width: 90%;
+		width: 100%;
 	}
 }
 
 @media only screen and (min-width: 701px) {
 	img.rd-article-img-1 {
 		width: 50%;
+	}
+
+	.responsive-width-1{
+		width: 70%;
 	}
 
 	.ckeditor-html5-video video {

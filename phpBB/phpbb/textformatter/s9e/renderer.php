@@ -247,10 +247,21 @@ class renderer implements \phpbb\textformatter\renderer_interface
 		$vars = array('renderer', 'xml');
 		extract($this->dispatcher->trigger_event('core.text_formatter_s9e_render_before', compact($vars)));
 
+
+		if (\substr($xml, 0, 4) === '<rd>'){
+
+			$xml = '<t>'. \substr($xml, 4, -5). '</t>';
+			$rd = true;
+		}
 		$html = $this->renderer->render($xml);
 
-		$html = \str_replace("\n<br>", '&nbsp;</p><p>', $html);
-		$html = '<p>'. \str_replace('<br>', '</p><p>', $html). '</p>';
+
+		if(!$rd){
+
+			$html = \str_replace("\n<br>", '&nbsp;</p><p>', $html);
+			$html = '<p>'. \str_replace('<br>', '</p><p>', $html). '</p>';
+		}
+
 		if (isset($this->censor) && $this->viewcensors)
 		{
 			$html = $this->censor->censorHtml($html, true);

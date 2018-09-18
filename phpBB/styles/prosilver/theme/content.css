@@ -341,7 +341,7 @@ dd.option {
 	min-height: 3em;
 	overflow: hidden;
 	line-height: 1.4em;
-	font-family: "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+	/*font-family: "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;*/
 	font-size: 1em;
 	padding-bottom: 1px;
 }
@@ -366,7 +366,7 @@ dd.option {
 }
 
 .content p {
-	font-family: "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+	/*font-family: "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;*/
 	font-size: 1.2em;
 	margin-bottom: 1em;
 	line-height: 1.4em;
