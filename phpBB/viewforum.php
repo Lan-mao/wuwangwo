@@ -1045,7 +1045,7 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category != 0 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 1",
+	'WHERE'     => " t.topic_category != 0 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
 	'ORDER_BY'  => 'ht.lft ASC , t.topic_time DESC',
 );
 $sql = $db->sql_build_query('SELECT', $sql_array);
