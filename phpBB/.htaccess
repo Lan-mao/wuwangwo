@@ -1,6 +1,65 @@
 <IfModule mod_rewrite.c>
 RewriteEngine on
 
+
+Redirect 301 /p/a/10024 /viewtopic.php?t=7
+Redirect 301 /p/a/10025 /viewtopic.php?t=9
+Redirect 301 /p/a/10026 /viewtopic.php?t=10
+Redirect 301 /p/a/10027 /viewtopic.php?t=11
+Redirect 301 /p/a/10029 /viewtopic.php?t=13
+Redirect 301 /p/a/10030 /viewtopic.php?t=14
+Redirect 301 /p/a/10031 /viewtopic.php?t=15
+Redirect 301 /p/a/10032 /viewtopic.php?t=16
+Redirect 301 /p/a/10034 /viewtopic.php?t=17
+Redirect 301 /p/a/10108 /viewtopic.php?t=12
+Redirect 301 /p/a/10109 /viewtopic.php?t=34
+Redirect 301 /p/a/10110 /viewtopic.php?t=8
+Redirect 301 /p/a/10113 /viewtopic.php?t=36
+Redirect 301 /p/a/10114 /viewtopic.php?t=37
+Redirect 301 /p/a/10115 /viewtopic.php?t=38
+Redirect 301 /p/a/10116 /viewtopic.php?t=39
+Redirect 301 /p/a/10117 /viewtopic.php?t=32
+Redirect 301 /p/a/10118 /viewtopic.php?t=40
+Redirect 301 /p/a/10119 /viewtopic.php?t=43
+Redirect 301 /p/a/10120 /viewtopic.php?t=45
+Redirect 301 /p/a/10121 /viewtopic.php?t=35
+Redirect 301 /p/a/10122 /viewtopic.php?t=41
+Redirect 301 /p/a/10123 /viewtopic.php?t=44
+Redirect 301 /p/a/10124 /viewtopic.php?t=42
+Redirect 301 /p/a/10125 /viewtopic.php?t=46
+Redirect 301 /p/a/10126 /viewtopic.php?t=31
+Redirect 301 /p/a/10127 /viewtopic.php?t=33
+Redirect 301 /p/a/10128 /viewtopic.php?t=47
+Redirect 301 /p/a/10130 /viewtopic.php?t=48
+Redirect 301 /p/a/10131 /viewtopic.php?t=50
+Redirect 301 /p/a/10132 /viewtopic.php?t=51
+Redirect 301 /p/a/10133 /viewtopic.php?t=49
+Redirect 301 /p/a/10134 /viewtopic.php?t=52
+Redirect 301 /p/a/10135 /viewtopic.php?t=53
+Redirect 301 /p/a/10136 /viewtopic.php?t=54
+Redirect 301 /p/a/10137 /viewtopic.php?t=55
+Redirect 301 /p/a/10138 /viewtopic.php?t=56
+Redirect 301 /p/a/10139 /viewtopic.php?t=57
+Redirect 301 /p/a/10140 /viewtopic.php?t=58
+Redirect 301 /p/a/10141 /viewtopic.php?t=59
+Redirect 301 /p/a/10142 /viewtopic.php?t=60
+Redirect 301 /p/a/10143 /viewtopic.php?t=62
+Redirect 301 /p/a/10144 /viewtopic.php?t=61
+Redirect 301 /p/a/10145 /viewtopic.php?t=63
+Redirect 301 /p/a/10146 /viewtopic.php?t=64
+Redirect 301 /p/a/10147 /viewtopic.php?t=65
+Redirect 301 /p/a/10148 /viewtopic.php?t=66
+Redirect 301 /p/a/10149 /viewtopic.php?t=67
+Redirect 301 /p/a/10150 /viewtopic.php?t=68
+Redirect 301 /p/a/10151 /viewtopic.php?t=75
+Redirect 301 /theme/adopt/ /viewforum.php?f=3
+Redirect 301 /theme/diet/ /viewforum.php?f=4
+Redirect 301 /theme/dog_care/ /viewforum.php?f=6
+Redirect 301 /theme/sport_entertainment/ /viewforum.php?f=5
+Redirect 301 /theme/training/ /viewforum.php?f=7
+Redirect 301 /user-ul/dgfc/ /viewtopic.php?f=4&t=76
+
+
 #
 # Uncomment the statement below if URL rewriting doesn't
 # work properly. If you installed phpBB in a subdirectory
