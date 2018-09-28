@@ -59,6 +59,13 @@ Redirect 301 /theme/sport_entertainment/ /viewforum.php?f=5
 Redirect 301 /theme/training/ /viewforum.php?f=7
 Redirect 301 /user-ul/dgfc/ /viewtopic.php?f=4&t=76
 
+# RedirectMatch 301 ^(.*)$ http://www.xyz.com
+# RedirectMatch ^/images/(.*)$ http://images.example.com/$1
+
+RewriteCond %{HTTP_HOST} ^tie\.randianah\.com [NC]
+RewriteRule ^(.*)$ http://www.randianah.com/$1 [L,R=301]
+RewriteCond %{HTTP_HOST} ^randianah\.com [NC]
+RewriteRule ^(.*)$ http://www.randianah.com/$1 [L,R=301]
 
 #
 # Uncomment the statement below if URL rewriting doesn't
