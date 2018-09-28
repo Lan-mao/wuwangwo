@@ -331,6 +331,6 @@ define('RD_CONSTANTS', array(
 	'success'	=> 'success',
 	'tel'	=> 'tel',
 	'email'	=> 'email',
-	''
+	'guide_page_size' => '10',
 ));
 

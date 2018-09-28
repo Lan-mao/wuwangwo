@@ -3,17 +3,21 @@
 
 <div class="rd-row" style="margin: 0 -0.75rem">
 	<div class="col s12 m6 ">
-		<!-- BEGIN assist_row -->
-		<!-- IF assist_row.S_FIRST_ROW -->
+		<!-- BEGIN guide_row -->
+		<!-- IF guide_row.S_FIRST_ROW -->
 		<div
-			class="forumbg rd-titles<!-- IF assist_row.S_TOPIC_TYPE_SWITCH and (assist_row.S_POST_ANNOUNCE or assist_row.S_POST_GLOBAL) --> announcement<!-- ENDIF -->">
+			class="forumbg rd-titles<!-- IF guide_row.S_TOPIC_TYPE_SWITCH and (guide_row.S_POST_ANNOUNCE or guide_row.S_POST_GLOBAL) --> announcement<!-- ENDIF -->">
 			<div class="inner">
 				<ul class="topiclist">
 					<li class="header row">
 						<dl class="row-item">
 							<dt<!-- IF S_DISPLAY_ACTIVE --> id="active_topics"<!-- ENDIF --> >
 							<div
-								class="list-inner">指南</div>
+								class="list-inner">指南
+								<!-- IF guide_row.S_GUIDES_MORE -->
+								<a href="{U_MORE_GUIDE}"  class="right-box">更多&raquo;</a>
+								<!-- ENDIF -->
+							</div>
 							</dt>
 						</dl>
 					</li>
@@ -21,43 +25,41 @@
 				<ul class="topiclist topics">
 					<!-- ENDIF -->
 
-					<!-- IF assist_row.S_GUIDE -->
-					<li class="row<!-- IF assist_row.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF assist_row.S_POST_GLOBAL --> global-announce<!-- ENDIF --><!-- IF assist_row.S_POST_ANNOUNCE --> announce<!-- ENDIF --><!-- IF assist_row.S_POST_STICKY --> sticky<!-- ENDIF --><!-- IF assist_row.S_TOPIC_REPORTED --> reported<!-- ENDIF -->">
+					<li class="row<!-- IF guide_row.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF guide_row.S_POST_GLOBAL --> global-announce<!-- ENDIF --><!-- IF guide_row.S_POST_ANNOUNCE --> announce<!-- ENDIF --><!-- IF guide_row.S_POST_STICKY --> sticky<!-- ENDIF --><!-- IF guide_row.S_TOPIC_REPORTED --> reported<!-- ENDIF -->">
 						<dl class="row-item">
-							<dt<!-- IF assist_row.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{assist_row.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{assist_row.TOPIC_FOLDER_IMG_ALT}">
-							<!-- IF assist_row.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{assist_row.U_NEWEST_POST}"
+							<dt<!-- IF guide_row.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{guide_row.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{guide_row.TOPIC_FOLDER_IMG_ALT}">
+							<!-- IF guide_row.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{guide_row.U_NEWEST_POST}"
 																					 class="row-item-link"></a><!-- ENDIF -->
 							<div class="list-inner">
-								<!-- IF assist_row.S_UNREAD_TOPIC and not S_IS_BOT -->
-								<a class="unread" href="{assist_row.U_NEWEST_POST}">
+								<!-- IF guide_row.S_UNREAD_TOPIC and not S_IS_BOT -->
+								<a class="unread" href="{guide_row.U_NEWEST_POST}">
 									<i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span
 									class="sr-only">{NEW_POST}</span>
 								</a>
 								<!-- ENDIF -->
-								<!-- IF assist_row.U_VIEW_TOPIC --><a href="{assist_row.U_VIEW_TOPIC}"
-																	  class="topictitle rd-truncate">{assist_row.TOPIC_TITLE}</a><!-- ELSE -->{assist_row.TOPIC_TITLE}<!-- ENDIF -->
+								<!-- IF guide_row.U_VIEW_TOPIC --><a href="{guide_row.U_VIEW_TOPIC}"
+																	  class="topictitle rd-truncate">{guide_row.TOPIC_TITLE}</a><!-- ELSE -->{guide_row.TOPIC_TITLE}<!-- ENDIF -->
 
 
 								<div class="topic-poster right-box">
-									<!-- IF assist_row.S_HAS_POLL --><i class="icon fa-bar-chart fa-fw"
+									<!-- IF guide_row.S_HAS_POLL --><i class="icon fa-bar-chart fa-fw"
 																		aria-hidden="true"></i><!-- ENDIF -->
-									<!-- IF assist_row.ATTACH_ICON_IMG --><i class="icon fa-paperclip fa-fw"
+									<!-- IF guide_row.ATTACH_ICON_IMG --><i class="icon fa-paperclip fa-fw"
 																			 aria-hidden="true"></i><!-- ENDIF -->
-									{L_POST_BY_AUTHOR} {assist_row.TOPIC_AUTHOR_FULL} &raquo; {assist_row.FIRST_POST_TIME}
+									{L_POST_BY_AUTHOR} {guide_row.TOPIC_AUTHOR_FULL} &raquo; {guide_row.FIRST_POST_TIME}
 								</div>
 
 							</div>
 							</dt>
 						</dl>
 					</li>
-					<!-- ENDIF -->
 
-					<!-- IF assist_row.S_LAST_ROW -->
+					<!-- IF guide_row.S_LAST_ROW -->
 				</ul>
 			</div>
 		</div>
 		<!-- ENDIF -->
-		<!-- END assist_row -->
+		<!-- END guide_row -->
 
 	</div>
 	<div class="col s12 m6 ">
@@ -72,7 +74,11 @@
 						<dl class="row-item">
 							<dt<!-- IF S_DISPLAY_ACTIVE --> id="active_topics"<!-- ENDIF --> >
 							<div
-								class="list-inner">工具/帮助</div>
+								class="list-inner">工具/帮助
+								<!-- IF assist_row.S_ASSISTS_MORE -->
+								<a href="{U_MORE_ASSIST}"  class="right-box">更多&raquo;</a>
+								<!-- ENDIF -->
+							</div>
 							</dt>
 						</dl>
 					</li>
@@ -80,7 +86,6 @@
 				<ul class="topiclist topics">
 					<!-- ENDIF -->
 
-					<!-- IF assist_row.S_ASSIST -->
 					<li class="row<!-- IF assist_row.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF assist_row.S_POST_GLOBAL --> global-announce<!-- ENDIF --><!-- IF assist_row.S_POST_ANNOUNCE --> announce<!-- ENDIF --><!-- IF assist_row.S_POST_STICKY --> sticky<!-- ENDIF --><!-- IF assist_row.S_TOPIC_REPORTED --> reported<!-- ENDIF -->">
 						<dl class="row-item">
 							<dt<!-- IF assist_row.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{assist_row.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{assist_row.TOPIC_FOLDER_IMG_ALT}">
@@ -109,7 +114,6 @@
 							</dt>
 						</dl>
 					</li>
-					<!-- ENDIF -->
 
 					<!-- IF assist_row.S_LAST_ROW -->
 				</ul>

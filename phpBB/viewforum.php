@@ -1045,16 +1045,87 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category != 0 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
+	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
 	'ORDER_BY'  => 'ht.lft ASC , t.topic_time DESC',
 );
 $sql = $db->sql_build_query('SELECT', $sql_array);
-$result = $db->sql_query($sql);
+$result = $db->sql_query_limit($sql, RD_CONSTANTS['guide_page_size'], 0);
 
+
+$sql_array = array(
+	'SELECT'    => 'COUNT(t.topic_id) AS num_guides',
+	'FROM'      => array(
+		TOPICS_TABLE => 't',
+	),
+	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
+	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
+);
+
+
+$rd_sql = $db->sql_build_query('SELECT', $sql_array);
+$count_result = $db->sql_query($rd_sql);
+$rd_guides_count = (int) $db->sql_fetchfield('num_guides');
+$db->sql_freeresult($count_result);
+
+$view_more_guide_param = 'f=' . $forum_id . '&amp;c=1';
+$view_more_guide_url = $auth->acl_get('f_read', $forum_id) ? append_sid("{$phpbb_root_path}viewga.$phpEx", $view_more_guide_param) : false;
+$template->assign_var('U_MORE_GUIDE', $view_more_guide_url);
+while ($guide = $db->sql_fetchrow($result))
+{
+	// Generate all the URIs ...
+	$view_guide_url_params = 'f=' . $guide['forum_id'] . '&amp;t=' . $guide['topic_id'];
+	$view_guide_url = $auth->acl_get('f_read', $forum_id) ? append_sid("{$phpbb_root_path}viewtopic.$phpEx", $view_guide_url_params) : false;
+
+	// Send vars to template
+	$guide_row = array(
+		'TOPIC_AUTHOR_FULL' => get_username_string('full', $guide['topic_poster'], $guide['topic_first_poster_name'], $guide['topic_first_poster_colour']),
+		'FIRST_POST_TIME'   => $user->format_date($guide['topic_time']),
+		'TOPIC_TITLE'       => censor_text($guide['topic_title']),
+		'S_GUIDES_MORE'     => $rd_guides_count > RD_CONSTANTS['guide_page_size'] ? true : false,
+		'U_VIEW_TOPIC'      => $view_guide_url,
+	);
+	$template->assign_block_vars('guide_row', $guide_row);
+}
+$db->sql_freeresult($result);
+
+
+$sql_array = array(
+	'SELECT'    => 't.topic_id, t.topic_title, t.forum_id, t.topic_time, t.topic_poster, t.topic_first_poster_name, t.topic_first_poster_colour, 
+	t.topic_category',
+	'FROM'      => array(
+		TOPICS_TABLE => 't',
+	),
+	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
+	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
+	'ORDER_BY'  => 'ht.lft ASC , t.topic_time DESC',
+);
+$sql = $db->sql_build_query('SELECT', $sql_array);
+$result = $db->sql_query_limit($sql, RD_CONSTANTS['guide_page_size'], 0);
+
+
+$sql_array = array(
+	'SELECT'    => 'COUNT(t.topic_id) AS num_assists',
+	'FROM'      => array(
+		TOPICS_TABLE => 't',
+	),
+	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
+	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
+);
+
+
+$rd_sql = $db->sql_build_query('SELECT', $sql_array);
+$count_result = $db->sql_query($rd_sql);
+$rd_assists_count = (int) $db->sql_fetchfield('num_assists');
+$db->sql_freeresult($count_result);
+
+$view_more_assist_param = 'f=' . $forum_id . '&amp;c=2';
+$view_more_assist_url = $auth->acl_get('f_read', $forum_id) ? append_sid("{$phpbb_root_path}viewga.$phpEx", $view_more_assist_param) : false;
+$template->assign_var('U_MORE_ASSIST', $view_more_assist_url);
 while ($assist = $db->sql_fetchrow($result))
 {
 	// Generate all the URIs ...
 	$view_assist_url_params = 'f=' . $assist['forum_id'] . '&amp;t=' . $assist['topic_id'];
+	$view_more_assist_url = 'f=' . $assist['forum_id'] . '&amp;c=2';
 	$view_assist_url = $auth->acl_get('f_read', $forum_id) ? append_sid("{$phpbb_root_path}viewtopic.$phpEx", $view_assist_url_params) : false;
 
 	// Send vars to template
@@ -1062,8 +1133,7 @@ while ($assist = $db->sql_fetchrow($result))
 		'TOPIC_AUTHOR_FULL' => get_username_string('full', $assist['topic_poster'], $assist['topic_first_poster_name'], $assist['topic_first_poster_colour']),
 		'FIRST_POST_TIME'   => $user->format_date($assist['topic_time']),
 		'TOPIC_TITLE'       => censor_text($assist['topic_title']),
-		'S_GUIDE'           => $assist['topic_category'] == 1,
-		'S_ASSIST'          => $assist['topic_category'] == 2,
+		'S_ASSISTS_MORE'    => $rd_assists_count > RD_CONSTANTS['guide_page_size'] ? true : false,
 		'U_VIEW_TOPIC'      => $view_assist_url,
 	);
 	$template->assign_block_vars('assist_row', $assist_row);

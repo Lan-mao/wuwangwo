@@ -1,0 +1,92 @@
+<!-- INCLUDE overall_header.html -->
+
+
+<div class="rd-row" style="margin: 0 -0.75rem">
+
+	<div class="col s12 m6 offset-m3">
+
+		<div class="action-bar bar-top">
+			<div class="pagination">
+				{TOTAL_TOPICS}
+				<!-- IF .pagination -->
+				<!-- INCLUDE pagination.html -->
+				<!-- ELSE -->
+				{PAGE_NUMBER}
+				<!-- ENDIF -->
+			</div>
+		</div>
+
+		<!-- BEGIN ga_row -->
+		<!-- IF ga_row.S_FIRST_ROW -->
+		<div
+			class="forumbg rd-titles<!-- IF ga_row.S_TOPIC_TYPE_SWITCH and (ga_row.S_POST_ANNOUNCE or ga_row.S_POST_GLOBAL) --> announcement<!-- ENDIF -->">
+			<div class="inner">
+				<ul class="topiclist">
+					<li class="header row">
+						<dl class="row-item">
+							<dt<!-- IF S_DISPLAY_ACTIVE --> id="active_topics"<!-- ENDIF --> >
+							<div
+								class="list-inner">指南
+								<!-- IF ga_row.S_GUIDES_MORE -->
+								<a href="{ga_row.U_VIEW_TOPIC}" class="right-box">更多&raquo;</a>
+								<!-- ENDIF -->
+							</div>
+							</dt>
+						</dl>
+					</li>
+				</ul>
+				<ul class="topiclist topics">
+					<!-- ENDIF -->
+
+					<li class="row<!-- IF ga_row.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF ga_row.S_POST_GLOBAL --> global-announce<!-- ENDIF --><!-- IF ga_row.S_POST_ANNOUNCE --> announce<!-- ENDIF --><!-- IF ga_row.S_POST_STICKY --> sticky<!-- ENDIF --><!-- IF ga_row.S_TOPIC_REPORTED --> reported<!-- ENDIF -->">
+						<dl class="row-item">
+							<dt<!-- IF ga_row.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{ga_row.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{ga_row.TOPIC_FOLDER_IMG_ALT}">
+							<!-- IF ga_row.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{ga_row.U_NEWEST_POST}"
+																				 class="row-item-link"></a><!-- ENDIF -->
+							<div class="list-inner">
+								<!-- IF ga_row.S_UNREAD_TOPIC and not S_IS_BOT -->
+								<a class="unread" href="{ga_row.U_NEWEST_POST}">
+									<i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span
+									class="sr-only">{NEW_POST}</span>
+								</a>
+								<!-- ENDIF -->
+								<!-- IF ga_row.U_VIEW_TOPIC --><a href="{ga_row.U_VIEW_TOPIC}"
+																  class="topictitle rd-truncate">{ga_row.TOPIC_TITLE}</a><!-- ELSE -->{ga_row.TOPIC_TITLE}<!-- ENDIF -->
+
+
+								<div class="topic-poster right-box">
+									<!-- IF ga_row.S_HAS_POLL --><i class="icon fa-bar-chart fa-fw"
+																	aria-hidden="true"></i><!-- ENDIF -->
+									<!-- IF ga_row.ATTACH_ICON_IMG --><i class="icon fa-paperclip fa-fw"
+																		 aria-hidden="true"></i><!-- ENDIF -->
+									{L_POST_BY_AUTHOR} {ga_row.TOPIC_AUTHOR_FULL} &raquo; {ga_row.FIRST_POST_TIME}
+								</div>
+
+							</div>
+							</dt>
+						</dl>
+					</li>
+
+					<!-- IF ga_row.S_LAST_ROW -->
+				</ul>
+			</div>
+		</div>
+		<!-- ENDIF -->
+		<!-- END ga_row -->
+
+		<div class="action-bar bar-top">
+			<div class="pagination">
+				{TOTAL_TOPICS}
+				<!-- IF .pagination -->
+				<!-- INCLUDE pagination.html -->
+				<!-- ELSE -->
+				{PAGE_NUMBER}
+				<!-- ENDIF -->
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- INCLUDE overall_footer.html -->
