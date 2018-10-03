@@ -920,3 +920,16 @@ a.text-logo:hover {
 .postbody .randian.content h2 {
 	border-bottom-style: dashed;
 }
+
+.rd-tutorial {
+	font-size: 1rem;
+	background-color: #EFEFEF;
+}
+
+.rd-tutorial ul {
+	padding: 0.5rem 0rem 0.5rem 1rem;
+}
+
+.rd-tutorial .t-content{
+	font-weight: bold;
+}
