@@ -257,7 +257,7 @@ dd.option {
 .postbody h3 {
 	/* Postbody requires a different h3 format - so change it here */
 	float: left;
-	font-size: 1.3em;
+	font-size: 1.2em;
 	font-weight: normal;
 	padding: 2px 0 0 0;
 	margin-top: 0 !important;
@@ -279,7 +279,7 @@ dd.option {
 }
 
 .postbody .content {
-	font-size: 1.3em;
+	font-size: 1.4em;
 	overflow-x: auto;
 	padding-top: 0.6em;
 }
@@ -340,7 +340,7 @@ dd.option {
 	clear: both;
 	min-height: 3em;
 	overflow: hidden;
-	line-height: 1.4em;
+	line-height: 1.8em;
 	/*font-family: "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;*/
 	font-size: 1em;
 	padding-bottom: 1px;
@@ -349,7 +349,7 @@ dd.option {
 .content h2, .panel h2 {
 	font-weight: normal;
 	border-bottom: 1px solid transparent;
-	font-size: 1.6em;
+	font-size: 1.3em;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 	padding-bottom: 0.5em;
@@ -369,7 +369,7 @@ dd.option {
 	/*font-family: "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;*/
 	font-size: 1.2em;
 	margin-bottom: 1em;
-	line-height: 1.4em;
+	line-height: 1.8em;
 }
 
 .content.randian p {
