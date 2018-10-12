@@ -2,6 +2,8 @@
 
 
 <div class="rd-row" style="margin: 0 -0.75rem">
+
+	<h2 class="col s12" style="margin-bottom: 0.5em;">{FORUM_NAME} - <a href="./viewtutorial.php">宠物狗在线互动教程</a></h2>
 	<div class="col s12 m6 ">
 		<!-- BEGIN guide_row -->
 		<!-- IF guide_row.S_FIRST_ROW -->
@@ -15,7 +17,7 @@
 							<div
 								class="list-inner">指南
 								<!-- IF guide_row.S_GUIDES_MORE -->
-								<a href="{U_MORE_GUIDE}"  class="right-box">更多&raquo;</a>
+								<a href="{U_MORE_GUIDE}" class="right-box">更多&raquo;</a>
 								<!-- ENDIF -->
 							</div>
 							</dt>
@@ -29,7 +31,7 @@
 						<dl class="row-item">
 							<dt<!-- IF guide_row.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{guide_row.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{guide_row.TOPIC_FOLDER_IMG_ALT}">
 							<!-- IF guide_row.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{guide_row.U_NEWEST_POST}"
-																					 class="row-item-link"></a><!-- ENDIF -->
+																					class="row-item-link"></a><!-- ENDIF -->
 							<div class="list-inner">
 								<!-- IF guide_row.S_UNREAD_TOPIC and not S_IS_BOT -->
 								<a class="unread" href="{guide_row.U_NEWEST_POST}">
@@ -38,14 +40,14 @@
 								</a>
 								<!-- ENDIF -->
 								<!-- IF guide_row.U_VIEW_TOPIC --><a href="{guide_row.U_VIEW_TOPIC}"
-																	  class="topictitle rd-truncate">{guide_row.TOPIC_TITLE}</a><!-- ELSE -->{guide_row.TOPIC_TITLE}<!-- ENDIF -->
+																	 class="topictitle rd-truncate">{guide_row.TOPIC_TITLE}</a><!-- ELSE -->{guide_row.TOPIC_TITLE}<!-- ENDIF -->
 
 
 								<div class="topic-poster right-box">
 									<!-- IF guide_row.S_HAS_POLL --><i class="icon fa-bar-chart fa-fw"
-																		aria-hidden="true"></i><!-- ENDIF -->
+																	   aria-hidden="true"></i><!-- ENDIF -->
 									<!-- IF guide_row.ATTACH_ICON_IMG --><i class="icon fa-paperclip fa-fw"
-																			 aria-hidden="true"></i><!-- ENDIF -->
+																			aria-hidden="true"></i><!-- ENDIF -->
 									{L_POST_BY_AUTHOR} {guide_row.TOPIC_AUTHOR_FULL} &raquo; {guide_row.FIRST_POST_TIME}
 								</div>
 
@@ -76,7 +78,7 @@
 							<div
 								class="list-inner">工具/帮助
 								<!-- IF assist_row.S_ASSISTS_MORE -->
-								<a href="{U_MORE_ASSIST}"  class="right-box">更多&raquo;</a>
+								<a href="{U_MORE_ASSIST}" class="right-box">更多&raquo;</a>
 								<!-- ENDIF -->
 							</div>
 							</dt>

@@ -34,9 +34,12 @@ $pagination = $phpbb_container->get('pagination');
 
 $s_limit_days = $s_sort_key = $s_sort_dir = $u_sort_param = '';
 
-if ($category_num == 2){
+if ($category_num == 2)
+{
 	$category_sql = ' t.topic_category = 2 ';
-}else{
+}
+else
+{
 
 	$category_sql = ' t.topic_category = 1 ';
 }
@@ -76,7 +79,6 @@ if (!$forum_data)
 $user->setup('viewforum', $forum_data['forum_style']);
 
 
-
 $sql_array = array(
 	'SELECT'    => 'COUNT(t.topic_id) AS num_guides',
 	'FROM'      => array(
@@ -95,7 +97,7 @@ $db->sql_freeresult($count_result);
 
 $start = $pagination->validate_start($start, RD_CONSTANTS['guide_page_size'], $rd_guides_count);
 
-$page_title = $forum_data['forum_name'] . ($start ? ' - ' . $user->lang('PAGE_TITLE_NUMBER', $pagination->get_on_page(RD_CONSTANTS['guide_page_size'], $start)) : '');
+$page_title = $forum_data['forum_name'] . ($category_num ? ($category_num == 1 ? '-指南' : '-工具/帮助') : '') . ($start ? ' - ' . $user->lang('PAGE_TITLE_NUMBER', $pagination->get_on_page(RD_CONSTANTS['guide_page_size'], $start)) : '');
 
 
 page_header($page_title, true, $forum_id);
@@ -108,7 +110,7 @@ $template->assign_vars(array(
 	'TOTAL_GA' => $rd_guides_count,
 ));
 $base_url = append_sid("{$phpbb_root_path}viewga.$phpEx", "f=$forum_id&amp;c=$category_num" . ((strlen($u_sort_param)) ? "&amp;$u_sort_param" : ''));
-$pagination->generate_template_pagination($base_url, 'pagination', 'start', $rd_guides_count, RD_CONSTANTS['guide_page_size']*2, $start, false, false);
+$pagination->generate_template_pagination($base_url, 'pagination', 'start', $rd_guides_count, RD_CONSTANTS['guide_page_size'] * 2, $start, false, false);
 
 $sql_array = array(
 	'SELECT'    => 't.topic_id, t.topic_title, t.forum_id, t.topic_time, t.topic_poster, t.topic_first_poster_name, t.topic_first_poster_colour, 
@@ -121,7 +123,7 @@ $sql_array = array(
 	'ORDER_BY'  => 'ht.lft ASC , t.topic_time DESC',
 );
 $sql = $db->sql_build_query('SELECT', $sql_array);
-$result = $db->sql_query_limit($sql, RD_CONSTANTS['guide_page_size']*2, $start);
+$result = $db->sql_query_limit($sql, RD_CONSTANTS['guide_page_size'] * 2, $start);
 
 while ($guide = $db->sql_fetchrow($result))
 {
