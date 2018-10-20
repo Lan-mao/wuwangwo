@@ -759,6 +759,10 @@ fieldset.polls dd div {
 	max-width: 100%;
 }
 
+.postprofile .avatar.rd img {
+	padding: 5px;
+}
+
 .postprofile .profile-posts a {
 	font-weight: normal;
 }
@@ -929,6 +933,6 @@ a.text-logo:hover {
 	padding: 0.5rem 0rem 0.5rem 1rem;
 }
 
-.rd-tutorial .t-content{
+.rd-tutorial .t-content {
 	font-weight: bold;
 }

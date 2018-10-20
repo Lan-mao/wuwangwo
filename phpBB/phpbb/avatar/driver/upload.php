@@ -72,8 +72,8 @@ class upload extends \phpbb\avatar\driver\driver
 //			'src' => $root_path . 'download/file.' . $this->php_ext . '?avatar=' . $row['avatar'],
 			'src' =>
 				$config['oss_endpoint']. $row['avatar'],
-			'width' => 36,
-			'height' => 36,
+			'width' => 69,
+			'height' => 69,
 		);
 	}
 

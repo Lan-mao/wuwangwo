@@ -479,6 +479,8 @@ $start = $pagination->validate_start($start, $config['posts_per_page'], $total_p
 
 // General Viewtopic URL for return links
 $viewtopic_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id" . (($start == 0) ? '' : "&amp;start=$start") . ((strlen($u_sort_param)) ? "&amp;$u_sort_param" : '') . (($highlight_match) ? "&amp;hilit=$highlight" : ''));
+$bear_page_url = "http://www.randianah.com/viewtopic.$phpEx" . "?f=$forum_id&t=$topic_id";
+
 
 // Are we watching this topic?
 $s_watching_topic = array(
@@ -725,6 +727,15 @@ extract($phpbb_dispatcher->trigger_event('core.viewtopic_assign_template_vars_be
 
 $pagination->generate_template_pagination($base_url, 'pagination', 'start', $total_posts, $config['posts_per_page'], $start);
 
+$bear_img_arr = explode(";", $topic_data['topic_bear_images']);
+$bear_img_arr = array_filter($bear_img_arr);
+if (count($bear_img_arr) != 1 && count($bear_img_arr) != 0 && count($bear_img_arr) != 3)
+{
+	$bear_img_arr = array($bear_img_arr[0]);
+}
+
+$bear_pub_date = $user->format_date($topic_data['topic_time'], 'Y-m-d\TH:i:s');
+
 // Send vars to template
 $template->assign_vars(array(
 		'FORUM_ID'     => $forum_id,
@@ -777,10 +788,15 @@ $template->assign_vars(array(
 		'S_DISPLAY_POST_INFO'  => ($topic_data['forum_type'] == FORUM_POST && ($auth->acl_get('f_post', $forum_id) || $user->data['user_id'] == ANONYMOUS)) ? true : false,
 		'S_DISPLAY_REPLY_INFO' => ($topic_data['forum_type'] == FORUM_POST && ($auth->acl_get('f_reply', $forum_id) || $user->data['user_id'] == ANONYMOUS)) ? true : false,
 		'S_ENABLE_FEEDS_TOPIC' => ($config['feed_topic'] && !phpbb_optionget(FORUM_OPTION_FEED_EXCLUDE, $topic_data['forum_options'])) ? true : false,
+		'S_BEAR_PAGE'          => true,
 
-		'U_TOPIC'            => "{$server_path}viewtopic.$phpEx?f=$forum_id&amp;t=$topic_id",
-		'U_FORUM'            => $server_path,
-		'U_VIEW_TOPIC'       => $viewtopic_url,
+		'U_TOPIC'         => "{$server_path}viewtopic.$phpEx?f=$forum_id&amp;t=$topic_id",
+		'U_FORUM'         => $server_path,
+		'U_VIEW_TOPIC'    => $viewtopic_url,
+		'U_BEAR_PAGE_URL' => $bear_page_url,
+		'U_BEAR_IMAGES'   => $bear_img_arr,
+		'BEAR_PUB_DATE' => $bear_pub_date,
+
 		'U_CANONICAL'        => generate_board_url() . '/' . append_sid("viewtopic.$phpEx", "t=$topic_id" . (($start) ? "&amp;start=$start" : ''), true, ''),
 		'U_VIEW_FORUM'       => append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id),
 		'U_VIEW_OLDER_TOPIC' => append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id&amp;view=previous"),
