@@ -1,93 +1,117 @@
+<div class="rd-row">
+	<div class="col s12 show-on-medium-and-up m4">
+		<!-- BEGIN imgrow -->
+		<a title="{imgrow.TOPIC_TITLE}" class="home-img-main" href="{imgrow.U_VIEW_TOPIC}">
+			<img class="responsive-img" src= "{imgrow.U_BEAR_IMG}">
+		</a>
+		<h3 class="home-img-main-hd"><a title="{imgrow.TOPIC_TITLE}"  href="{imgrow.U_VIEW_TOPIC}">{imgrow.TOPIC_TITLE}</a>
+		</h3>
+		<!-- END imgrow -->
+	</div>
+	<div class="col s12 m4">
 
-<h4 style="margin: 0.8em 0 0.4em 0; font-weight: normal; font-size: 1.6em;">热门/推荐</h4>
-<!-- BEGIN topicrow -->
-<!-- IF topicrow.S_FIRST_ROW or not topicrow.S_TOPIC_TYPE_SWITCH -->
-<div id="topics-panel"
-	 class="forumbg<!-- IF topicrow.S_TOPIC_TYPE_SWITCH and (topicrow.S_POST_ANNOUNCE or topicrow.S_POST_GLOBAL) --> announcement<!-- ENDIF -->">
-	<div class="inner">
-		<ul class="topiclist">
-			<li class="header row">
-				<dl class="row-item">
-					<dt<!-- IF S_DISPLAY_ACTIVE --> id="active_topics"<!-- ENDIF --> >
-					<div
-						class="list-inner"><!-- IF S_DISPLAY_ACTIVE -->{L_ACTIVE_TOPICS}<!-- ELSEIF topicrow.S_TOPIC_TYPE_SWITCH and (topicrow.S_POST_ANNOUNCE or topicrow.S_POST_GLOBAL) --> {L_ANNOUNCEMENTS}<!-- ELSE --> 标题<!-- ENDIF --></div>
-					</dt>
-					<dd class="posts">{L_REPLIES}</dd>
-					<dd class="views">{L_VIEWS}</dd>
-					<dd class="lastpost"><span>{L_LAST_POST}</span></dd>
-				</dl>
+		<h4 class="home-list-title">热门/推荐</h4>
+
+		<ul class="rd-home-list">
+			<!-- BEGIN topicrow -->
+			<li><!-- IF topicrow.U_VIEW_TOPIC --><a href="{topicrow.U_VIEW_TOPIC}"
+													class="topictitle rd-truncate">{topicrow.TOPIC_TITLE}</a><!-- ELSE -->{topicrow.TOPIC_TITLE}<!-- ENDIF -->
 			</li>
+
+			<!-- END topicrow -->
 		</ul>
-		<ul class="topiclist topics">
-			<!-- ENDIF -->
 
-			<!-- EVENT viewforum_body_topicrow_row_before -->
-			<li class="row<!-- IF topicrow.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF topicrow.S_POST_GLOBAL --> global-announce<!-- ENDIF --><!-- IF topicrow.S_POST_ANNOUNCE --> announce<!-- ENDIF --><!-- IF topicrow.S_POST_STICKY --> sticky<!-- ENDIF --><!-- IF topicrow.S_TOPIC_REPORTED --> reported<!-- ENDIF -->">
-				<!-- EVENT viewforum_body_topic_row_prepend -->
-				<dl class="row-item {topicrow.TOPIC_IMG_STYLE}">
-					<dt<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{topicrow.TOPIC_FOLDER_IMG_ALT}">
-					<!-- IF topicrow.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{topicrow.U_NEWEST_POST}"
-																		   class="row-item-link"></a><!-- ENDIF -->
-					<div class="list-inner">
-						<!-- EVENT topiclist_row_prepend -->
-						<!-- IF topicrow.S_UNREAD_TOPIC and not S_IS_BOT -->
-						<a class="unread" href="{topicrow.U_NEWEST_POST}">
-							<i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span
-							class="sr-only">{NEW_POST}</span>
-						</a>
-						<!-- ENDIF -->
-						<!-- IF topicrow.U_VIEW_TOPIC --><a href="{topicrow.U_VIEW_TOPIC}"
-															class="topictitle">{topicrow.TOPIC_TITLE}</a><!-- ELSE -->{topicrow.TOPIC_TITLE}<!-- ENDIF -->
-						<!-- IF topicrow.S_TOPIC_UNAPPROVED or topicrow.S_POSTS_UNAPPROVED -->
-						<a href="{topicrow.U_MCP_QUEUE}"
-						   title="<!-- IF topicrow.S_TOPIC_UNAPPROVED -->{L_TOPIC_UNAPPROVED}<!-- ELSE -->{L_POSTS_UNAPPROVED}<!-- ENDIF -->">
-							<i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span
-							class="sr-only"><!-- IF topicrow.S_TOPIC_UNAPPROVED -->{L_TOPIC_UNAPPROVED}<!-- ELSE -->{L_POSTS_UNAPPROVED}<!-- ENDIF --></span>
-						</a>
-						<!-- ENDIF -->
-						<!-- IF topicrow.S_TOPIC_DELETED -->
-						<a href="{topicrow.U_MCP_QUEUE}" title="{L_TOPIC_DELETED}">
-							<i class="icon fa-recycle fa-fw icon-green" aria-hidden="true"></i><span
-							class="sr-only">{L_TOPIC_DELETED}</span>
-						</a>
-						<!-- ENDIF -->
-						<!-- IF topicrow.S_TOPIC_REPORTED -->
-						<a href="{topicrow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}">
-							<i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span
-							class="sr-only">{L_TOPIC_REPORTED}</span>
-						</a>
-						<!-- ENDIF -->
-						<br/>
-						<!-- EVENT topiclist_row_topic_title_after -->
+		<!-- BEGIN topicrow -->
+		<!-- IF topicrow.S_FIRST_ROW or not topicrow.S_TOPIC_TYPE_SWITCH -->
+		<div style="display: none;" id="topics-panel"
+			 class="forumbg<!-- IF topicrow.S_TOPIC_TYPE_SWITCH and (topicrow.S_POST_ANNOUNCE or topicrow.S_POST_GLOBAL) --> announcement<!-- ENDIF -->">
+			<div class="inner">
+				<ul class="topiclist">
+					<li class="header row">
+						<dl class="row-item">
+							<dt<!-- IF S_DISPLAY_ACTIVE --> id="active_topics"<!-- ENDIF --> >
+							<div
+								class="list-inner"><!-- IF S_DISPLAY_ACTIVE -->{L_ACTIVE_TOPICS}<!-- ELSEIF topicrow.S_TOPIC_TYPE_SWITCH and (topicrow.S_POST_ANNOUNCE or topicrow.S_POST_GLOBAL) --> {L_ANNOUNCEMENTS}<!-- ELSE --> 标题<!-- ENDIF --></div>
+							</dt>
+							<dd class="posts">{L_REPLIES}</dd>
+							<dd class="views">{L_VIEWS}</dd>
+							<dd class="lastpost"><span>{L_LAST_POST}</span></dd>
+						</dl>
+					</li>
+				</ul>
+				<ul class="topiclist topics">
+					<!-- ENDIF -->
 
-						<!-- IF not S_IS_BOT -->
-						<div class="responsive-show" style="display: none;">
-							{L_LAST_POST} {L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL} &laquo; <a
-							href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}">{topicrow.LAST_POST_TIME}</a>
-							<!-- IF topicrow.S_POST_GLOBAL and FORUM_ID != topicrow.FORUM_ID --><br/>{L_POSTED} {L_IN}
-							<a href="{topicrow.U_VIEW_FORUM}">{topicrow.FORUM_NAME}</a><!-- ENDIF -->
-						</div>
-						<!-- IF topicrow.REPLIES -->
-						<span class="responsive-show left-box"
-							  style="display: none;">{L_REPLIES}{L_COLON} <strong>{topicrow.REPLIES}</strong></span>
-						<!-- ENDIF -->
-						<!-- ENDIF -->
+					<!-- EVENT viewforum_body_topicrow_row_before -->
+					<li class="row<!-- IF topicrow.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF topicrow.S_POST_GLOBAL --> global-announce<!-- ENDIF --><!-- IF topicrow.S_POST_ANNOUNCE --> announce<!-- ENDIF --><!-- IF topicrow.S_POST_STICKY --> sticky<!-- ENDIF --><!-- IF topicrow.S_TOPIC_REPORTED --> reported<!-- ENDIF -->">
+						<!-- EVENT viewforum_body_topic_row_prepend -->
+						<dl class="row-item {topicrow.TOPIC_IMG_STYLE}">
+							<dt<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{topicrow.TOPIC_FOLDER_IMG_ALT}">
+							<!-- IF topicrow.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{topicrow.U_NEWEST_POST}"
+																				   class="row-item-link"></a><!-- ENDIF -->
+							<div class="list-inner">
+								<!-- EVENT topiclist_row_prepend -->
+								<!-- IF topicrow.S_UNREAD_TOPIC and not S_IS_BOT -->
+								<a class="unread" href="{topicrow.U_NEWEST_POST}">
+									<i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span
+									class="sr-only">{NEW_POST}</span>
+								</a>
+								<!-- ENDIF -->
+								<!-- IF topicrow.U_VIEW_TOPIC --><a href="{topicrow.U_VIEW_TOPIC}"
+																	class="topictitle">{topicrow.TOPIC_TITLE}</a><!-- ELSE -->{topicrow.TOPIC_TITLE}<!-- ENDIF -->
+								<!-- IF topicrow.S_TOPIC_UNAPPROVED or topicrow.S_POSTS_UNAPPROVED -->
+								<a href="{topicrow.U_MCP_QUEUE}"
+								   title="<!-- IF topicrow.S_TOPIC_UNAPPROVED -->{L_TOPIC_UNAPPROVED}<!-- ELSE -->{L_POSTS_UNAPPROVED}<!-- ENDIF -->">
+									<i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span
+									class="sr-only"><!-- IF topicrow.S_TOPIC_UNAPPROVED -->{L_TOPIC_UNAPPROVED}<!-- ELSE -->{L_POSTS_UNAPPROVED}<!-- ENDIF --></span>
+								</a>
+								<!-- ENDIF -->
+								<!-- IF topicrow.S_TOPIC_DELETED -->
+								<a href="{topicrow.U_MCP_QUEUE}" title="{L_TOPIC_DELETED}">
+									<i class="icon fa-recycle fa-fw icon-green" aria-hidden="true"></i><span
+									class="sr-only">{L_TOPIC_DELETED}</span>
+								</a>
+								<!-- ENDIF -->
+								<!-- IF topicrow.S_TOPIC_REPORTED -->
+								<a href="{topicrow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}">
+									<i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span
+									class="sr-only">{L_TOPIC_REPORTED}</span>
+								</a>
+								<!-- ENDIF -->
+								<br/>
+								<!-- EVENT topiclist_row_topic_title_after -->
 
-						<div class="topic-poster responsive-hide left-box">
-							<!-- IF topicrow.S_HAS_POLL --><i class="icon fa-bar-chart fa-fw"
-															  aria-hidden="true"></i><!-- ENDIF -->
-							<!-- IF topicrow.ATTACH_ICON_IMG --><i class="icon fa-paperclip fa-fw"
-																   aria-hidden="true"></i><!-- ENDIF -->
-							{L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}
-							<!-- IF topicrow.S_POST_GLOBAL and FORUM_ID != topicrow.FORUM_ID --> &raquo; {L_IN} <a
-							href="{topicrow.U_VIEW_FORUM}">{topicrow.FORUM_NAME}</a><!-- ENDIF -->
-						</div>
+								<!-- IF not S_IS_BOT -->
+								<div class="responsive-show" style="display: none;">
+									{L_LAST_POST} {L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL} &laquo; <a
+									href="{topicrow.U_LAST_POST}"
+									title="{L_GOTO_LAST_POST}">{topicrow.LAST_POST_TIME}</a>
+									<!-- IF topicrow.S_POST_GLOBAL and FORUM_ID != topicrow.FORUM_ID -->
+									<br/>{L_POSTED} {L_IN}
+									<a href="{topicrow.U_VIEW_FORUM}">{topicrow.FORUM_NAME}</a><!-- ENDIF -->
+								</div>
+								<!-- IF topicrow.REPLIES -->
+								<span class="responsive-show left-box"
+									  style="display: none;">{L_REPLIES}{L_COLON} <strong>{topicrow.REPLIES}</strong></span>
+								<!-- ENDIF -->
+								<!-- ENDIF -->
 
-					</div>
-					</dt>
-					<dd class="posts">{topicrow.REPLIES} <dfn>{L_REPLIES}</dfn></dd>
-					<dd class="views">{topicrow.VIEWS} <dfn>{L_VIEWS}</dfn></dd>
-					<dd class="lastpost">
+								<div class="topic-poster responsive-hide left-box">
+									<!-- IF topicrow.S_HAS_POLL --><i class="icon fa-bar-chart fa-fw"
+																	  aria-hidden="true"></i><!-- ENDIF -->
+									<!-- IF topicrow.ATTACH_ICON_IMG --><i class="icon fa-paperclip fa-fw"
+																		   aria-hidden="true"></i><!-- ENDIF -->
+									{L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}
+									<!-- IF topicrow.S_POST_GLOBAL and FORUM_ID != topicrow.FORUM_ID --> &raquo; {L_IN}
+									<a
+										href="{topicrow.U_VIEW_FORUM}">{topicrow.FORUM_NAME}</a><!-- ENDIF -->
+								</div>
+
+							</div>
+							</dt>
+							<dd class="posts">{topicrow.REPLIES} <dfn>{L_REPLIES}</dfn></dd>
+							<dd class="views">{topicrow.VIEWS} <dfn>{L_VIEWS}</dfn></dd>
+							<dd class="lastpost">
 					<span><dfn>{L_LAST_POST} </dfn>{L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}
 						<!-- IF not S_IS_BOT and topicrow.U_LAST_POST -->
 							<a href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}">
@@ -97,27 +121,69 @@
 						<!-- ENDIF -->
 						<br/>{topicrow.LAST_POST_TIME}
 					</span>
-					</dd>
-				</dl>
-				<!-- EVENT viewforum_body_topic_row_append -->
-			</li>
-			<!-- EVENT viewforum_body_topic_row_after -->
+							</dd>
+						</dl>
+						<!-- EVENT viewforum_body_topic_row_append -->
+					</li>
+					<!-- EVENT viewforum_body_topic_row_after -->
 
-			<!-- IF topicrow.S_LAST_ROW -->
-		</ul>
+					<!-- IF topicrow.S_LAST_ROW -->
+				</ul>
+			</div>
+		</div>
+		<!-- ENDIF -->
+
+		<!-- END topicrow -->
+	</div>
+	<div class="col s12 m4">
+		<div class="card rd-tutorial rd-home">
+			<div class="card-content rd-row">
+				<span class=" card-title col s12"><a href="./viewtutorial.php">宠物狗在线互动教程</a></span>
+				<span class="col s12" style="margin-bottom: 8px;"><a href="./viewtutorial.php"
+																	 style="line-height: 32px;"
+																	 class="right-box">浏览目录<i
+					class="icon fa-angle-double-right fa-fw icon-lg" aria-hidden="true"></i></a></span>
+				<ul class="col s12">
+					<li><a href="http://www.randianah.com/viewforum.php?f=3" class="t-content">领养</a>
+						<ul>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=3&t=7">养狗前的注意事项：为什么养狗</a></li>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=3&t=9">养狗前的注意事项：你是否适合养狗</a></li>
+						</ul>
+					</li>
+					<li><a href="http://www.randianah.com/viewforum.php?f=4" class="t-content">饮食与健康</a>
+						<ul>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=4&t=11">宠物狗吃什么好？</a></li>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=4&t=12">自制营养均衡的狗食</a></li>
+						</ul>
+					</li>
+					<li><a href="http://www.randianah.com/viewforum.php?f=5" class="t-content">运动与娱乐</a>
+						<ul>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=5&t=13">如何选择宠物狗的玩具</a></li>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=5&t=55">一些适合宠物狗的运动</a></li>
+						</ul>
+					</li>
+				</ul>
+
+				<ul class="col s12">
+					<li><a href="http://www.randianah.com/viewforum.php?f=6" class="t-content">生活与护理</a>
+						<ul>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=6&t=14">怎么清洁宠物狗</a></li>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=6&t=15">怎么选择宠物狗的衣服</a></li>
+						</ul>
+					</li>
+					<li><a href="http://www.randianah.com/viewforum.php?f=7" class="t-content">宠物训练</a>
+						<ul>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=7&t=16">宠物狗训练基础</a></li>
+							<li><a href="http://www.randianah.com/viewtopic.php?f=7&t=17">第1阶段，适应家庭生活</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
 	</div>
 </div>
-<!-- ENDIF -->
-
-<!-- END topicrow -->
-
-
-
-
-
-
-
-
 
 
 <h4 style="margin: 0.8em 0 0.4em 0; font-weight: normal; font-size: 1.6em;">主题列表</h4>

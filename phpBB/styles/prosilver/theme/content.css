@@ -936,3 +936,61 @@ a.text-logo:hover {
 .rd-tutorial .t-content {
 	font-weight: bold;
 }
+
+ul.rd-home-list {
+	list-style: none;
+}
+
+.rd-home-list li {
+	height: 36px;
+	line-height: 36px;
+	font-size: 18px;
+}
+
+.rd-home-list li a {
+	color: rgba(0, 0, 0, 0.87);
+}
+
+.rd-home-list li a.topictitle {
+	font-size: 1em;
+}
+
+.rd-tutorial.rd-home {
+	margin-top: 0;
+}
+
+.rd-home .rd-row {
+	margin-left: -.25rem;
+	margin-right: -.25rem;
+}
+
+.rd-tutorial ul ul li a {
+	display: block !important;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+img.responsive-img, video.responsive-video {max-width: 100%;height: auto}
+
+.home-list-title {
+	font-weight: normal; font-size: 1.6em;
+	border-top: #CCCCCC solid 1px;
+	line-height: 2em;
+	margin-bottom: 0.3em;
+}
+
+.home-img-main {
+}
+
+h3.home-img-main-hd {
+	line-height: 3em;
+	margin: auto;
+	border-bottom-color: transparent;
+}
+
+h3.home-img-main-hd a {
+	color: rgba(0, 0, 0, 0.87);
+	font-size: 1.3em;
+	font-weight: normal;
+}
