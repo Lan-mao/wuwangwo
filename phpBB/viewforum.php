@@ -1078,7 +1078,7 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1",
+	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1 $exclude_sql",
 	'ORDER_BY'  => 'ht.lft ASC , t.topic_time DESC',
 );
 $sql = $db->sql_build_query('SELECT', $sql_array);
@@ -1091,7 +1091,7 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1",
+	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1 $exclude_sql",
 );
 
 
@@ -1131,7 +1131,7 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1 ",
+	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1 $exclude_sql",
 	'ORDER_BY'  => 'ht.lft ASC , t.topic_time DESC',
 );
 $sql = $db->sql_build_query('SELECT', $sql_array);
@@ -1144,7 +1144,7 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1",
+	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1 $exclude_sql",
 );
 
 
