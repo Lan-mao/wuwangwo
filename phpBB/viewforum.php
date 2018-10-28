@@ -1040,12 +1040,45 @@ if (count($topic_list))
 
 $sql_array = array(
 	'SELECT'    => 't.topic_id, t.topic_title, t.forum_id, t.topic_time, t.topic_poster, t.topic_first_poster_name, t.topic_first_poster_colour, 
+	t.topic_category,  t.topic_bear_images, t.topic_title',
+	'FROM'      => array(
+		TOPICS_TABLE => 't',
+	),
+	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
+	'WHERE'     => " t.topic_category != 0 and t.forum_id = $forum_id and ht.deleted != 1",
+	'ORDER_BY'  => 't.topic_time DESC',
+);
+$sql = $db->sql_build_query('SELECT', $sql_array);
+$result = $db->sql_query_limit($sql, 2, 0);
+
+$exclude_sql = "";
+while ($row = $db->sql_fetchrow($result))
+{
+	$exclude_sql = $exclude_sql . ' and t.topic_id != ' . $row['topic_id'];
+	$img_list_url_params = 'f=' . $row['forum_id'] . '&amp;t=' . $row['topic_id'];
+	$img_list_url = $auth->acl_get('f_read', $forum_id) ? append_sid("{$phpbb_root_path}viewtopic.$phpEx", $img_list_url_params) : false;
+
+	$bear_img_arr = explode(";", $row['topic_bear_images']);
+	$bear_img_arr = array_filter($bear_img_arr);
+	$bear_img_arr = $bear_img_arr[0];
+	$img_row = array(
+		'TOPIC_TITLE'  => $row['topic_title'],
+		'U_BEAR_IMG'   => $bear_img_arr,
+		'U_VIEW_TOPIC' => $img_list_url,
+	);
+	$template->assign_block_vars('imgrow', $img_row);
+}
+$db->sql_freeresult($result);
+
+
+$sql_array = array(
+	'SELECT'    => 't.topic_id, t.topic_title, t.forum_id, t.topic_time, t.topic_poster, t.topic_first_poster_name, t.topic_first_poster_colour, 
 	t.topic_category',
 	'FROM'      => array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
+	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1",
 	'ORDER_BY'  => 'ht.lft ASC , t.topic_time DESC',
 );
 $sql = $db->sql_build_query('SELECT', $sql_array);
@@ -1058,7 +1091,7 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
+	'WHERE'     => " t.topic_category = 1 and t.forum_id = $forum_id and ht.deleted != 1",
 );
 
 
@@ -1089,6 +1122,8 @@ while ($guide = $db->sql_fetchrow($result))
 $db->sql_freeresult($result);
 
 
+$guide_most_display_count = RD_CONSTANTS['forum_most_top_article_count'] - ($rd_guides_count > RD_CONSTANTS['guide_page_size'] ? RD_CONSTANTS['guide_page_size'] : $rd_guides_count);
+
 $sql_array = array(
 	'SELECT'    => 't.topic_id, t.topic_title, t.forum_id, t.topic_time, t.topic_poster, t.topic_first_poster_name, t.topic_first_poster_colour, 
 	t.topic_category',
@@ -1096,11 +1131,11 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
+	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1 ",
 	'ORDER_BY'  => 'ht.lft ASC , t.topic_time DESC',
 );
 $sql = $db->sql_build_query('SELECT', $sql_array);
-$result = $db->sql_query_limit($sql, RD_CONSTANTS['guide_page_size'], 0);
+$result = $db->sql_query_limit($sql, $guide_most_display_count, 0);
 
 
 $sql_array = array(
@@ -1109,7 +1144,7 @@ $sql_array = array(
 		TOPICS_TABLE => 't',
 	),
 	'LEFT_JOIN' => array(array('FROM' => array(HOT_TOPICS_TABLE => 'ht'), 'ON' => 'ht.topicId = t.topic_id ')),
-	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1 AND ht.homepage = 0",
+	'WHERE'     => " t.topic_category = 2 and t.forum_id = $forum_id and ht.deleted != 1",
 );
 
 
@@ -1133,7 +1168,7 @@ while ($assist = $db->sql_fetchrow($result))
 		'TOPIC_AUTHOR_FULL' => get_username_string('full', $assist['topic_poster'], $assist['topic_first_poster_name'], $assist['topic_first_poster_colour']),
 		'FIRST_POST_TIME'   => $user->format_date($assist['topic_time']),
 		'TOPIC_TITLE'       => censor_text($assist['topic_title']),
-		'S_ASSISTS_MORE'    => $rd_assists_count > RD_CONSTANTS['guide_page_size'] ? true : false,
+		'S_ASSISTS_MORE'    => $rd_assists_count > $guide_most_display_count ? true : false,
 		'U_VIEW_TOPIC'      => $view_assist_url,
 	);
 	$template->assign_block_vars('assist_row', $assist_row);
