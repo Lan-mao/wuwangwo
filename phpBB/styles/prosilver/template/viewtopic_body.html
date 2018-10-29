@@ -30,55 +30,6 @@
 </div>
 <!-- ENDIF -->
 
-<div class="action-bar bar-top">
-	<!-- EVENT viewtopic_buttons_top_before -->
-
-	<!-- IF not S_IS_BOT and S_DISPLAY_REPLY_INFO -->
-	<a href="{U_POST_REPLY_TOPIC}" class="button"
-	   title="<!-- IF S_IS_LOCKED -->{L_TOPIC_LOCKED}<!-- ELSE -->{L_POST_REPLY}<!-- ENDIF -->">
-		<!-- IF S_IS_LOCKED -->
-		<span>{L_BUTTON_TOPIC_LOCKED}</span> <i class="icon fa-lock fa-fw" aria-hidden="true"></i>
-		<!-- ELSE -->
-		<span>{L_BUTTON_POST_REPLY}</span> <i class="icon fa-reply fa-fw" aria-hidden="true"></i>
-		<!-- ENDIF -->
-	</a>
-	<!-- ENDIF -->
-
-	<!-- EVENT viewtopic_buttons_top_after -->
-	<!-- INCLUDE viewtopic_topic_tools.html -->
-	<!-- EVENT viewtopic_dropdown_top_custom -->
-
-	<!-- IF S_DISPLAY_SEARCHBOX -->
-	<div class="search-box" role="search">
-		<form method="get" id="topic-search" action="{S_SEARCHBOX_ACTION}">
-			<fieldset>
-				<input class="inputbox search tiny" type="search" name="keywords" id="search_keywords" size="20"
-					   placeholder="{L_SEARCH_TOPIC}"/>
-				<button class="button button-search" type="submit" title="{L_SEARCH}">
-					<i class="icon fa-search fa-fw" aria-hidden="true"></i><span class="sr-only">{L_SEARCH}</span>
-				</button>
-				<a href="{U_SEARCH}" class="button button-search-end" title="{L_SEARCH_ADV}">
-					<i class="icon fa-cog fa-fw" aria-hidden="true"></i><span class="sr-only">{L_SEARCH_ADV}</span>
-				</a>
-				{S_SEARCH_LOCAL_HIDDEN_FIELDS}
-			</fieldset>
-		</form>
-	</div>
-	<!-- ENDIF -->
-
-	<!-- IF .pagination or TOTAL_POSTS -->
-	<div class="pagination">
-		<!-- IF U_VIEW_UNREAD_POST and not S_IS_BOT --><a href="{U_VIEW_UNREAD_POST}"
-														  class="mark">{L_VIEW_UNREAD_POST}</a> &bull; <!-- ENDIF -->{TOTAL_POSTS}
-		<!-- IF .pagination -->
-		<!-- INCLUDE pagination.html -->
-		<!-- ELSE -->
-		&bull; {PAGE_NUMBER}
-		<!-- ENDIF -->
-	</div>
-	<!-- ENDIF -->
-	<!-- EVENT viewtopic_body_pagination_top_after -->
-</div>
 
 <!-- EVENT viewtopic_body_poll_before -->
 
@@ -279,24 +230,21 @@
 				<!-- IF postrow.U_EDIT -->
 				<li>
 					<a href="{postrow.U_EDIT}" title="{L_EDIT_POST}" class="button button-icon-only">
-						<i class="icon fa-pencil fa-fw" aria-hidden="true"></i><span
-						class="sr-only">{L_BUTTON_EDIT}</span>
+						<span style="font-size: 1em;">{L_BUTTON_EDIT}</span>
 					</a>
 				</li>
 				<!-- ENDIF -->
 				<!-- IF postrow.U_DELETE -->
 				<li>
 					<a href="{postrow.U_DELETE}" title="{L_DELETE_POST}" class="button button-icon-only">
-						<i class="icon fa-times fa-fw" aria-hidden="true"></i><span
-						class="sr-only">{L_BUTTON_DELETE}</span>
+						<span style="font-size: 1em;">{L_BUTTON_DELETE}</span>
 					</a>
 				</li>
 				<!-- ENDIF -->
 				<!-- IF postrow.U_REPORT -->
 				<li>
 					<a href="{postrow.U_REPORT}" title="{L_REPORT_POST}" class="button button-icon-only">
-						<i class="icon fa-exclamation fa-fw" aria-hidden="true"></i><span
-						class="sr-only">{L_BUTTON_REPORT}</span>
+						<span style="font-size: 1em;">{L_BUTTON_REPORT}</span>
 					</a>
 				</li>
 				<!-- ENDIF -->
@@ -316,11 +264,31 @@
 					</a>
 				</li>
 				<!-- ENDIF -->
-				<!-- IF postrow.U_QUOTE -->
+				<li>
+					<!-- IF not S_IS_BOT and S_DISPLAY_REPLY_INFO and postrow.S_FIRST_ROW-->
+					<a href="{U_POST_REPLY_TOPIC}" class="button"
+					   title="<!-- IF S_IS_LOCKED -->{L_TOPIC_LOCKED}<!-- ELSE -->{L_POST_REPLY}<!-- ENDIF -->">
+						<!-- IF S_IS_LOCKED -->
+						<span style="font-size: 1em;">{L_BUTTON_TOPIC_LOCKED}</span></i>
+						<!-- ELSE -->
+						<span style="font-size: 1em;">{L_BUTTON_POST_REPLY}</span></i>
+						<!-- ENDIF -->
+					</a>
+					<!-- ENDIF -->
+				</li>
+				<li>
+					<!-- IF not S_IS_BOT and S_DISPLAY_REPLY_INFO and postrow.S_FIRST_ROW-->
+					<a href="#reply" class="button"
+					   title="<!-- IF S_IS_LOCKED -->{L_TOPIC_LOCKED}<!-- ELSE -->{L_POST_REPLY}<!-- ENDIF -->">
+						<span style="font-size: 1em;">{TOTAL_REPLY}留言</span></i>
+					</a>
+					<!-- ENDIF -->
+				</li>
+				<!-- IF postrow.U_QUOTE and !postrow.S_FIRST_ROW -->
 				<li>
 					<a href="{postrow.U_QUOTE}" title="{L_REPLY_WITH_QUOTE}" class="button button-icon-only">
-						<i class="icon fa-quote-left fa-fw" aria-hidden="true"></i><span
-						class="sr-only">{L_BUTTON_QUOTE}</span>
+						<span
+						style="font-size: 1em;">回复</span>
 					</a>
 				</li>
 				<!-- ENDIF -->
@@ -467,9 +435,10 @@
 		</ul>
 	</div>
 </div>
-<script>cambrian.render('tail')</script>
+<script>cambrian.render('body')</script>
 <!-- ENDIF -->
-<hr class="divider" <!-- IF postrow.S_FIRST_ROW  -->style="border-color: #0f9d58; border-top-width: 2px;"<!-- ENDIF -->/>
+<hr class="divider" <!-- IF postrow.S_FIRST_ROW  -->style="border-color: #0f9d58; border-top-width: 2px;" name="reply" id="reply"<!-- ENDIF -->/>
+
 <!-- EVENT viewtopic_body_postrow_post_after -->
 <!-- END postrow -->
 

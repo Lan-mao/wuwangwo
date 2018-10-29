@@ -748,10 +748,10 @@ $template->assign_vars(array(
 		'TOPIC_AUTHOR_FULL'   => get_username_string('full', $topic_data['topic_poster'], $topic_data['topic_first_poster_name'], $topic_data['topic_first_poster_colour']),
 		'TOPIC_AUTHOR_COLOUR' => get_username_string('colour', $topic_data['topic_poster'], $topic_data['topic_first_poster_name'], $topic_data['topic_first_poster_colour']),
 		'TOPIC_AUTHOR'        => get_username_string('username', $topic_data['topic_poster'], $topic_data['topic_first_poster_name'], $topic_data['topic_first_poster_colour']),
-
-		'TOTAL_POSTS' => $user->lang('VIEW_TOPIC_POSTS', (int) $total_posts),
-		'U_MCP'       => ($auth->acl_get('m_', $forum_id)) ? append_sid("{$phpbb_root_path}mcp.$phpEx", "i=main&amp;mode=topic_view&amp;f=$forum_id&amp;t=$topic_id" . (($start == 0) ? '' : "&amp;start=$start") . ((strlen($u_sort_param)) ? "&amp;$u_sort_param" : ''), true, $user->session_id) : '',
-		'MODERATORS'  => (isset($forum_moderators[$forum_id]) && count($forum_moderators[$forum_id])) ? implode($user->lang['COMMA_SEPARATOR'], $forum_moderators[$forum_id]) : '',
+		'TOTAL_REPLY'         => $total_posts - 1,
+		'TOTAL_POSTS'         => $user->lang('VIEW_TOPIC_POSTS', (int) $total_posts),
+		'U_MCP'               => ($auth->acl_get('m_', $forum_id)) ? append_sid("{$phpbb_root_path}mcp.$phpEx", "i=main&amp;mode=topic_view&amp;f=$forum_id&amp;t=$topic_id" . (($start == 0) ? '' : "&amp;start=$start") . ((strlen($u_sort_param)) ? "&amp;$u_sort_param" : ''), true, $user->session_id) : '',
+		'MODERATORS'          => (isset($forum_moderators[$forum_id]) && count($forum_moderators[$forum_id])) ? implode($user->lang['COMMA_SEPARATOR'], $forum_moderators[$forum_id]) : '',
 
 		'POST_IMG'       => ($topic_data['forum_status'] == ITEM_LOCKED) ? $user->img('button_topic_locked', 'FORUM_LOCKED') : $user->img('button_topic_new', 'POST_NEW_TOPIC'),
 		'QUOTE_IMG'      => $user->img('icon_post_quote', 'REPLY_WITH_QUOTE'),
@@ -795,7 +795,7 @@ $template->assign_vars(array(
 		'U_VIEW_TOPIC'    => $viewtopic_url,
 		'U_BEAR_PAGE_URL' => $bear_page_url,
 		'U_BEAR_IMAGES'   => $bear_img_arr,
-		'BEAR_PUB_DATE' => $bear_pub_date,
+		'BEAR_PUB_DATE'   => $bear_pub_date,
 
 		'U_CANONICAL'        => generate_board_url() . '/' . append_sid("viewtopic.$phpEx", "t=$topic_id" . (($start) ? "&amp;start=$start" : ''), true, ''),
 		'U_VIEW_FORUM'       => append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id),
