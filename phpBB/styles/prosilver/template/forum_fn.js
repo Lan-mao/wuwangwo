@@ -1,12 +1,12 @@
 /* global phpbb */
 
 /**
-* phpBB3 forum functions
-*/
+ * phpBB3 forum functions
+ */
 
 /**
-* Find a member
-*/
+ * Find a member
+ */
 function find_username(url) {
 	'use strict';
 
@@ -15,8 +15,8 @@ function find_username(url) {
 }
 
 /**
-* Window popup
-*/
+ * Window popup
+ */
 function popup(url, width, height, name) {
 	'use strict';
 
@@ -29,8 +29,8 @@ function popup(url, width, height, name) {
 }
 
 /**
-* Jump to page
-*/
+ * Jump to page
+ */
 function pageJump(item) {
 	'use strict';
 
@@ -50,9 +50,9 @@ function pageJump(item) {
 }
 
 /**
-* Mark/unmark checklist
-* id = ID of parent container, name = name prefix, state = state [true/false]
-*/
+ * Mark/unmark checklist
+ * id = ID of parent container, name = name prefix, state = state [true/false]
+ */
 function marklist(id, name, state) {
 	'use strict';
 
@@ -65,9 +65,9 @@ function marklist(id, name, state) {
 }
 
 /**
-* Resize viewable area for attached image or topic review panel (possibly others to come)
-* e = element
-*/
+ * Resize viewable area for attached image or topic review panel (possibly others to come)
+ * e = element
+ */
 function viewableArea(e, itself) {
 	'use strict';
 
@@ -96,22 +96,22 @@ function viewableArea(e, itself) {
 }
 
 /**
-* Alternate display of subPanels
-*/
+ * Alternate display of subPanels
+ */
 jQuery(function($) {
 	'use strict';
 
 	$('.sub-panels').each(function() {
 
 		var $childNodes = $('a[data-subpanel]', this),
-			panels = $childNodes.map(function () {
+			panels = $childNodes.map(function() {
 				return this.getAttribute('data-subpanel');
 			}),
 			showPanel = this.getAttribute('data-show-panel');
 
 		if (panels.length) {
 			activateSubPanel(showPanel, panels);
-			$childNodes.click(function () {
+			$childNodes.click(function() {
 				activateSubPanel(this.getAttribute('data-subpanel'), panels);
 				return false;
 			});
@@ -120,8 +120,8 @@ jQuery(function($) {
 });
 
 /**
-* Activate specific subPanel
-*/
+ * Activate specific subPanel
+ */
 function activateSubPanel(p, panels) {
 	'use strict';
 
@@ -199,8 +199,8 @@ var inAutocomplete = false;
 var lastKeyEntered = '';
 
 /**
-* Check event key
-*/
+ * Check event key
+ */
 function phpbbCheckKey(event) {
 	'use strict';
 
@@ -228,12 +228,12 @@ function phpbbCheckKey(event) {
 }
 
 /**
-* Apply onkeypress event for forcing default submit button on ENTER key press
-*/
+ * Apply onkeypress event for forcing default submit button on ENTER key press
+ */
 jQuery(function($) {
 	'use strict';
 
-	$('form input[type=text], form input[type=password]').on('keypress', function (e) {
+	$('form input[type=text], form input[type=password]').on('keypress', function(e) {
 		var defaultButton = $(this).parents('form').find('input[type=submit].default-submit-action');
 
 		if (!defaultButton || defaultButton.length <= 0) {
@@ -254,8 +254,8 @@ jQuery(function($) {
 });
 
 /**
-* Functions for user search popup
-*/
+ * Functions for user search popup
+ */
 function insertUser(formId, value) {
 	'use strict';
 
@@ -291,8 +291,8 @@ function insert_single_user(formId, user) {
 }
 
 /**
-* Parse document block
-*/
+ * Parse document block
+ */
 function parseDocument($container) {
 	'use strict';
 
@@ -301,15 +301,15 @@ function parseDocument($container) {
 		$body = $('body');
 
 	/**
-	* Reset avatar dimensions when changing URL or EMAIL
-	*/
+	 * Reset avatar dimensions when changing URL or EMAIL
+	 */
 	$container.find('input[data-reset-on-edit]').on('keyup', function() {
 		$(this.getAttribute('data-reset-on-edit')).val('');
 	});
 
 	/**
-	* Pagination
-	*/
+	 * Pagination
+	 */
 	$container.find('.pagination .page-jump-form :button').click(function() {
 		var $input = $(this).siblings('input.inputbox');
 		pageJump($input);
@@ -333,8 +333,8 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Adjust HTML code for IE8 and older versions
-	*/
+	 * Adjust HTML code for IE8 and older versions
+	 */
 	// if (oldBrowser) {
 	// 	// Fix .linklist.bulletin lists
 	// 	$container
@@ -344,8 +344,8 @@ function parseDocument($container) {
 	// }
 
 	/**
-	* Resize navigation (breadcrumbs) block to keep all links on same line
-	*/
+	 * Resize navigation (breadcrumbs) block to keep all links on same line
+	 */
 	$container.find('.navlinks').each(function() {
 		var $this = $(this),
 			$left = $this.children().not('.rightside'),
@@ -377,8 +377,8 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Makes breadcrumbs responsive
-	*/
+	 * Makes breadcrumbs responsive
+	 */
 	$container.find('.breadcrumbs:not([data-skip-responsive])').each(function() {
 		var $this = $(this),
 			$links = $this.find('.crumb'),
@@ -449,8 +449,8 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Responsive link lists
-	*/
+	 * Responsive link lists
+	 */
 	var selector = '.linklist:not(.navlinks, [data-skip-responsive]),' +
 		'.postbody .post-buttons:not([data-skip-responsive])';
 	$container.find(selector).each(function() {
@@ -471,7 +471,13 @@ function parseDocument($container) {
 				$linksNotSkip.filter('.rightside:first').before(html);
 				$this.children('.responsive-menu').addClass('rightside');
 			} else {
-				$this.append(html);
+				var $breadcrumbs = $this.find(".breadcrumbs");
+				if ($breadcrumbs.length > 0) {
+					$breadcrumbs.before(html);
+				} else {
+					$this.append(html);
+				}
+
 			}
 		}
 
@@ -623,24 +629,24 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Do not run functions below for old browsers
-	*/
+	 * Do not run functions below for old browsers
+	 */
 	if (oldBrowser) {
 		return;
 	}
 
 	/**
-	* Adjust topiclist lists with check boxes
-	*/
+	 * Adjust topiclist lists with check boxes
+	 */
 	$container.find('ul.topiclist dd.mark').siblings('dt').children('.list-inner').addClass('with-mark');
 
 	/**
-	* Appends contents of all extra columns to first column in
-	* .topiclist lists for mobile devices. Copies contents as is.
-	*
-	* To add that functionality to .topiclist list simply add
-	* responsive-show-all to list of classes
-	*/
+	 * Appends contents of all extra columns to first column in
+	 * .topiclist lists for mobile devices. Copies contents as is.
+	 *
+	 * To add that functionality to .topiclist list simply add
+	 * responsive-show-all to list of classes
+	 */
 	$container.find('.topiclist.responsive-show-all > li > dl').each(function() {
 		var $this = $(this),
 			$block = $this.find('dt .responsive-show:last-child'),
@@ -671,12 +677,12 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Same as above, but prepends text from header to each
-	* column before contents of that column.
-	*
-	* To add that functionality to .topiclist list simply add
-	* responsive-show-columns to list of classes
-	*/
+	 * Same as above, but prepends text from header to each
+	 * column before contents of that column.
+	 *
+	 * To add that functionality to .topiclist list simply add
+	 * responsive-show-columns to list of classes
+	 */
 	$container.find('.topiclist.responsive-show-columns').each(function() {
 		var $list = $(this),
 			headers = [],
@@ -729,8 +735,8 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Responsive tables
-	*/
+	 * Responsive tables
+	 */
 	$container.find('table.table1').not('.not-responsive').each(function() {
 		var $this = $(this),
 			$th = $this.find('thead > tr > th'),
@@ -799,8 +805,8 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Hide empty responsive tables
-	*/
+	 * Hide empty responsive tables
+	 */
 	$container.find('table.responsive > tbody').not('.responsive-skip-empty').each(function() {
 		var $items = $(this).children('tr');
 		if (!$items.length) {
@@ -809,8 +815,8 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Responsive tabs
-	*/
+	 * Responsive tabs
+	 */
 	$container.find('#tabs, #minitabs').not('[data-skip-responsive]').each(function() {
 		var $this = $(this),
 			$ul = $this.children(),
@@ -891,8 +897,8 @@ function parseDocument($container) {
 	});
 
 	/**
-	* Replace responsive text
-	*/
+	 * Replace responsive text
+	 */
 	$container.find('[data-responsive-text]').each(function() {
 		var $this = $(this),
 			fullText = $this.text(),
@@ -921,8 +927,8 @@ function parseDocument($container) {
 }
 
 /**
-* Run onload functions
-*/
+ * Run onload functions
+ */
 jQuery(function($) {
 	'use strict';
 

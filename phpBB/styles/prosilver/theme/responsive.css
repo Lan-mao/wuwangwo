@@ -587,13 +587,14 @@
 /*ranidan */
 @media (max-width: 700px) {
 	.page-body {
-		padding: 10px;
+		padding: 0 10px;
 	}
 
 	img.rd-article-img-1 {
 		width: 100%;
 	}
-	.responsive-width-1{
+
+	.responsive-width-1 {
 		width: 100%;
 	}
 
@@ -607,7 +608,7 @@
 		width: 50%;
 	}
 
-	.responsive-width-1{
+	.responsive-width-1 {
 		width: 70%;
 	}
 
