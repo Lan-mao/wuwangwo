@@ -848,7 +848,6 @@ var RD_Global = {
 
 			var jsonDataStr = JSON.stringify(jsonData);
 
-			console.log(jsonDataStr);
 			$.ajax({
 				type: "POST",
 				url: "ucp.php",
@@ -856,8 +855,6 @@ var RD_Global = {
 				timeout: 100000,
 				dataType: 'json',
 				success: function(result) {
-					console.log(result);
-					console.log("AAAAAAAAAAAAA");
 					if (result.state === RD_Global.stateError) {
 						$errorElement.html(result.message + "</br>");
 						$errorElement.removeClass("hide");

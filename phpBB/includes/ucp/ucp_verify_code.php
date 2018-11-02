@@ -70,7 +70,6 @@ class ucp_verify_code
 				sendEmailVerifyCodeOfRegister($verifyCodeData['verifyCode']);
 			}
 
-			ob_clean();
 			$responseData = array(
 				'state'   => RD_CONSTANTS['success'],
 				'message' => $message,
