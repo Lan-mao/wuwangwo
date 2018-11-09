@@ -2,12 +2,12 @@
 	<div class="inner">
 
 
-		<ul class="linklist" role="menubar">
-			<li class=""><a href="./viewforum.php?f=3" class="forumtitle">领养</a></li>
-			<li class=""><a href="./viewforum.php?f=4" class="forumtitle">饮食与健康</a></li>
-			<li class=""><a href="./viewforum.php?f=5" class="forumtitle">运动与娱乐</a></li>
-			<li class=""><a href="./viewforum.php?f=6" class="forumtitle">生活与护理</a></li>
-			<li class=""><a href="./viewforum.php?f=7" class="forumtitle">宠物训练</a></li>
+		<ul class="linklist" data-skip-responsive="" role="menubar">
+			<li class="responsive-hide"><a href="./viewforum.php?f=3" class="forumtitle">领养</a></li>
+			<li class="responsive-hide"><a href="./viewforum.php?f=4" class="forumtitle">饮食与健康</a></li>
+			<li class="responsive-hide"><a href="./viewforum.php?f=5" class="forumtitle">运动与娱乐</a></li>
+			<li class="responsive-hide"><a href="./viewforum.php?f=6" class="forumtitle">生活与护理</a></li>
+			<li class="responsive-hide"><a href="./viewforum.php?f=7" class="forumtitle">宠物训练</a></li>
 			<!-- IF S_REGISTERED_USER -->
 			<!-- EVENT navbar_header_user_profile_prepend -->
 			<li id="username_logged_in" class="rightside <!-- IF CURRENT_USER_AVATAR --> no-bulletin<!-- ENDIF -->"
@@ -97,6 +97,23 @@
 			<!-- EVENT navbar_header_logged_out_content -->
 			<!-- ENDIF -->
 
+
+			<li class="responsive-show hidden dropdown-container"><a href="javascript:void(0);"
+																	 class="js-responsive-menu-link responsive-menu-link dropdown-toggle"><i
+				class="icon fa-bars fa-fw" aria-hidden="true"></i></a>
+				<div class="dropdown">
+					<div class="pointer">
+						<div class="pointer-inner"></div>
+					</div>
+					<ul class="dropdown-contents">
+						<li class="clone clone-first"><a href="./viewforum.php?f=3" class="forumtitle">领养</a></li>
+						<li class="clone clone-first"><a href="./viewforum.php?f=4" class="forumtitle">饮食与健康</a></li>
+						<li class="clone clone-first"><a href="./viewforum.php?f=5" class="forumtitle">运动与娱乐</a></li>
+						<li class="clone clone-first"><a href="./viewforum.php?f=6" class="forumtitle">生活与护理</a></li>
+						<li class="clone clone-first"><a href="./viewforum.php?f=7" class="forumtitle">宠物训练</a></li>
+					</ul>
+				</div>
+			</li>
 
 			<li style="display: none;" class="breadcrumbs responsive-show">
 				<!-- IF U_SITE_HOME -->
