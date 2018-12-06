@@ -1314,7 +1314,7 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
 }
 
 .post:target h3 a {
-	color: #999999 !important;
+	/*color: #999999 !important;*/
 }
 
 .z-depth-0 {-webkit-box-shadow: none !important;box-shadow: none !important}
