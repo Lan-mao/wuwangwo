@@ -2609,7 +2609,7 @@ function _build_hidden_fields($key, $value, $specialchar, $stripslashes)
 		$value = ($stripslashes) ? stripslashes($value) : $value;
 		$value = ($specialchar) ? htmlspecialchars($value, ENT_COMPAT, 'UTF-8') : $value;
 
-		$hidden_fields .= '<input type="hidden" name="' . $key . '" value="' . $value . '" />' . "\n";
+		$hidden_fields .= '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '" />' . "\n";
 	}
 	else
 	{

@@ -30,7 +30,10 @@ node_modules
 /tests/vendor
 /vagrant/phpbb-install-config.yml
 .vagrant
-
+/phpBB/includes/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
+package-lock.json
+phpBB/styles/prosilver/theme/rd.css
+phpBB/styles/prosilver/template/rd-min.js
 
 ### IntelliJ IDEA(phpStorm) ###
 .idea

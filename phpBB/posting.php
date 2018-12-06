@@ -699,19 +699,37 @@ $url_status		= ($config['allow_post_links']) ? true : false;
 $flash_status	= ($bbcode_status && $auth->acl_get('f_flash', $forum_id) && $config['allow_post_flash']) ? true : false;
 $quote_status	= true;
 
+require_once ($phpbb_root_path . 'includes/htmlpurifier/library/htmlpurifier_html5.' . $phpEx);
+
+$allowed = array(
+	'img[src|alt|title|width|height|style|data-mce-src|data-mce-json|class]',
+	'video[autoplay|loop|style|src|type|width|height|poster|preload|controls]', 'source[src|type]',
+	'a[href|target|id|name]',
+	'strong', 'b', 'i', 'u', 'em', 'br', 'font',
+	'h1[style]', 'h2[style]', 'h3[style]', 'h4[style]', 'h5[style]', 'h6[style]',
+	'p[style|class]', 'div[style|class|data-responsive]', 'center', 'address[style]',
+	'span[style]', 'pre[style]',
+	'ul', 'ol', 'li',
+	'table[width|height|border|style]', 'th[width|height|border|style]',
+	'tr[width|height|border|style]', 'td[width|height|border|style]',
+	'hr'
+);
+$purifier = load_htmlpurifier($allowed);
+
 // Save Draft
 if ($save && $user->data['is_registered'] && $auth->acl_get('u_savedrafts') && ($mode == 'reply' || $mode == 'post' || $mode == 'quote'))
 {
 	$subject = $request->variable('subject', '', true);
 	$subject = (!$subject && $mode != 'post') ? $post_data['topic_title'] : $subject;
-	$message = $request->variable('message', '', true);
+	$message = $purifier->purify($request->raw_variable('message', ''));
+//	$message = $purifier->purify($request->variable('message', '', true));
 
 	if ($subject && $message)
 	{
 		if (confirm_box(true))
 		{
 			$message_parser->message = $message;
-			$message_parser->parse($post_data['enable_bbcode'], ($config['allow_post_links']) ? $post_data['enable_urls'] : false, $post_data['enable_smilies'], $img_status, $flash_status, $quote_status, $config['allow_post_links']);
+//			$message_parser->parse($post_data['enable_bbcode'], ($config['allow_post_links']) ? $post_data['enable_urls'] : false, $post_data['enable_smilies'], $img_status, $flash_status, $quote_status, $config['allow_post_links']);
 
 			$sql = 'INSERT INTO ' . DRAFTS_TABLE . ' ' . $db->sql_build_array('INSERT', array(
 				'user_id'		=> (int) $user->data['user_id'],
@@ -720,6 +738,7 @@ if ($save && $user->data['is_registered'] && $auth->acl_get('u_savedrafts') && (
 				'save_time'		=> (int) $current_time,
 				'draft_subject'	=> (string) $subject,
 				'draft_message'	=> (string) $message_parser->message)
+//				'draft_message'	=> $message)
 			);
 			$db->sql_query($sql);
 
@@ -841,7 +860,7 @@ if ($submit || $preview || $refresh)
 {
 	$post_data['topic_cur_post_id']	= $request->variable('topic_cur_post_id', 0);
 	$post_data['post_subject']		= $request->variable('subject', '', true);
-	$message_parser->message		= $request->variable('message', '', true);
+	$message_parser->message		= $purifier->purify($request->raw_variable('message', ''));
 
 	$post_data['username']			= $request->variable('username', $post_data['username'], true);
 	$post_data['post_edit_reason']	= ($request->variable('edit_reason', false, false, \phpbb\request\request_interface::POST) && $mode == 'edit' && $auth->acl_get('m_edit', $forum_id)) ? $request->variable('edit_reason', '', true) : '';
@@ -1061,7 +1080,7 @@ if ($submit || $preview || $refresh)
 
 		if (!$preview || !empty($message_parser->message))
 		{
-			$message_parser->parse($post_data['enable_bbcode'], ($config['allow_post_links']) ? $post_data['enable_urls'] : false, $post_data['enable_smilies'], $img_status, $flash_status, $quote_status, $config['allow_post_links']);
+//			$message_parser->parse($post_data['enable_bbcode'], ($config['allow_post_links']) ? $post_data['enable_urls'] : false, $post_data['enable_smilies'], $img_status, $flash_status, $quote_status, $config['allow_post_links']);
 		}
 
 		// On a refresh we do not care about message parsing errors
@@ -1536,7 +1555,8 @@ if (!count($error) && $preview)
 {
 	$post_data['post_time'] = ($mode == 'edit') ? $post_data['post_time'] : $current_time;
 
-	$preview_message = $message_parser->format_display($post_data['enable_bbcode'], $post_data['enable_urls'], $post_data['enable_smilies'], false);
+//	$preview_message = $message_parser->format_display($post_data['enable_bbcode'], $post_data['enable_urls'], $post_data['enable_smilies'], false);
+	$preview_message = $message_parser->message;
 
 	$preview_signature = ($mode == 'edit') ? $post_data['user_sig'] : $user->data['user_sig'];
 	$preview_signature_uid = ($mode == 'edit') ? $post_data['user_sig_bbcode_uid'] : $user->data['user_sig_bbcode_uid'];
@@ -1645,7 +1665,7 @@ if ($generate_quote && $config['max_quote_depth'] > 0)
 
 // Decode text for message display
 $post_data['bbcode_uid'] = ($mode == 'quote' && !$preview && !$refresh && !count($error)) ? $post_data['bbcode_uid'] : $message_parser->bbcode_uid;
-$message_parser->decode_message($post_data['bbcode_uid']);
+//$message_parser->decode_message($post_data['bbcode_uid']);
 
 if ($generate_quote)
 {
