@@ -737,7 +737,7 @@ if ($save && $user->data['is_registered'] && $auth->acl_get('u_savedrafts') && (
 				'forum_id'		=> (int) $forum_id,
 				'save_time'		=> (int) $current_time,
 				'draft_subject'	=> (string) $subject,
-				'draft_message'	=> (string) $message_parser->message)
+				'draft_message'	=> (string) $message_parser->format_rd())
 //				'draft_message'	=> $message)
 			);
 			$db->sql_query($sql);
@@ -1426,7 +1426,7 @@ if ($submit || $preview || $refresh)
 				'post_edit_locked'		=> (int) $post_data['post_edit_locked'],
 				'bbcode_bitfield'		=> $message_parser->bbcode_bitfield,
 				'bbcode_uid'			=> $message_parser->bbcode_uid,
-				'message'				=> $message_parser->message,
+				'message'				=> $message_parser->format_rd(),
 				'attachment_data'		=> $message_parser->attachment_data,
 				'filename_data'			=> $message_parser->filename_data,
 				'topic_status'			=> $post_data['topic_status'],
@@ -1710,7 +1710,7 @@ if (($mode == 'reply' || $mode == 'quote') && !$submit && !$preview && !$refresh
 
 $attachment_data = $message_parser->attachment_data;
 $filename_data = $message_parser->filename_data;
-$post_data['post_text'] = $message_parser->message;
+$post_data['post_text'] = $message_parser->deformat_rd();
 
 if (count($post_data['poll_options']) || (isset($post_data['poll_title']) && !$bbcode_utils->is_empty($post_data['poll_title'])))
 {

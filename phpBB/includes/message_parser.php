@@ -1325,6 +1325,36 @@ class parse_message extends bbcode_firstpass
 		return false;
 	}
 
+	function format_rd()
+	{
+		$tag3 = \substr($this->message, 0, 3);
+		$tag4 = \substr($this->message, 0, 4);
+		if ($tag4 !== '<rd>' && $tag3 !== '<r>' && $tag3 !== '<t>')
+		{
+
+			return '<rd>' . $this->message . '</rd>';
+		}
+		else
+		{
+			return $this->message;
+		}
+
+	}
+
+	function deformat_rd()
+	{
+		$tag4 = \substr($this->message, 0, 4);
+		if ($tag4 === '<rd>')
+		{
+
+			return \substr($this->message, 4, -5);
+		}
+		else
+		{
+			return $this->message;
+		}
+
+	}
 	/**
 	* Formatting text for display
 	*/
