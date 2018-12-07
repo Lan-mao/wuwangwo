@@ -1634,6 +1634,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 	{
 		case 'post':
 		case 'reply':
+			$message_mip = generate_text_mip($data_ary['message']);
 			$sql_data[POSTS_TABLE]['sql'] = array(
 				'forum_id'			=> $data_ary['forum_id'],
 				'poster_id'			=> (int) $user->data['user_id'],
@@ -1648,6 +1649,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 				'post_username'		=> (!$user->data['is_registered']) ? $username : '',
 				'post_subject'		=> $subject,
 				'post_text'			=> $data_ary['message'],
+				'post_text_mip'			=> $message_mip,
 				'post_checksum'		=> $data_ary['message_md5'],
 				'post_attachment'	=> (!empty($data_ary['attachment_data'])) ? 1 : 0,
 				'bbcode_bitfield'	=> $data_ary['bbcode_bitfield'],
@@ -1728,9 +1730,11 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 				'post_edit_locked'	=> $data_ary['post_edit_locked'])
 			);
 
+			$message_mip = generate_text_mip($data_ary['message']);
 			if ($update_message)
 			{
 				$sql_data[POSTS_TABLE]['sql']['post_text'] = $data_ary['message'];
+				$sql_data[POSTS_TABLE]['sql']['post_text_mip'] = $message_mip;
 			}
 
 		break;
@@ -2490,6 +2494,25 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 	unset($poll);
 
 	return $url;
+}
+
+/**
+ * @param $data_ary
+ * @return mixed|null|string|string[]
+ */
+function generate_text_mip($message)
+{
+	if (strpos($message, '<img') !== false)
+	{
+
+		$message_mip = preg_replace('~<img([^>]*)>~', "<mip-img$1></mip-img>", $message);
+	}
+	if (strpos($message, '<video') !== false)
+	{
+		$message_mip = str_replace('<video', "<mip-video", $message_mip);
+		$message_mip = str_replace('</video>', "</mip-video>", $message_mip);
+	}
+	return $message_mip;
 }
 
 /**
