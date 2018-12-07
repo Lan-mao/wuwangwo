@@ -4039,6 +4039,14 @@ function phpbb_get_user_avatar($user_row, $alt = 'USER_AVATAR', $ignore_config =
 	return phpbb_get_avatar($row, $alt, $ignore_config, $lazy);
 }
 
+function phpbb_get_user_avatar_mip($user_row, $alt = 'USER_AVATAR', $ignore_config = false, $lazy = false)
+{
+	$avatar_html = phpbb_get_user_avatar($user_row, $alt, $ignore_config, $lazy);
+	$avatar_html = str_replace('<img', '<mip-img', $avatar_html);
+	$avatar_html = str_replace('/>', '></mip-img>', $avatar_html);
+	return $avatar_html;
+}
+
 /**
  * Get group avatar
  *

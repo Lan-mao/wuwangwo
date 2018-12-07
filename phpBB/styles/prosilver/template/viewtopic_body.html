@@ -1,4 +1,9 @@
+<!-- IF postrow.RD_SCRIP != null -->
 <!-- INCLUDE overall_header.html -->
+<!-- ELSE -->
+<!-- INCLUDE overall_header_mip.html -->
+<!-- ENDIF -->
+
 
 <!-- EVENT viewtopic_topic_title_before -->
 <h2 class="topic-title page-title" style=""><!-- EVENT viewtopic_topic_title_prepend --><a
@@ -435,7 +440,6 @@
 		</ul>
 	</div>
 </div>
-<script>cambrian.render('body')</script>
 <!-- ENDIF -->
 <hr class="divider" <!-- IF postrow.S_FIRST_ROW  -->style="border-color: #0f9d58; border-top-width: 2px;" name="reply" id="reply"<!-- ENDIF -->/>
 
@@ -521,10 +525,12 @@
 <!-- ENDIF -->
 <!-- ENDIF -->
 
+<!-- IF postrow.RD_SCRIP != null -->
 <!-- INCLUDE overall_footer_start.html -->
-<!-- BEGIN postrow -->
 {postrow.RD_SCRIPT}
 
-<!-- END postrow -->
-
 <!-- INCLUDE overall_footer_end.html -->
+<!-- ELSE -->
+<!-- INCLUDE overall_footer_mip.html -->
+
+<!-- ENDIF -->

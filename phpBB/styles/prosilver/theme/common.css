@@ -374,6 +374,17 @@ a.header-avatar img {
 	width: auto;
 }
 
+a.header-avatar mip-img {
+	margin-bottom: 2px;
+	max-height: 20px;
+	vertical-align: middle;
+	max-width: 20px;
+}
+
+a.header-avatar mip-img img {
+	margin-bottom: auto;
+}
+
 a.header-avatar span:after {
 	content: '\f0dd';
 	display: inline-block;

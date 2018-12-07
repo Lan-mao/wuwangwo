@@ -797,7 +797,7 @@ $template->assign_vars(array(
 		'U_BEAR_IMAGES'   => $bear_img_arr,
 		'BEAR_PUB_DATE'   => $bear_pub_date,
 
-		'U_CANONICAL'        => generate_board_url() . '/' . append_sid("viewtopic.$phpEx", "t=$topic_id" . (($start) ? "&amp;start=$start" : ''), true, ''),
+		'U_CANONICAL'        => generate_board_url() . '/' . append_sid("viewtopic.$phpEx", "f=$forum_id&t=$topic_id" . (($start) ? "&amp;start=$start" : ''), true, ''),
 		'U_VIEW_FORUM'       => append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id),
 		'U_VIEW_OLDER_TOPIC' => append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id&amp;view=previous"),
 		'U_VIEW_NEWER_TOPIC' => append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id&amp;view=next"),
@@ -1335,7 +1335,7 @@ while ($row = $db->sql_fetchrow($result))
 				'sig_bbcode_bitfield' => '',
 
 				'online'         => false,
-				'avatar'         => ($user->optionget('viewavatars')) ? phpbb_get_user_avatar($row) : '',
+				'avatar'         => ($user->optionget('viewavatars')) ? phpbb_get_user_avatar_mip($row) : '',
 				'rank_title'     => '',
 				'rank_image'     => '',
 				'rank_image_src' => '',
@@ -1399,7 +1399,7 @@ while ($row = $db->sql_fetchrow($result))
 				'viewonline' => $row['user_allow_viewonline'],
 				'allow_pm'   => $row['user_allow_pm'],
 
-				'avatar' => ($user->optionget('viewavatars')) ? phpbb_get_user_avatar($row) : '',
+				'avatar' => ($user->optionget('viewavatars')) ? phpbb_get_user_avatar_mip($row) : '',
 				'age'    => '',
 
 				'rank_title'     => '',
@@ -2334,6 +2334,11 @@ extract($phpbb_dispatcher->trigger_event('core.viewtopic_modify_page_title', com
 
 // Output the page
 page_header($page_title, true, $forum_id);
+
+
+$template->assign_vars(array(
+	'CURRENT_USER_AVATAR'        => phpbb_get_user_avatar_mip($user->data),
+));
 
 $template->set_filenames(array(
 		'body' => ($view == 'print') ? 'viewtopic_print.html' : 'viewtopic_body.html')

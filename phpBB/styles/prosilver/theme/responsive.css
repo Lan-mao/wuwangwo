@@ -593,6 +593,9 @@
 	img.rd-article-img-1 {
 		width: 100%;
 	}
+	mip-img.rd-article-img-1 {
+		width: 100%;
+	}
 
 	.responsive-width-1 {
 		width: 100%;
@@ -605,6 +608,9 @@
 
 @media only screen and (min-width: 701px) {
 	img.rd-article-img-1 {
+		width: 50%;
+	}
+	mip-img.rd-article-img-1 {
 		width: 50%;
 	}
 
