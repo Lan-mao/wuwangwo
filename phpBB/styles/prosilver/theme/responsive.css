@@ -604,6 +604,11 @@
 	.ckeditor-html5-video video {
 		width: 100%;
 	}
+
+	.ckeditor-html5-video mip-video {
+		width: 100%;
+		margin: auto;
+	}
 }
 
 @media only screen and (min-width: 701px) {
@@ -620,5 +625,13 @@
 
 	.ckeditor-html5-video video {
 		width: 50%;
+	}
+
+	.ckeditor-html5-video mip-video video{
+		width: 100%;
+	}
+	.ckeditor-html5-video mip-video {
+		width: 50%;
+		margin: auto;
 	}
 }

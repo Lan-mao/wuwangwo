@@ -1298,6 +1298,7 @@ while ($row = $db->sql_fetchrow($result))
 		'post_reported'      => $row['post_reported'],
 		'post_username'      => $row['post_username'],
 		'post_text'          => $row['post_text'],
+		'post_text_mip'          => $row['post_text_mip'],
 		'bbcode_uid'         => $row['bbcode_uid'],
 		'bbcode_bitfield'    => $row['bbcode_bitfield'],
 		'enable_smilies'     => $row['enable_smilies'],
@@ -1679,7 +1680,7 @@ for ($i = 0, $end = count($post_list); $i < $end; ++$i)
 
 	// Parse the message and subject
 	$parse_flags = ($row['bbcode_bitfield'] ? OPTION_FLAG_BBCODE : 0) | OPTION_FLAG_SMILIES;
-	$message = generate_text_for_display($row['post_text'], $row['bbcode_uid'], $row['bbcode_bitfield'], $parse_flags, true);
+	$message = generate_text_for_display($row['post_text_mip']?$row['post_text_mip']:$row['post_text'], $row['bbcode_uid'], $row['bbcode_bitfield'], $parse_flags, true);
 
 	$script_start_index = strpos($message, '<rdscript>');
 	if ($script_start_index)
