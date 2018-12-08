@@ -3,6 +3,7 @@
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
+CKEDITOR.config.extraPlugins = 'firstlineindent,rdimage';
 CKEDITOR.editorConfig = function(config) {
 	// Define changes to default configuration here.
 	// For complete reference see:
@@ -31,4 +32,5 @@ CKEDITOR.editorConfig = function(config) {
 
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
+	config.format_tags = 'p;h2;h3;h4;h5';
 };

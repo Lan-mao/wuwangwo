@@ -619,6 +619,11 @@
 		width: 50%;
 	}
 
+	mip-img img.mip-fill-content{
+		width: auto;
+		min-width: auto;
+	}
+
 	.responsive-width-1 {
 		width: 70%;
 	}

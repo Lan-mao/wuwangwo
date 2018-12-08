@@ -147,10 +147,10 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 					return toggleLockRatio( false );
 
 				// Fill width field with the width of the new image.
-				widthField.setValue( editor.config.rdimage_prefillDimensions === false ? 0 : width );
-
-				// Fill height field with the height of the new image.
-				heightField.setValue( editor.config.rdimage_prefillDimensions === false ? 0 : height );
+				// widthField.setValue( editor.config.rdimage_prefillDimensions === false ? 0 : width );
+				//
+				// // Fill height field with the height of the new image.
+				// heightField.setValue( editor.config.rdimage_prefillDimensions === false ? 0 : height );
 
 				// Cache the new width.
 				preLoadedWidth = width;
@@ -173,10 +173,10 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 			toggleDimensions( true );
 
 			// Restore width field with cached width.
-			widthField.setValue( domWidth );
+			// widthField.setValue( domWidth );
 
 			// Restore height field with cached height.
-			heightField.setValue( domHeight );
+			// heightField.setValue( domHeight );
 
 			// Src equals default one back again.
 			srcChanged = false;
@@ -224,8 +224,8 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 			value = Math.round( width * ( value / height ) );
 
 		// If the value is a number, apply it to the other field.
-		if ( !isNaN( value ) )
-			( isWidth ? heightField : widthField ).setValue( value );
+		// if ( !isNaN( value ) )
+			// ( isWidth ? heightField : widthField ).setValue( value );
 	}
 
 	// Set-up function for lock and reset buttons:
@@ -276,15 +276,15 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 				// If there's a new image loaded, reset button should revert
 				// cached dimensions of pre-loaded DOM element.
 				if ( srcChanged ) {
-					widthField.setValue( preLoadedWidth );
-					heightField.setValue( preLoadedHeight );
+					// widthField.setValue( preLoadedWidth );
+					// heightField.setValue( preLoadedHeight );
 				}
 
 				// If the old image remains, reset button should revert
 				// dimensions as loaded when the dialog was first shown.
 				else {
-					widthField.setValue( domWidth );
-					heightField.setValue( domHeight );
+					// widthField.setValue( domWidth );
+					// heightField.setValue( domHeight );
 				}
 
 				evt.data && evt.data.preventDefault();
@@ -310,7 +310,7 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 
 		// Undefined. User changed lock value.
 		else {
-			var width = widthField.getValue(),
+			// var width = widthField.getValue(),
 				height;
 
 			userDefinedLock = true;
@@ -321,8 +321,8 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 			if ( lockRatio && width ) {
 				height = domHeight / domWidth * width;
 
-				if ( !isNaN( height ) )
-					heightField.setValue( Math.round( height ) );
+				// if ( !isNaN( height ) )
+					// heightField.setValue( Math.round( height ) );
 			}
 		}
 
@@ -339,8 +339,8 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 	function toggleDimensions( enable ) {
 		var method = enable ? 'enable' : 'disable';
 
-		widthField[ method ]();
-		heightField[ method ]();
+		// widthField[ method ]();
+		// heightField[ method ]();
 	}
 
 	var srcBoxChildren = [
@@ -437,60 +437,6 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 					},
 					{
 						type: 'hbox',
-						widths: [ '25%', '25%', '50%' ],
-						requiredContent: features.dimension.requiredContent,
-						children: [
-							{
-								type: 'text',
-								width: '45px',
-								id: 'width',
-								label: commonLang.width,
-								validate: validateDimension,
-								onKeyUp: onChangeDimension,
-								onLoad: function() {
-									widthField = this;
-								},
-								setup: function( widget ) {
-									this.setValue( widget.data.width );
-								},
-								commit: function( widget ) {
-									widget.setData( 'width', this.getValue() );
-								}
-							},
-							{
-								type: 'text',
-								id: 'height',
-								width: '45px',
-								label: commonLang.height,
-								validate: validateDimension,
-								onKeyUp: onChangeDimension,
-								onLoad: function() {
-									heightField = this;
-								},
-								setup: function( widget ) {
-									this.setValue( widget.data.height );
-								},
-								commit: function( widget ) {
-									widget.setData( 'height', this.getValue() );
-								}
-							},
-							{
-								id: 'lock',
-								type: 'html',
-								style: lockResetStyle,
-								onLoad: onLoadLockReset,
-								setup: function( widget ) {
-									toggleLockRatio( widget.data.lock );
-								},
-								commit: function( widget ) {
-									widget.setData( 'lock', lockRatio );
-								},
-								html: lockResetHtml
-							}
-						]
-					},
-					{
-						type: 'hbox',
 						id: 'alignment',
 						requiredContent: features.align.requiredContent,
 						children: [
@@ -513,30 +459,6 @@ CKEDITOR.dialog.add( 'rdimage', function( editor ) {
 							}
 						]
 					},
-
-                    {
-                        id: 'style_class',
-                        type: 'checkbox',
-                        label: '首图',
-                        setup: function( widget ) {
-                            if(widget.data.class.indexOf("rd-article-img-1") != -1){
-
-                                this.setValue( true );
-                            }else{
-
-                                this.setValue( false );
-                            }
-                            // this.setValue( widget.data.class );
-                        },
-                        commit: function( widget ) {
-                            if (this.getValue()) {
-                                widget.setData( 'class', "rd-article-img-1 cke_widget_element" );
-                            }else{
-                                widget.setData( 'class', "cke_widget_element" );
-                            }
-                            // widget.setData( 'class', this.getValue() );
-                        },
-                    },
 					{
 						id: 'hasCaption',
 						type: 'checkbox',
