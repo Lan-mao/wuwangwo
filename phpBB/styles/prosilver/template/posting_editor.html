@@ -39,7 +39,7 @@
 	<textarea <!-- IF S_UCP_ACTION and not S_PRIVMSGS and not S_EDIT_DRAFT -->name="signature" id="signature" style="height: 9em;"<!-- ELSE -->name="message" id="message"<!-- ENDIF -->  rows="10" cols="80">
 	{MESSAGE}{DRAFT_MESSAGE}{SIGNATURE}
 	</textarea>
-	<!-- IF not U_ACP -->
+	<!-- IF 1==2 -->
 	<!-- EVENT posting_editor_subject_after -->
 
 	<!-- INCLUDE posting_buttons.html -->

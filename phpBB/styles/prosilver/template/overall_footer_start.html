@@ -41,8 +41,11 @@
 
 <script type="text/javascript" src="{T_JQUERY_LINK}"></script>
 
+		<!-- todo S_POST_ACTION to post topic check: check if page need ckeditor.js-->
 <!-- IF S_POST_ACTION and U_ACP -->
 <script type="text/javascript" src="{T_ADMIN_CKEDITOR_LINK}"></script>
+<!-- ELSEIF S_POST_ACTION -->
+		<script type="text/javascript" src="{T_USER_CKEDITOR_LINK}"></script>
 <!-- ENDIF -->
 
 <!-- IF S_ALLOW_CDN --><script type="text/javascript">window.jQuery || document.write('\x3Cscript src="{T_ASSETS_PATH}/javascript/jquery.min.js?assets_version={T_ASSETS_VERSION}">\x3C/script>');</script><!-- ENDIF -->

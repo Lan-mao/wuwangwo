@@ -102,7 +102,6 @@
 		CKEDITOR.config.width = 'auto';
 		CKEDITOR.config.language = 'zh-cn';
 		CKEDITOR.config.embed_provider = '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}';
-		CKEDITOR.config.extraPlugins = 'html5video,widget,widgetselection,clipboard,lineutils,firstlineindent,rdimage';//enable custimage tool button
 		CKEDITOR.timestamp = 'UkBK';
 
 		var ckeditorId = "message";
@@ -128,7 +127,7 @@
 				// Depending on the wysiwygare plugin availability initialize classic or inline editor.
 				if (wysiwygareaAvailable) {
 					return CKEDITOR.replace(ckeditorId, {
-						customConfig: ''
+						// customConfig: ''
 					});
 				} else {
 					editorElement.setAttribute('contenteditable', 'true');
